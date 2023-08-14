@@ -1,11 +1,7 @@
 package com.tgyuu.soccerfriends
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.tgyuu.soccerfriends.common.base.BaseActivity
+import com.tgyuu.soccerfriends.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 }

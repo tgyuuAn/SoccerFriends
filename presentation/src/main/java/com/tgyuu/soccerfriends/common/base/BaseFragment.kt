@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 
 typealias Inflate<B> = (LayoutInflater, ViewGroup?, Boolean) -> B
 
-class BaseFragment<B : ViewDataBinding>(private val inflate: Inflate<B>) : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding>(private val inflate: Inflate<B>) : Fragment() {
 
     protected var _binding: B? = null
     private val binding: B

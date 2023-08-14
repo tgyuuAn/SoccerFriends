@@ -14,14 +14,9 @@ abstract class BaseActivity<B : ViewDataBinding>(val bindingFactory : (LayoutInf
     private set
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        setSplash()
         super.onCreate(savedInstanceState, persistentState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
-    }
-
-    protected open fun setSplash(){
-
     }
 
     fun log(str : String) = Log.d("tgyuu",str)

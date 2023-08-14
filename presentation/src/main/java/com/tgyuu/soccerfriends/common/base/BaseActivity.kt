@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 
-class BaseActivity<B : ViewDataBinding>(val bindingFactory : (LayoutInflater) -> B) : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding>(val bindingFactory : (LayoutInflater) -> B) : AppCompatActivity() {
 
     protected lateinit var binding : B
     private set

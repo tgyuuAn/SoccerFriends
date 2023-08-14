@@ -16,7 +16,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding,SplashViewModel>(Fragm
         super.onViewCreated(view, savedInstanceState)
         binding.apply{
             viewModel = fragmentViewModel.apply{
-                
+
             }
         }
     }

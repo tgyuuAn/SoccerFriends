@@ -35,7 +35,7 @@
 
 ## 모듈 의존성 그래프
 
-![image](https://github.com/tgyuuAn/SoccerFriends/assets/116813010/8fafced5-502d-4890-9e30-91949f78d102)
+![image](https://github.com/tgyuuAn/SoccerFriends/assets/116813010/ad0e5b7b-d7fb-4a20-995c-d1de59fce6d1)
 <br><br><br>
 
 ## Android 사용할 기술

@@ -63,6 +63,15 @@
             app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/rectangle_17_white"
+            android:elevation="3dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="64dp"
+            app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

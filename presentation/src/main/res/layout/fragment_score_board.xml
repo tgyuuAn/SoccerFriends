@@ -183,7 +183,7 @@
                 android:layout_marginStart="5dp"
                 android:text="13 Aug"
                 android:textColor="@color/light_gray2"
-                android:textSize="12sp" />
+                android:textSize="@dimen/scoreBoaardCalendarTextSize" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -193,17 +193,121 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="250dp" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:el_duration="500"
+                app:el_expanded="false"
+                app:el_parallax="0.5"
+                app:layout_constraintTop_toBottomOf="@id/guideline">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="25dp">
+
+                    <TextView
+                        android:id="@+id/remainTimeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/remainTime"
+                        android:textSize="@dimen/scoreBoardHeaderSize"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/expnadDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/remainTimeTV" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/expnadDivider">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_8_main"
+                            android:gravity="center"
+                            android:textColor="@color/light_gray3"
+                            android:textSize="@dimen/scoreBoardTimerSize"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_8_main"
+                            android:gravity="center"
+                            android:textColor="@color/light_gray3"
+                            android:textSize="@dimen/scoreBoardTimerSize"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/seperate" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_8_main"
+                            android:gravity="center"
+                            android:textColor="@color/light_gray3"
+                            android:textSize="@dimen/scoreBoardTimerSize"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_8_main"
+                            android:gravity="center"
+                            android:textColor="@color/light_gray3"
+                            android:textSize="@dimen/scoreBoardTimerSize"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
             <TextView
                 android:id="@+id/matchDetailTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="265dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/matchDetail"
-                android:textSize="20sp"
+                android:textSize="@dimen/scoreBoardHeaderSize"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/expandableLayout" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider2"
@@ -338,6 +442,7 @@
                 app:layout_constraintTop_toBottomOf="@id/divider3" />
 
             <TextView
+                android:id="@+id/scoreBoardBTN"
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="30dp"
@@ -347,9 +452,11 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:onClick="@{()->viewModel.clickButton()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

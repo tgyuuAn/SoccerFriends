@@ -17,7 +17,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding,SplashViewModel>(Fragm
         super.onViewCreated(view, savedInstanceState)
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
-        
+
         binding.apply{
             viewModel = fragmentViewModel.apply{
 

@@ -11,18 +11,4 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
 
-    private val _eventFlow = MutableSharedFlow<HomeEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
-
-    fun event(event : HomeEvent){
-        viewModelScope.launch{
-            _eventFlow.emit(event)
-        }
-    }
-
-    fun clickButton() = event(HomeEvent.ClickButton)
-
-    sealed class HomeEvent(){
-        object ClickButton : HomeEvent()
-    }
 }

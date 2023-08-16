@@ -216,16 +216,126 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="25dp"
-                android:text="플레이 타임"
-                android:textStyle="bold"
+                android:layout_marginStart="45dp"
+                android:text="@string/playTime"
                 android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider2" />
 
+            <Button
+                android:id="@+id/playTimeMinusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="150dp"
+                android:background="@drawable/minus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
 
+            <TextView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rectangle_10_light_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toStartOf="@id/playTimePlusBTN"
+                app:layout_constraintStart_toEndOf="@id/playTimeMinusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
 
+            <Button
+                android:id="@+id/playTimePlusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/plus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/minute"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintStart_toEndOf="@id/playTimePlusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="80dp"
+                app:dividerColor="@color/light_gray"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="@string/matchEndAlarm"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <Button
+                android:id="@+id/alarmMinusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="150dp"
+                android:background="@drawable/minus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rectangle_10_light_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toStartOf="@id/alarmPlusBTN"
+                app:layout_constraintStart_toEndOf="@id/alarmMinusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <Button
+                android:id="@+id/alarmPlusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/plus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/minute"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintStart_toEndOf="@id/alarmPlusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="80dp"
+                app:dividerColor="@color/light_gray"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

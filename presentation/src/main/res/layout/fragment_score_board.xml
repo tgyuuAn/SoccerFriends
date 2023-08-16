@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardViewModel" />
@@ -19,8 +20,48 @@
             android:id="@+id/scoreBoardBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/scoreBoard"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/scoreBoard" />
+
+        <ImageView
+            android:id="@+id/scoreBoardIV"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.4"
+            android:contentDescription="@string/scoreBoard"
+            android:elevation="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/stadium"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rectangle_20_main"
+            android:contentDescription="@string/scoreBoard"
+            android:elevation="1dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/rectangle_20_light_green"
+            android:contentDescription="@string/scoreBoard"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/rectangle_17_white"
+            android:elevation="3dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="64dp"
+            app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

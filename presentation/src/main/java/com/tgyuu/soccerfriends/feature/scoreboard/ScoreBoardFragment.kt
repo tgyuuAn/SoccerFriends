@@ -2,7 +2,6 @@ package com.tgyuu.soccerfriends.feature.scoreboard
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.databinding.FragmentScoreBoardBinding

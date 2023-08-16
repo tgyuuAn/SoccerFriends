@@ -3,6 +3,7 @@ package com.tgyuu.soccerfriends.feature.scoreboard
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,6 +15,9 @@ class ScoreBoardFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
+
         binding.apply {
             viewModel = fragmentViewModel.apply {
 

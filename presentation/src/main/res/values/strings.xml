@@ -10,4 +10,6 @@
     <string name="playTime">플레이 타임</string>
     <string name="minute">분</string>
     <string name="matchEndAlarm">경기 종료 전 알림</string>
+    <string name="matchStart">경기 시작</string>
+    <string name="pause">일시 정지</string>
 </resources>

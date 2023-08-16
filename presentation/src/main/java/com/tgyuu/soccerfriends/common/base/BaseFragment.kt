@@ -8,30 +8,31 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 
-typealias Inflate<B> = (LayoutInflater, ViewGroup?, Boolean) -> B
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-abstract class BaseFragment<B : ViewDataBinding>(private val inflate: Inflate<B>) : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding, V : ViewModel>(private val inflate: Inflate<T>) : Fragment() {
 
-    protected var _binding: B? = null
-    private val binding: B
-        get() = _binding!!
+    private var _binding: T? = null
+    val binding get() = _binding!!
+
+    protected abstract val fragmentViewModel: V
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
+        binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }
-
-    fun log(str: String) = Log.d("tgyuu", str)
-
-    fun toast(str: String) = Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    fun log(str: String) = Log.d("wap", str)
+
+    fun toast(str: String) = Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
 }

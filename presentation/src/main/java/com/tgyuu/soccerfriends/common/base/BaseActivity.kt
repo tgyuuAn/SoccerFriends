@@ -13,10 +13,21 @@ abstract class BaseActivity<B : ViewDataBinding>(val bindingFactory : (LayoutInf
     protected lateinit var binding : B
     private set
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setSplash()
+        super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
+        afterBinding()
+    }
+
+    protected open fun setSplash(){
+
+    }
+
+    protected open fun afterBinding(){
+
     }
 
     fun log(str : String) = Log.d("tgyuu",str)

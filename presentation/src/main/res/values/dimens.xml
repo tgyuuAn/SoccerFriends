@@ -2,4 +2,6 @@
 <resources>
     <dimen name="homeButtonImageTextMargin">30dp</dimen>
     <dimen name="homeButtonTextSize">20sp</dimen>
+
+    <dimen name="scoreBoardTextSize">15sp</dimen>
 </resources>

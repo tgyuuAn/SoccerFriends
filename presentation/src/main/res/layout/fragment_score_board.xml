@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main"
+        tools:context=".feature.scoreboard.ScoreBoardFragment">
+
+        <com.tgyuu.soccerfriends.common.base.view.Bar
+            android:id="@+id/scoreBoardBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/scoreBoard" />
+
+        <ImageView
+            android:id="@+id/scoreBoardIV"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.4"
+            android:contentDescription="@string/scoreBoard"
+            android:elevation="3dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/stadium"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rectangle_20_main"
+            android:contentDescription="@string/scoreBoard"
+            android:elevation="2dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/rectangle_20_light_green"
+            android:contentDescription="@string/scoreBoard"
+            android:elevation="1dp"
+            app:layout_constraintTop_toBottomOf="@id/scoreBoardBar" />
+
+        <ImageView
+            android:id="@+id/homeTeamIV"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rectangle_17_white"
+            android:elevation="3dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
+
+        <TextView
+            android:id="@+id/homeTeamTV"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:elevation="3dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scoreBoardTextSize"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/homeTeamIV"
+            app:layout_constraintStart_toStartOf="@id/homeTeamIV"
+            app:layout_constraintTop_toBottomOf="@id/homeTeamIV" />
+
+        <TextView
+            android:id="@+id/homeTeamScoreTV"
+            android:layout_width="54dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_30_white"
+            android:elevation="3dp"
+            android:gravity="center"
+            android:textSize="@dimen/scoreBoardTextSize"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/homeTeamIV"
+            app:layout_constraintStart_toStartOf="@id/homeTeamIV"
+            app:layout_constraintTop_toBottomOf="@id/homeTeamTV" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/rectangle_10_white"
+            android:elevation="3dp"
+            android:gravity="center"
+            android:text="@string/vs"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
+            app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
+
+        <ImageView
+            android:id="@+id/awayTeamIV"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="64dp"
+            android:background="@drawable/rectangle_17_white"
+            android:elevation="3dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
+
+        <TextView
+            android:id="@+id/awayTeamTV"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:elevation="3dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scoreBoardTextSize"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/awayTeamIV"
+            app:layout_constraintStart_toStartOf="@id/awayTeamIV"
+            app:layout_constraintTop_toBottomOf="@id/awayTeamIV" />
+
+        <TextView
+            android:id="@+id/awayTeamScoreTV"
+            android:layout_width="54dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_30_white"
+            android:elevation="3dp"
+            android:gravity="center"
+            android:textSize="@dimen/scoreBoardTextSize"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/awayTeamIV"
+            app:layout_constraintStart_toStartOf="@id/awayTeamIV"
+            app:layout_constraintTop_toBottomOf="@id/awayTeamTV" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1.2dp"
+            android:layout_marginTop="25dp"
+            android:elevation="3dp"
+            app:dividerColor="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/awayTeamScoreTV" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:elevation="3dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/scoreBoardIV"
+            app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
+            app:layout_constraintTop_toTopOf="@id/divider1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/calendarTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="13 Aug"
+                android:textColor="@color/light_gray2"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/rectangle_30_white_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV">
+
+            <TextView
+                android:id="@+id/matchDetailTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="265dp"
+                android:text="@string/matchDetail"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/light_gray"
+                app:layout_constraintTop_toBottomOf="@id/matchDetailTV" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="@string/playTime"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <Button
+                android:id="@+id/playTimeMinusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="150dp"
+                android:background="@drawable/minus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rectangle_10_light_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toStartOf="@id/playTimePlusBTN"
+                app:layout_constraintStart_toEndOf="@id/playTimeMinusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <Button
+                android:id="@+id/playTimePlusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/plus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/minute"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider3"
+                app:layout_constraintStart_toEndOf="@id/playTimePlusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="80dp"
+                app:dividerColor="@color/light_gray"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="@string/matchEndAlarm"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <Button
+                android:id="@+id/alarmMinusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="150dp"
+                android:background="@drawable/minus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/rectangle_10_light_gray"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toStartOf="@id/alarmPlusBTN"
+                app:layout_constraintStart_toEndOf="@id/alarmMinusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <Button
+                android:id="@+id/alarmPlusBTN"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/plus_button"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/minute"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/divider4"
+                app:layout_constraintStart_toEndOf="@id/alarmPlusBTN"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="80dp"
+                app:dividerColor="@color/light_gray"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:text="@string/matchStart"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -14,16 +14,11 @@ abstract class BaseActivity<B : ViewDataBinding>(val bindingFactory : (LayoutInf
     private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setSplash()
         super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
         binding.lifecycleOwner = this
         afterBinding()
-    }
-
-    protected open fun setSplash(){
-
     }
 
     protected open fun afterBinding(){

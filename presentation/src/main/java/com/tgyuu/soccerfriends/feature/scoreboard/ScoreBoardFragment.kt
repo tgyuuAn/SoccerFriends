@@ -1,25 +1,25 @@
-package com.tgyuu.soccerfriends.feature.splash
+package com.tgyuu.soccerfriends.feature.scoreboard
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
-import com.tgyuu.soccerfriends.databinding.FragmentSplashBinding
+import com.tgyuu.soccerfriends.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding,SplashViewModel>(FragmentSplashBinding::inflate) {
-
-    override val fragmentViewModel: SplashViewModel by viewModels()
+class ScoreBoardFragment :
+    BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
+    override val fragmentViewModel: ScoreBoardViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
-        
-        binding.apply{
-            viewModel = fragmentViewModel.apply{
+
+        binding.apply {
+            viewModel = fragmentViewModel.apply {
 
             }
         }

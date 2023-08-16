@@ -183,7 +183,7 @@
                 android:layout_marginStart="5dp"
                 android:text="13 Aug"
                 android:textColor="@color/light_gray2"
-                android:textSize="12sp" />
+                android:textSize="@dimen/scoreBoaardCalendarTextSize" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                app:el_duration="1000"
+                app:el_duration="500"
                 app:el_expanded="false"
                 app:el_parallax="0.5"
                 app:layout_constraintTop_toBottomOf="@id/guideline">
@@ -213,7 +213,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="35dp">
+                    android:layout_marginBottom="25dp">
 
                     <TextView
                         android:id="@+id/remainTimeTV"
@@ -222,7 +222,7 @@
                         android:layout_marginStart="50dp"
                         android:layout_marginTop="15dp"
                         android:text="@string/remainTime"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/scoreBoardHeaderSize"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -249,9 +249,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/rectangle_8_main"
                             android:gravity="center"
-                            android:text="1"
                             android:textColor="@color/light_gray3"
-                            android:textSize="50sp"
+                            android:textSize="@dimen/scoreBoardTimerSize"
                             android:textStyle="bold" />
 
                         <TextView
@@ -261,9 +260,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/rectangle_8_main"
                             android:gravity="center"
-                            android:text="1"
                             android:textColor="@color/light_gray3"
-                            android:textSize="50sp"
+                            android:textSize="@dimen/scoreBoardTimerSize"
                             android:textStyle="bold" />
 
                         <ImageView
@@ -277,13 +275,11 @@
                         <TextView
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
-                            android:layout_marginStart=""
                             android:layout_weight="1"
                             android:background="@drawable/rectangle_8_main"
                             android:gravity="center"
-                            android:text="1"
                             android:textColor="@color/light_gray3"
-                            android:textSize="50sp"
+                            android:textSize="@dimen/scoreBoardTimerSize"
                             android:textStyle="bold" />
 
                         <TextView
@@ -293,9 +289,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/rectangle_8_main"
                             android:gravity="center"
-                            android:text="1"
                             android:textColor="@color/light_gray3"
-                            android:textSize="50sp"
+                            android:textSize="@dimen/scoreBoardTimerSize"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -309,7 +304,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="15dp"
                 android:text="@string/matchDetail"
-                android:textSize="20sp"
+                android:textSize="@dimen/scoreBoardHeaderSize"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/expandableLayout" />
@@ -447,6 +442,7 @@
                 app:layout_constraintTop_toBottomOf="@id/divider3" />
 
             <TextView
+                android:id="@+id/scoreBoardBTN"
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="30dp"

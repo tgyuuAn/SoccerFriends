@@ -3,5 +3,8 @@
     <dimen name="homeButtonImageTextMargin">30dp</dimen>
     <dimen name="homeButtonTextSize">20sp</dimen>
 
+    <dimen name="scoreBoaardCalendarTextSize">12sp</dimen>
     <dimen name="scoreBoardTextSize">15sp</dimen>
+    <dimen name="scoreBoardHeaderSize">20sp</dimen>
+    <dimen name="scoreBoardTimerSize">50sp</dimen>
 </resources>

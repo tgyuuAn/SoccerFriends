@@ -19,6 +19,12 @@ class ScoreBoardFragment :
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
 
         binding.apply {
+
+            scoreBoardBTN.setOnClickListener{
+                if(expandableLayout.isExpanded) expandableLayout.collapse()
+                else expandableLayout.expand()
+            }
+
             viewModel = fragmentViewModel.apply {
 
             }

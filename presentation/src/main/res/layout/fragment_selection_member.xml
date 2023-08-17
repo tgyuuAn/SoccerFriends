@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.tgyuu.soccerfriends.feature.formation.FormationViewModel" />
@@ -16,6 +17,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/selectionMemberListRV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,4 +13,6 @@
     <string name="matchEndAlarm">경기 종료 전 알림</string>
     <string name="matchStart">경기 시작</string>
     <string name="pause">일시 정지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

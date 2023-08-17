@@ -23,4 +23,6 @@
 
     <string name="selectionPlayer">선발 선수</string>
     <string name="reservePlayer">후보 선수</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -12,6 +12,7 @@ import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.databinding.FragmentReserveMemberBinding
 import com.tgyuu.soccerfriends.feature.formation.FormationViewModel
 import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
+import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListDecoration
 import com.tgyuu.soccerfriends.feature.team.recyclerview.TeamListAdapter
 
 class ReserveMemberFragment :
@@ -32,6 +33,7 @@ class ReserveMemberFragment :
         reserveMemberListRV.apply{
             adapter = formationTeamListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+            addItemDecoration(FormationTeamListDecoration(requireContext()))
         }
     }
 }

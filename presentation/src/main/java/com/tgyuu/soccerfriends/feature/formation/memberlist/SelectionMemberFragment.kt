@@ -12,6 +12,7 @@ import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.databinding.FragmentSelectionMemberBinding
 import com.tgyuu.soccerfriends.feature.formation.FormationViewModel
 import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
+import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListDecoration
 
 class SelectionMemberFragment :
     BaseFragment<FragmentSelectionMemberBinding, FormationViewModel>(FragmentSelectionMemberBinding::inflate) {
@@ -21,15 +22,16 @@ class SelectionMemberFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel=fragmentViewModel.apply{
+        binding.viewModel = fragmentViewModel.apply {
         }
         setRecyclerView()
     }
 
-    private fun setRecyclerView() = binding.apply{
-        selectionMemberListRV.apply{
+    private fun setRecyclerView() = binding.apply {
+        selectionMemberListRV.apply {
             adapter = formationTeamListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+            addItemDecoration(FormationTeamListDecoration(requireContext()))
         }
     }
 }

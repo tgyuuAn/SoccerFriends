@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/formation_nav"
+    app:startDestination="@id/formationFragment">
+
+    <fragment
+        android:id="@+id/formationFragment"
+        android:name="com.tgyuu.soccerfriends.feature.formation.FormationFragment"
+        android:label="FormationFragment"
+        tools:layout="@layout/fragment_formation"/>
+</navigation>

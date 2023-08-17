@@ -8,14 +8,14 @@
             type="com.tgyuu.soccerfriends.feature.formation.FormationViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/memberListFCVSize"
         tools:context=".feature.formation.memberlist.SelectionMemberFragment">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/selectionMemberListRV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="selection" />
-    </FrameLayout>
+            android:layout_height="match_parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

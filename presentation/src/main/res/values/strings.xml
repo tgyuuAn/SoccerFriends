@@ -18,4 +18,11 @@
     <string name="teamName">팀 명</string>
     <string name="addTeamMember">팀원 추가</string>
     <string name="contentDescription">스트라이커가 슈팅하고 있는 장면</string>
+    <string name="stadiumDescription">축구 경기장 배경화면</string>
+    <string name="boardDescription">축구 경기장 보드판</string>
+
+    <string name="selectionPlayer">선발 선수</string>
+    <string name="reservePlayer">후보 선수</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

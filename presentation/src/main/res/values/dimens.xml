@@ -7,4 +7,6 @@
     <dimen name="scoreBoardTextSize">15sp</dimen>
     <dimen name="scoreBoardHeaderSize">20sp</dimen>
     <dimen name="scoreBoardTimerSize">50sp</dimen>
+
+    <dimen name="memberListFCVSize">100dp</dimen>
 </resources>

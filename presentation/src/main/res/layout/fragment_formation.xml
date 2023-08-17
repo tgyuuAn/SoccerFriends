@@ -49,18 +49,29 @@
             android:layout_height="40dp"
             android:layout_marginHorizontal="10dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/memberListVP"
+            app:layout_constraintBottom_toTopOf="@id/memberListFCV"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/light_green"
             app:tabRippleColor="@null"
             app:tabSelectedTextColor="@color/light_green"
             app:tabTextAppearance="@style/tabTextSize14Bold"
-            app:tabTextColor="@color/dark_gray" />
+            app:tabTextColor="@color/dark_gray" >
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/memberListVP"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/selectionPlayer"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reservePlayer"/>
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/memberListFCV"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/memberListFCVSize"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/rectangle_3_light_gray"
             app:layout_constraintBottom_toBottomOf="parent" />

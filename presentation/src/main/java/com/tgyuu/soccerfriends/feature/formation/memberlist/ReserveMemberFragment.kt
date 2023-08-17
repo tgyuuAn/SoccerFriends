@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tgyuu.soccerfriends.R
+import com.tgyuu.soccerfriends.databinding.FragmentReserveMemberBinding
 
 class ReserveMemberFragment : Fragment() {
 
@@ -14,6 +15,7 @@ class ReserveMemberFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        val binding = FragmentReserveMemberBinding.inflate(inflater,container,false)
+        return binding.root
     }
 }

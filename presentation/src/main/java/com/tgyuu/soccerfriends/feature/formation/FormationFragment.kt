@@ -1,22 +1,23 @@
 package com.tgyuu.soccerfriends.feature.formation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayout
 import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
-import com.tgyuu.soccerfriends.common.base.repeatOnStarted
 import com.tgyuu.soccerfriends.databinding.FragmentFormationBinding
-import com.tgyuu.soccerfriends.feature.formation.viewpager.MemberAdapter
+import com.tgyuu.soccerfriends.feature.formation.memberlist.ReserveMemberFragment
+import com.tgyuu.soccerfriends.feature.formation.memberlist.SelectionMemberFragment
 
 class FormationFragment :
     BaseFragment<FragmentFormationBinding, FormationViewModel>(FragmentFormationBinding::inflate) {
+
     override val fragmentViewModel: FormationViewModel by viewModels()
-    private val viewPagerAdapter: MemberAdapter by lazy { MemberAdapter(this@FormationFragment) }
+
+    private val selectionMemberFragment: SelectionMemberFragment by lazy { SelectionMemberFragment() }
+    private val reserveMemberFragment: ReserveMemberFragment by lazy { ReserveMemberFragment() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,17 +26,44 @@ class FormationFragment :
 
         binding.viewModel = fragmentViewModel.apply {
         }
-
-        setViewPager2()
+        setTabLayout()
     }
 
-    private fun setViewPager2() = binding.apply {
-        val tabTextList =
-            listOf(getString(R.string.selectionPlayer), getString(R.string.reservePlayer))
+    private fun setTabLayout() {
+        initTabLayout()
+        addTabSelectedListener()
+    }
 
-        memberListVP.adapter = viewPagerAdapter
-        TabLayoutMediator(memberTL, memberListVP) { tab, pos ->
-            tab.text = tabTextList[pos]
-        }.attach()
+    private fun initTabLayout() {
+        childFragmentManager.commit {
+            add(binding.memberListFCV.id, selectionMemberFragment)
+            add(binding.memberListFCV.id, reserveMemberFragment)
+            hide(reserveMemberFragment)
+        }
+    }
+
+    private fun addTabSelectedListener() = binding.apply {
+        memberTL.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                log(tab?.position.toString())
+
+                val selectedUnSelectedFragment = when (tab?.position) {
+                    1 -> reserveMemberFragment to selectionMemberFragment
+                    else -> selectionMemberFragment to reserveMemberFragment
+                }
+
+                childFragmentManager.commit {
+                    if (selectedUnSelectedFragment.first.isHidden) show(selectedUnSelectedFragment.first)
+                    if (!selectedUnSelectedFragment.second.isHidden) hide(selectedUnSelectedFragment.second)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
     }
 }

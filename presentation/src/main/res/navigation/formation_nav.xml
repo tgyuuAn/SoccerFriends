@@ -9,5 +9,5 @@
         android:id="@+id/formationFragment"
         android:name="com.tgyuu.soccerfriends.feature.formation.FormationFragment"
         android:label="FormationFragment"
-        tools:layout="@layout/fragment_formation"/> 
+        tools:layout="@layout/fragment_formation"/>
 </navigation>

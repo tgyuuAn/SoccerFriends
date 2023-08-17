@@ -16,13 +16,20 @@
 
     <string name="teamLogo">팀 로고</string>
     <string name="teamName">팀 명</string>
-    <string name="addTeamMember">팀원 추가</string>
+    <string name="addTeamMember">선수 추가</string>
     <string name="contentDescription">스트라이커가 슈팅하고 있는 장면</string>
     <string name="stadiumDescription">축구 경기장 배경화면</string>
     <string name="boardDescription">축구 경기장 보드판</string>
 
     <string name="selectionPlayer">선발 선수</string>
     <string name="reservePlayer">후보 선수</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="addMemberDescription">축구선수가 신은 축구화 사진</string>
+    <string name="addMemberDescription2">새로운 선수 사진</string>
+    <string name="newMemberNameHint">선수 이름</string>
+    <string name="newMemberBackNumberHint">등 번호</string>
+    <string name="newMemberPositionHint">포지션</string>
+    <string name="reserveCheckBox">후보</string>
+    <string name="initialSetting">설정 초기화</string>
+    <string name="complete">완료</string>
 </resources>

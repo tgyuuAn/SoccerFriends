@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.tgyuu.soccerfriends.feature.team.TeamViewModel" />
@@ -11,8 +13,88 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/main"
         tools:context=".feature.team.TeamFragment">
 
+        <com.tgyuu.soccerfriends.common.base.view.Bar
+            android:id="@+id/teamManagementBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/teamManagement" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:contentDescription="@string/contentDescription"
+            android:elevation="-1dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/team"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/teamNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="70dp"
+            android:text="@string/teamName"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/teamManagementBar" />
+
+        <ImageView
+            android:id="@+id/teamLogoIV"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="35dp"
+            android:contentDescription="@string/teamLogo"
+            android:scaleType="fitXY"
+            android:src="@drawable/rectangle_17_white"
+            app:layout_constraintBottom_toBottomOf="@id/teamNameTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/teamNameTV" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rectangle_10_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/teamLogoIV">
+
+            <TextView
+                android:id="@+id/totalTeamTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="15dp"
+                android:text="* 총 팀원 수 : 7"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16.5dp"
+                android:contentDescription="팀원 추가"
+                android:src="@drawable/plus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/teamListRV"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/totalTeamTV" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

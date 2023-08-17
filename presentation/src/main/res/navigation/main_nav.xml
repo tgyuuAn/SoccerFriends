@@ -3,37 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/teamFragment">
+    app:startDestination="@id/team_nav">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.tgyuu.soccerfriends.feature.splash.SplashFragment"
         android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.tgyuu.soccerfriends.feature.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_scoreBoardFragment"
-            app:destination="@id/scoreBoardFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/scoreBoardFragment"
-        android:name="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardFragment"
-        android:label="ScoreBoardFragment"
-        tools:layout="@layout/fragment_splash" />
-
-    <fragment
-        android:id="@+id/teamFragment"
-        android:name="com.tgyuu.soccerfriends.feature.team.TeamFragment"
-        android:label="TeamFragment"
-        tools:layout="@layout/fragment_team" />
+        tools:layout="@layout/fragment_splash"/>
+    <include app:graph="@navigation/team_nav" />
+    <include app:graph="@navigation/score_board_nav" />
 </navigation>

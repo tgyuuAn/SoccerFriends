@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/formationBoardIV"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="600dp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:contentDescription="@string/boardDescription"
@@ -53,7 +53,7 @@
             app:tabIndicatorColor="@color/light_green"
             app:tabRippleColor="@null"
             app:tabSelectedTextColor="@color/light_green"
-            app:tabTextAppearance="@style/tabTextSize14"
+            app:tabTextAppearance="@style/tabTextSize14Bold"
             app:tabTextColor="@color/dark_gray">
 
             <com.google.android.material.tabs.TabItem

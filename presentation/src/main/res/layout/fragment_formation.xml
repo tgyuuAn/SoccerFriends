@@ -55,18 +55,7 @@
             app:tabRippleColor="@null"
             app:tabSelectedTextColor="@color/light_green"
             app:tabTextAppearance="@style/tabTextSize14Bold"
-            app:tabTextColor="@color/dark_gray">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selectionPlayer" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reservePlayer" />
-        </com.google.android.material.tabs.TabLayout>
+            app:tabTextColor="@color/dark_gray" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/memberListVP"

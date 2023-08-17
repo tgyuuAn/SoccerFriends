@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.tgyuu.soccerfriends.feature.formation.FormationViewModel" />
@@ -24,16 +25,55 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/stadium_background"
             android:contentDescription="@string/stadiumDescription"
+            android:elevation="-1dp"
             android:scaleType="fitXY"
-            android:elevation="-1dp"/>
-        
+            android:src="@drawable/stadium_background" />
+
         <ImageView
+            android:id="@+id/formationBoardIV"
             android:layout_width="match_parent"
             android:layout_height="500dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/boardDescription"
+            android:scaleType="fitXY"
             android:src="@drawable/board"
+            app:layout_constraintTop_toBottomOf="@id/formationBar" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/memberTL"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/formationBoardIV"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/light_green"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/light_green"
+            app:tabTextAppearance="@style/tabTextSize14"
+            app:tabTextColor="@color/dark_gray">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/selectionPlayer" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reservePlayer" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/rectangle_3_light_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/memberTL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

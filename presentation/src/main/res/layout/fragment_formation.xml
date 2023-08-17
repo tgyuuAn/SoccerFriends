@@ -28,6 +28,11 @@
             android:contentDescription="@string/stadiumDescription"
             android:scaleType="fitXY"
             android:elevation="-1dp"/>
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:src="@drawable/board"
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

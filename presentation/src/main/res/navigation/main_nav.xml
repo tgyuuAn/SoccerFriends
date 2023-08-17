@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/scoreBoardFragment">
+    app:startDestination="@id/teamFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -19,7 +19,7 @@
         android:id="@+id/homeFragment"
         android:name="com.tgyuu.soccerfriends.feature.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_scoreBoardFragment"
             app:destination="@id/scoreBoardFragment" />
@@ -29,5 +29,11 @@
         android:id="@+id/scoreBoardFragment"
         android:name="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardFragment"
         android:label="ScoreBoardFragment"
-        tools:layout="@layout/fragment_splash"/>
+        tools:layout="@layout/fragment_splash" />
+
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.tgyuu.soccerfriends.feature.team.TeamFragment"
+        android:label="TeamFragment"
+        tools:layout="@layout/fragment_team" />
 </navigation>

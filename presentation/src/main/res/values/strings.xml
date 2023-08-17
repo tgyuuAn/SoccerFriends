@@ -16,5 +16,6 @@
 
     <string name="teamLogo">팀 로고</string>
     <string name="teamName">팀 명</string>
+    <string name="addTeamMember">팀원 추가</string>
     <string name="contentDescription">스트라이커가 슈팅하고 있는 장면</string>
 </resources>

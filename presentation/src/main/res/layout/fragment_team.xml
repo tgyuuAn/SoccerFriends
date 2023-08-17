@@ -73,18 +73,19 @@
                 android:layout_marginTop="15dp"
                 android:text="* 총 팀원 수 : 7"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="19dp"
                 android:layout_height="19dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16.5dp"
-                android:contentDescription="팀원 추가"
+                android:contentDescription="@string/addTeamMember"
                 android:src="@drawable/plus"
+                app:layout_constraintBottom_toBottomOf="@id/totalTeamTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/totalTeamTV" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/teamListRV"

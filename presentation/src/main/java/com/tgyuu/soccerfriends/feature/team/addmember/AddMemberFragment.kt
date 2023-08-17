@@ -17,8 +17,10 @@ class AddMemberFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = fragmentViewModel.apply {
 
+        setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
+
+        binding.viewModel = fragmentViewModel.apply {
         }
     }
 }

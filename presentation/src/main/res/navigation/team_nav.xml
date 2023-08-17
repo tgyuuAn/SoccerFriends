@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/team_nav"
-    app:startDestination="@id/teamFragment">
+    app:startDestination="@id/addMemberFragment">
 
     <fragment
         android:id="@+id/teamFragment"
         android:name="com.tgyuu.soccerfriends.feature.team.TeamFragment"
         android:label="TeamFragment"
         tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/addMemberFragment"
+        android:name="com.tgyuu.soccerfriends.feature.team.addmember.AddMemberFragment"
+        android:label="AddMemberFragment"
+        tools:layout="@layout/fragment_add_member" />
 </navigation>

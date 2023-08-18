@@ -31,9 +31,9 @@ class HomeFragment :
 
     private fun handleEvent(event: HomeViewModel.HomeEvent) {
         when (event) {
-            HomeViewModel.HomeEvent.MoveToScoreBoard -> findNavController().navigate("soccerfriends://score_board_nav".toUri())
-            HomeViewModel.HomeEvent.MoveToTeamManagement -> findNavController().navigate("soccerfriends://team_nav".toUri())
-            HomeViewModel.HomeEvent.MoveToFormation -> findNavController().navigate("soccerfriends://formation_nav".toUri())
+            HomeViewModel.HomeEvent.MoveToScoreBoard -> navigateWithUri("soccerfriends://score_board_nav")
+            HomeViewModel.HomeEvent.MoveToTeamManagement -> navigateWithUri("soccerfriends://team_nav")
+            HomeViewModel.HomeEvent.MoveToFormation -> navigateWithUri("soccerfriends://formation_nav")
         }
     }
 }

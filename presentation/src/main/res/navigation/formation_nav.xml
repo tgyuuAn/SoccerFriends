@@ -10,4 +10,6 @@
         android:name="com.tgyuu.soccerfriends.feature.formation.FormationFragment"
         android:label="FormationFragment"
         tools:layout="@layout/fragment_formation"/>
+
+    <deepLink app:uri="soccerfriends://formation_nav" />
 </navigation>

@@ -85,7 +85,8 @@
                 android:src="@drawable/plus"
                 app:layout_constraintBottom_toBottomOf="@id/totalTeamTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/totalTeamTV" />
+                app:layout_constraintTop_toTopOf="@id/totalTeamTV"
+                android:onClick="@{()->viewModel.addMember()}"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/teamListRV"

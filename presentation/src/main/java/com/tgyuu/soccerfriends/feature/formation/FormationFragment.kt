@@ -25,9 +25,11 @@ class FormationFragment :
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
 
         binding.viewModel = fragmentViewModel.apply {
+
         }
         setTabLayout()
     }
+
 
     private fun setTabLayout() {
         initTabLayout()

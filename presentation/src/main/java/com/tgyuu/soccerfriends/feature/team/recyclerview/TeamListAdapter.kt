@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tgyuu.domain.team.Member
+import com.tgyuu.domain.team.entity.Member
 import com.tgyuu.soccerfriends.databinding.ItemTeamMemberBinding
 
 class TeamViewHolder(val binding: ItemTeamMemberBinding) : RecyclerView.ViewHolder(binding.root) {

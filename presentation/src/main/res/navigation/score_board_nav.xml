@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/score_board_nav"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/scoreBoardFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.tgyuu.soccerfriends.feature.home.HomeFragment"
-        tools:layout="@layout/fragment_home"
-        android:label="fragment_home" />
+        android:id="@+id/scoreBoardFragment"
+        android:name="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardFragment"
+        android:label="ScoreBoardFragment"
+        tools:layout="@layout/fragment_score_board"/>
+
+    <deepLink app:uri="soccerfriends://score_board_nav" />
 </navigation>

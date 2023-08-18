@@ -9,4 +9,6 @@
         android:name="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardFragment"
         android:label="ScoreBoardFragment"
         tools:layout="@layout/fragment_score_board"/>
+
+    <deepLink app:uri="soccerfriends://score_board_nav" />
 </navigation>

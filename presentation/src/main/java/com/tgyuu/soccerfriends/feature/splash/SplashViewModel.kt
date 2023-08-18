@@ -30,7 +30,7 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         event(SplashEvent.Splash)
     }
 
-    sealed class SplashEvent() {
+    sealed class SplashEvent {
         object Splash : SplashEvent()
     }
 }

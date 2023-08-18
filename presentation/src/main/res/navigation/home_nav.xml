@@ -10,4 +10,6 @@
         android:name="com.tgyuu.soccerfriends.feature.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
+
+    <deepLink app:uri="soccerfriends://home_nav" />
 </navigation>

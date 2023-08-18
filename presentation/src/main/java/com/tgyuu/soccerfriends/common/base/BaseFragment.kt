@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -51,4 +54,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel>(private val infl
     fun log(str: String) = Log.d("tgyuu", str)
 
     fun toast(str: String) = Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
+
+    fun navigateWithUri(deepLinkUri: String) = findNavController().navigate(deepLinkUri.toUri())
+
+    fun navigateWithUriNavOptions(deepLinkUri: String, navOptions: NavOptions) = findNavController().navigate(deepLinkUri.toUri(), navOptions)
 }

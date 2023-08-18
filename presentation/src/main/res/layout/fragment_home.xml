@@ -51,6 +51,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="@{()->viewModel.moveToScoreBoard()}"
             android:orientation="vertical">
 
             <ImageView
@@ -78,6 +79,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="@{()->viewModel.moveToFormation()}"
             android:orientation="vertical">
 
             <ImageView
@@ -105,7 +107,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:onClick="@{()->viewModel.moveToTeamManagement()}">
 
             <ImageView
                 android:layout_width="wrap_content"

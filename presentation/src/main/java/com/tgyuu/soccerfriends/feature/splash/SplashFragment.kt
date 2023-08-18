@@ -3,12 +3,11 @@ package com.tgyuu.soccerfriends.feature.splash
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavOptions
 import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.common.base.repeatOnStarted
 import com.tgyuu.soccerfriends.databinding.FragmentSplashBinding
-import com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +32,10 @@ class SplashFragment :
 
     private fun handleEvent(event: SplashViewModel.SplashEvent) {
         when (event) {
-            SplashViewModel.SplashEvent.Splash -> findNavController().navigate(R.id.action_global_home_nav)
+            SplashViewModel.SplashEvent.Splash -> navigateWithUriNavOptions(
+                "soccerfriends://home_nav",
+                NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build()
+            )
         }
     }
 }

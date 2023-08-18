@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
+import com.tgyuu.soccerfriends.common.base.repeatOnStarted
 import com.tgyuu.soccerfriends.databinding.FragmentAddMemberBinding
 
 
@@ -21,6 +22,13 @@ class AddMemberFragment :
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
 
         binding.viewModel = fragmentViewModel.apply {
+            repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+        }
+    }
+
+    private fun handleEvent(event : AddMemberViewModel.AddMemberEvent){
+        when(event){
+            else -> {}
         }
     }
 }

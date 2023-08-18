@@ -25,7 +25,7 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun splash(delayMillis: Long) = viewModelScope.launch {
+    private fun splash(delayMillis: Long) = viewModelScope.launch {
         delay(delayMillis)
         event(SplashEvent.Splash)
     }

@@ -34,7 +34,6 @@ class SplashFragment :
     private fun handleEvent(event: SplashViewModel.SplashEvent) {
         when (event) {
             SplashViewModel.SplashEvent.Splash -> findNavController().navigate(R.id.action_global_home_nav)
-            }
         }
     }
 }

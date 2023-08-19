@@ -17,4 +17,14 @@ object PresentationModule {
     @Singleton
     @Named("IODispatchers")
     fun provideIODispatchers() : CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    @Singleton
+    @Named("DefaultDispatchers")
+    fun provideDefaultDispatchers() : CoroutineDispatcher = Dispatchers.Default
+
+    @Provides
+    @Singleton
+    @Named("MainDispatchers")
+    fun provideMainDispatchers() : CoroutineDispatcher = Dispatchers.Main
 }

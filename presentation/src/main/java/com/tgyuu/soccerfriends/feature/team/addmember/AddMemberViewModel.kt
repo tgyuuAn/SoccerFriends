@@ -3,7 +3,6 @@ package com.tgyuu.soccerfriends.feature.team.addmember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -20,12 +19,12 @@ class AddMemberViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun complete() = event(AddMemberEvent.Complete)
+    fun clickComplete() = event(AddMemberEvent.ClickComplete)
 
-    fun reset() = event(AddMemberEvent.Reset)
+    fun clickReset() = event(AddMemberEvent.ClickReset)
 
     sealed class AddMemberEvent {
-        object Complete : AddMemberEvent()
-        object Reset : AddMemberEvent()
+        object ClickComplete : AddMemberEvent()
+        object ClickReset : AddMemberEvent()
     }
 }

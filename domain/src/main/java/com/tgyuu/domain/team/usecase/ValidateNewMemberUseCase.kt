@@ -1,6 +1,5 @@
 package com.tgyuu.domain.team.usecase
 
-import android.util.Log
 import java.lang.NumberFormatException
 import javax.inject.Inject
 

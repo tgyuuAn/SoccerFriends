@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.team.usecase.AddNewMemberUseCase
 import com.tgyuu.domain.team.usecase.ValidateNewMemberUseCase
 import com.tgyuu.soccerfriends.common.base.UiState
+import com.tgyuu.soccerfriends.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,13 +14,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class AddMemberViewModel @Inject constructor(
     private val validateNewMemberUseCase: ValidateNewMemberUseCase,
     private val addNewMemberUseCase: AddNewMemberUseCase,
-    @Named("IODispatchers") private val IOdispatcher: CoroutineDispatcher
+    @IO private val IOdispatcher: CoroutineDispatcher
 ) :
     ViewModel() {
     private val _eventFlow = MutableSharedFlow<AddMemberEvent>()

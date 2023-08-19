@@ -10,7 +10,9 @@ import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.databinding.FragmentFormationBinding
 import com.tgyuu.soccerfriends.feature.formation.memberlist.ReserveMemberFragment
 import com.tgyuu.soccerfriends.feature.formation.memberlist.SelectionMemberFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FormationFragment :
     BaseFragment<FragmentFormationBinding, FormationViewModel>(FragmentFormationBinding::inflate) {
 

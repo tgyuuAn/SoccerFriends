@@ -14,7 +14,9 @@ import com.tgyuu.soccerfriends.feature.formation.FormationViewModel
 import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
 import com.tgyuu.soccerfriends.feature.formation.memberlist.recyclerview.FormationTeamListDecoration
 import com.tgyuu.soccerfriends.feature.team.recyclerview.TeamListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReserveMemberFragment :
     BaseFragment<FragmentReserveMemberBinding, FormationViewModel>(FragmentReserveMemberBinding::inflate) {
 

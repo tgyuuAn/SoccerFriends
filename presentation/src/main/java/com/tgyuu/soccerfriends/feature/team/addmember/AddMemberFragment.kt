@@ -10,8 +10,9 @@ import com.tgyuu.soccerfriends.common.base.BaseFragment
 import com.tgyuu.soccerfriends.common.base.UiState
 import com.tgyuu.soccerfriends.common.base.repeatOnStarted
 import com.tgyuu.soccerfriends.databinding.FragmentAddMemberBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AddMemberFragment :
     BaseFragment<FragmentAddMemberBinding, AddMemberViewModel>(FragmentAddMemberBinding::inflate) {
     override val fragmentViewModel: AddMemberViewModel by viewModels()

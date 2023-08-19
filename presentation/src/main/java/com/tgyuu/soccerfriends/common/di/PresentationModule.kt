@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -15,16 +15,28 @@ object PresentationModule {
 
     @Provides
     @Singleton
-    @Named("IODispatchers")
-    fun provideIODispatchers() : CoroutineDispatcher = Dispatchers.IO
+    @IO
+    fun provideIODispatchers(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
     @Singleton
-    @Named("DefaultDispatchers")
-    fun provideDefaultDispatchers() : CoroutineDispatcher = Dispatchers.Default
+    @Default
+    fun provideDefaultDispatchers(): CoroutineDispatcher = Dispatchers.Default
 
     @Provides
     @Singleton
-    @Named("MainDispatchers")
-    fun provideMainDispatchers() : CoroutineDispatcher = Dispatchers.Main
+    @Main
+    fun provideMainDispatchers(): CoroutineDispatcher = Dispatchers.Main
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class IO
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Default
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Main

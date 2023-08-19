@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.tgyuu.soccerfriends.R
 import com.tgyuu.soccerfriends.common.base.BaseFragment
+import com.tgyuu.soccerfriends.common.base.UiState
 import com.tgyuu.soccerfriends.common.base.repeatOnStarted
 import com.tgyuu.soccerfriends.databinding.FragmentAddMemberBinding
 
@@ -21,13 +23,22 @@ class AddMemberFragment :
 
         binding.viewModel = fragmentViewModel.apply {
             repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+            repeatOnStarted { addMemberState.collect { handleAddMemberState(it) } }
         }
     }
 
     private fun handleEvent(event: AddMemberViewModel.AddMemberEvent) {
         when (event) {
             AddMemberViewModel.AddMemberEvent.ClickReset -> resetPage()
-            AddMemberViewModel.AddMemberEvent.ClickComplete -> {}
+            AddMemberViewModel.AddMemberEvent.ClickComplete -> addNewMember()
+        }
+    }
+
+    private fun handleAddMemberState(addMemberState: UiState<Unit>) {
+        when (addMemberState) {
+            UiState.Loading -> {}
+            is UiState.Success -> findNavController().popBackStack()
+            is UiState.Error -> {}
         }
     }
 
@@ -36,5 +47,19 @@ class AddMemberFragment :
         newMemberNameEDT.text = null
         newMemberPositionEDT.text = null
         newMemberBackNumberEDT.text = null
+    }
+
+    private fun addNewMember() = binding.apply {
+        val newMemberName = newMemberNameEDT.text.toString()
+        val newMemberBackNumber = newMemberBackNumberEDT.text.toString()
+        val newMemberPosition = newMemberPositionEDT.text.toString()
+        val isBenchWarmer = reserveCheckCB.isChecked
+
+        fragmentViewModel.addNewMember(
+            newMemberName = newMemberName,
+            newMemberBackNumber = newMemberBackNumber,
+            newMemberPosition = newMemberPosition,
+            isBenchWarmer = isBenchWarmer
+        )
     }
 }

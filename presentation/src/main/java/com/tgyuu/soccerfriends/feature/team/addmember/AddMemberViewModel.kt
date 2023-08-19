@@ -54,7 +54,7 @@ class AddMemberViewModel @Inject constructor(
         viewModelScope.launch(IOdispatcher) {
             addNewMemberUseCase(
                 newMemberName,
-                1,
+                newMemberBackNumber.toInt(),
                 newMemberPosition,
                 isBenchWarmer
             ).fold(onSuccess = {

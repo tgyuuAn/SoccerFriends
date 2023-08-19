@@ -9,11 +9,8 @@
         android:id="@+id/teamFragment"
         android:name="com.tgyuu.soccerfriends.feature.team.TeamFragment"
         android:label="TeamFragment"
-        tools:layout="@layout/fragment_team" >
-        <action
-            android:id="@+id/action_teamFragment_to_addMemberFragment"
-            app:destination="@id/addMemberFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_team" />
+
     <fragment
         android:id="@+id/addMemberFragment"
         android:name="com.tgyuu.soccerfriends.feature.team.addmember.AddMemberFragment"
@@ -21,4 +18,7 @@
         tools:layout="@layout/fragment_add_member" />
 
     <deepLink app:uri="soccerfriends://team_nav" />
+    <action
+        android:id="@+id/action_global_addMemberFragment"
+        app:destination="@id/addMemberFragment" />
 </navigation>

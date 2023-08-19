@@ -33,7 +33,7 @@ class TeamFragment :
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
-            TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_teamFragment_to_addMemberFragment)
+            TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
         }
     }
 

@@ -5,23 +5,23 @@ import java.lang.NumberFormatException
 import javax.inject.Inject
 
 class ValidateNewMemberUseCase @Inject constructor() {
+
     operator fun invoke(
         newMemberName: String,
         newMemberBackNumber: String,
         newMemberPosition: String
     ): Boolean {
         if (newMemberName.length == 0) return false
-        if (isNumeric(newMemberBackNumber)) return false
+        if (!isNumeric(newMemberBackNumber)) return false
         if (newMemberPosition.length == 0) return false
         return true
     }
 
-    private fun isNumeric(doubtNumber: String): Boolean {
+    fun isNumeric(doubtNumber: String): Boolean {
         return try {
             doubtNumber.toInt()
             true
-        } catch (e: NumberFormatException) {
-            Log.d("tgyuu", e.toString())
+        } catch (ex: NumberFormatException) {
             false
         }
     }

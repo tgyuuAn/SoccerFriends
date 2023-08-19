@@ -10,7 +10,7 @@ class AddNewMemberUseCase @Inject constructor() {
         newMemberBackNumber: Int,
         newMemberPosition: String,
         isBenchWarmer: Boolean
-    ): Flow<Result<Unit>> = flow {
-        emit(Result.success(Unit))
+    ): Result<Unit> {
+        return Result.success(Unit)
     }
 }

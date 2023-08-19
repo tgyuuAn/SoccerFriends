@@ -71,10 +71,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("com.google.truth:truth:1.1.3")
     testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("com.google.dagger:hilt-android-testing:2.44")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
+    testImplementation("io.mockk:mockk:1.13.5")
     kaptTest("com.google.dagger:hilt-android-compiler:2.44")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -85,9 +83,9 @@ dependencies {
     androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
-    androidTestImplementation("org.mockito:mockito-android:2.24.5")
-    androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestUtil("androidx.test:orchestrator:1.3.0")
+    androidTestImplementation("io.mockk:mockk:1.13.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
 
     debugImplementation("androidx.fragment:fragment-testing:1.6.1")
 }

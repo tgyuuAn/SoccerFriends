@@ -1,7 +1,15 @@
 package com.tgyuu.soccerfriends.feature.team.addmember
 
 import com.google.common.truth.Truth.assertThat
+import com.tgyuu.domain.team.usecase.AddNewMemberUseCase
+import com.tgyuu.domain.team.usecase.ValidateNewMemberUseCase
+import com.tgyuu.soccerfriends.common.base.UiState
 import com.tgyuu.soccerfriends.rule.MainCoroutineRule
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -14,9 +22,25 @@ class AddMemberViewModelTest {
 
     lateinit var viewModel: AddMemberViewModel
 
+    val addNewMemberUseCase = mockk<AddNewMemberUseCase>()
+    val validateNewMemberUsecase = mockk<ValidateNewMemberUseCase>()
+
     @Before
     fun setUp() {
-        viewModel = AddMemberViewModel()
+        viewModel = AddMemberViewModel(validateNewMemberUsecase, addNewMemberUseCase)
+
+        coEvery {
+            addNewMemberUseCase.invoke(
+                any<String>(),
+                any<Int>(),
+                any<String>(),
+                any<Boolean>()
+            )
+        } returns flow { emit(Result.success(Unit)) }
+
+        every {
+            validateNewMemberUsecase.invoke(any<String>(), any<String>(), any<String>())
+        } returns true
     }
 
     @Test
@@ -33,8 +57,8 @@ class AddMemberViewModelTest {
         )
 
         //then
-        val expected = addMemberState.Error
-        assertThat(viewModel.addMemberState).isEuqalTo(expeced)
+        val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
+        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
     }
 
     @Test
@@ -50,8 +74,8 @@ class AddMemberViewModelTest {
         )
 
         //then
-        val expected = addMemberState.Error
-        assertThat(viewModel.addMemberState).isEuqalTo(expeced)
+        val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
+        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
     }
 
     @Test
@@ -61,18 +85,18 @@ class AddMemberViewModelTest {
         //when
         viewModel.complete(
             newMemberName = "Tgyuu",
-            newMemberBackNumber = 1,
+            newMemberBackNumber = "1",
             newMemberPosition = newMemberPosition,
             isBenchWarmer = false
         )
 
         //then
-        val expected = addMemberState.Error
-        assertThat(viewModel.addMemberState).isEuqalTo(expeced)
+        val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
+        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
     }
 
     @Test
-    fun `위 사항을 다 지켰을 경우, 새로운 선수 등록에 성공한다`(){
+    fun `위 사항을 다 지켰을 경우, 새로운 선수 등록에 성공한다`() {
         val newMemberName = "Tgyuu"
         val newMemberBackNumber = "1"
         val newMemberPosition = "GK"
@@ -86,7 +110,7 @@ class AddMemberViewModelTest {
         )
 
         //then
-        val expected = addMemberState.Success
-        assertThat(viewModel.addMemberState).isEuqalTo(expeced)
+        val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
+        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
     }
 }

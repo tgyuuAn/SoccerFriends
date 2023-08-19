@@ -3,20 +3,25 @@ package com.tgyuu.soccerfriends.feature.team.addmember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.team.entity.Member
+import com.tgyuu.domain.team.usecase.AddNewMemberUseCase
 import com.tgyuu.domain.team.usecase.ValidateNewMemberUseCase
 import com.tgyuu.soccerfriends.common.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddMemberViewModel @Inject constructor(private val validateNewMemberUseCase : ValidateNewMemberUseCase) : ViewModel() {
+class AddMemberViewModel @Inject constructor(
+    private val validateNewMemberUseCase: ValidateNewMemberUseCase,
+    private val addNewMemberUseCase: AddNewMemberUseCase
+) :
+    ViewModel() {
     private val _eventFlow = MutableSharedFlow<AddMemberEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -26,10 +31,10 @@ class AddMemberViewModel @Inject constructor(private val validateNewMemberUseCas
         }
     }
 
-    private val _addMemberState = MutableStateFlow<UiState<Member>>(UiState.Loading)
+    private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val addMemberState = _addMemberState.asStateFlow()
 
-    private fun setAddMemberState(uiState: UiState<Member>) {
+    private fun setAddMemberState(uiState: UiState<Unit>) {
         _addMemberState.value = uiState
     }
 
@@ -41,11 +46,23 @@ class AddMemberViewModel @Inject constructor(private val validateNewMemberUseCas
     ) {
         setAddMemberState(UiState.Loading)
 
-        validateNewMemberUseCase(newMemberName,newMemberBackNumber,newMemberPosition)
+        if (!validateNewMemberUseCase(newMemberName, newMemberBackNumber, newMemberPosition)){
+            setAddMemberState(UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다."))
+            return
+        }
 
         viewModelScope.launch(Dispatchers.IO) {
-            AddNewMemberUseCase().collect {
-
+            addNewMemberUseCase(
+                newMemberName,
+                newMemberBackNumber.toInt(),
+                newMemberPosition,
+                isBenchWarmer
+            ).collect {
+                it.fold(onSuccess = {
+                    setAddMemberState(UiState.Success(Unit))
+                }, onFailure = {
+                    setAddMemberState(UiState.Error("새로운 선수 등록에 실패하셨습니다."))
+                })
             }
         }
     }

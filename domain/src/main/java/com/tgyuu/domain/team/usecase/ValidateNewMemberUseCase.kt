@@ -11,14 +11,14 @@ class ValidateNewMemberUseCase @Inject constructor() {
         newMemberPosition: String
     ): Boolean {
         if (newMemberName.length == 0) return false
-        if (checkNumber(newMemberBackNumber)) return false
+        if (isNumeric(newMemberBackNumber)) return false
         if (newMemberPosition.length == 0) return false
         return true
     }
 
-    private fun checkNumber(doubtNumber: String): Boolean {
+    private fun isNumeric(doubtNumber: String): Boolean {
         return try {
-            doubtNumber.toDouble()
+            doubtNumber.toInt()
             true
         } catch (e: NumberFormatException) {
             Log.d("tgyuu", e.toString())

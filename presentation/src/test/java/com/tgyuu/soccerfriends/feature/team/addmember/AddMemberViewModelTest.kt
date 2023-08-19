@@ -72,7 +72,7 @@ class AddMemberViewModelTest {
     }
 
     @Test
-    fun `위 사항을 다 지켰을 경우, 새로운 선수 등록에 성공한다.`(){
+    fun `위 사항을 다 지켰을 경우, 새로운 선수 등록에 성공한다`(){
         val newMemberName = "Tgyuu"
         val newMemberBackNumber = "1"
         val newMemberPosition = "GK"

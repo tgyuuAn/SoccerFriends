@@ -2,14 +2,12 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,7 +52,9 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
     private fun handleEvent(event: ChangeDialogViewModel.DialogEvent) {
         when (event) {
             ChangeDialogViewModel.DialogEvent.Cancel -> dismiss()
-            ChangeDialogViewModel.DialogEvent.ChangeTeamName -> {}
+            ChangeDialogViewModel.DialogEvent.ClickComplete -> {
+                fragmentViewModel.changeTeamName(binding.newTeamNameEDT.text.toString())
+            }
         }
     }
 

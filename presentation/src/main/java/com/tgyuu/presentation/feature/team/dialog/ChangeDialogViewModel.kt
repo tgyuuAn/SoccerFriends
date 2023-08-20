@@ -2,14 +2,18 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChangeDialogViewModel @Inject constructor() : ViewModel() {
+class ChangeDialogViewModel @Inject constructor(
+    @IO private val IODispatcher: CoroutineDispatcher
+) : ViewModel() {
     private val _eventFlow = MutableSharedFlow<DialogEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -17,11 +21,17 @@ class ChangeDialogViewModel @Inject constructor() : ViewModel() {
 
     fun cancel() = event(DialogEvent.Cancel)
 
-    fun changeTeamName() = event(DialogEvent.ChangeTeamName)
+    fun clickComplete() = event(DialogEvent.ClickComplete)
+
+    fun changeTeamName(teamName: String) {
+        viewModelScope.launch(IODispatcher) {
+
+        }
+    }
 
     sealed class DialogEvent {
         object Cancel : DialogEvent()
-        object ChangeTeamName : DialogEvent()
+        object ClickComplete : DialogEvent()
     }
 
 }

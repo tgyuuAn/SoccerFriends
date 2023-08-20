@@ -59,7 +59,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/rectangle_5_main"
                 android:gravity="center"
-                android:onClick="@{()->viewModel.changeTeamName()}"
+                android:onClick="@{()->viewModel.clickComplete()}"
                 android:paddingVertical="10dp"
                 android:text="@string/complete"
                 android:textColor="@color/white"

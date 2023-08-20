@@ -28,8 +28,14 @@ class TeamViewModel @Inject constructor(
 
     fun addMember() = event(TeamEvent.AddMember)
 
+    fun changeTeamName() = event(TeamEvent.ChangeTeamName)
+
+    fun changeTeamImage() = event(TeamEvent.ChangeTeamImage)
+
     sealed class TeamEvent {
         object AddMember : TeamEvent()
+        object ChangeTeamName : TeamEvent()
+        object ChangeTeamImage : TeamEvent()
     }
 
     private val _memberListFlow = MutableStateFlow<UiState<List<Member>>>(UiState.Loading)

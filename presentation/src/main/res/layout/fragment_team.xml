@@ -30,6 +30,7 @@
             android:elevation="-1dp"
             android:scaleType="fitXY"
             android:src="@drawable/team"
+            android:onClick="@{()->viewModel.changeTeamImage()}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -41,6 +42,7 @@
             android:text="@string/teamName"
             android:textColor="@color/white"
             android:textSize="30sp"
+            android:onClick="@{()->viewModel.changeTeamName()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/teamManagementBar" />
 

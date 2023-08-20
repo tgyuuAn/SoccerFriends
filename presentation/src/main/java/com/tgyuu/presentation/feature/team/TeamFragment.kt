@@ -20,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class TeamFragment :
     BaseFragment<FragmentTeamBinding, TeamViewModel>(FragmentTeamBinding::inflate) {
     override val fragmentViewModel: TeamViewModel by viewModels()
-    private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
     private val adapterViewModel: AdapterViewModel by viewModels()
+    private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +49,8 @@ class TeamFragment :
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
+            TeamViewModel.TeamEvent.ChangeTeamName -> {}
+            TeamViewModel.TeamEvent.ChangeTeamImage -> {}
         }
     }
 
@@ -69,9 +71,9 @@ class TeamFragment :
         binding.totalTeamTV.text = "* 총 팀원 수 : " + memberList.size.toString()
     }
 
-    private fun handleAdapterEvent(event : AdapterViewModel.AdapterEvent){
-        when(event){
-            is AdapterViewModel.AdapterEvent.ClickMore -> log("클릭!")
+    private fun handleAdapterEvent(event: AdapterViewModel.AdapterEvent) {
+        when (event) {
+            is AdapterViewModel.AdapterEvent.ClickMore -> log("클릭!" + event.member.toString())
         }
     }
 

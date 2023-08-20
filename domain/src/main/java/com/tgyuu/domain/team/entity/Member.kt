@@ -5,5 +5,5 @@ data class Member(
     val image : String,
     val position : String,
     val number : Int,
-    val isBenchWarmer : Boolean? = true
+    val isBenchWarmer : Boolean? = false
 )

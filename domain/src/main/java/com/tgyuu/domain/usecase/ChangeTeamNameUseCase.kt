@@ -1,9 +1,10 @@
 package com.tgyuu.domain.usecase
 
+import com.tgyuu.domain.repository.TeamRepository
 import javax.inject.Inject
 
-class ChangeTeamNameUseCase @Inject constructor() {
-    operator suspend fun invoke(teamName : String){
-        return Unit
+class ChangeTeamNameUseCase @Inject constructor(private val teamRepository: TeamRepository) {
+    operator suspend fun invoke(teamName: String) {
+        teamRepository.changeTeamName(teamName)
     }
 }

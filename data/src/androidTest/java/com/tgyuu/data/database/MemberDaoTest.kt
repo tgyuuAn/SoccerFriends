@@ -16,13 +16,13 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MemberDaoTest {
 
-    lateinit var database: MemberDatabase
+    lateinit var database: SoccerFriendsDatabase
     private lateinit var dao: MemberDao
 
     @Before
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        database = Room.inMemoryDatabaseBuilder(context, MemberDatabase::class.java).build()
+        database = Room.inMemoryDatabaseBuilder(context, SoccerFriendsDatabase::class.java).build()
         dao = database.getMemberDao()
     }
 

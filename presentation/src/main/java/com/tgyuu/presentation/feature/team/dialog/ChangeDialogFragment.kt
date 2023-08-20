@@ -15,7 +15,7 @@ import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChangeDialogFragment : DialogFragment() {
+class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFragment() {
 
     companion object {
         const val TAG = "ChangeDialogFragment"
@@ -51,9 +51,9 @@ class ChangeDialogFragment : DialogFragment() {
         }
     }
 
-    private fun handleEvent(event : ChangeDialogViewModel.DialogEvent){
-        when(event){
-            ChangeDialogViewModel.DialogEvent.Cancel -> {}
+    private fun handleEvent(event: ChangeDialogViewModel.DialogEvent) {
+        when (event) {
+            ChangeDialogViewModel.DialogEvent.Cancel -> dismiss()
             ChangeDialogViewModel.DialogEvent.ChangeTeamName -> {}
         }
     }
@@ -61,5 +61,6 @@ class ChangeDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        dismissCallBack()
     }
 }

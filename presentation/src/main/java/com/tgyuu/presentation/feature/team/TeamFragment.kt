@@ -12,6 +12,7 @@ import com.tgyuu.presentation.common.base.BaseFragment
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentTeamBinding
+import com.tgyuu.presentation.feature.team.dialog.ChangeDialogFragment
 import com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel
 import com.tgyuu.presentation.feature.team.recyclerview.TeamListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ class TeamFragment :
     override val fragmentViewModel: TeamViewModel by viewModels()
     private val adapterViewModel: AdapterViewModel by viewModels()
     private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
+    private var changeDialogFragment: ChangeDialogFragment? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +51,18 @@ class TeamFragment :
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
-            TeamViewModel.TeamEvent.ChangeTeamName -> {}
+            TeamViewModel.TeamEvent.ChangeTeamName -> {
+                if (changeDialogFragment == null) {
+                    changeDialogFragment = ChangeDialogFragment{
+                        changeDialogFragment = null
+                    }
+                    changeDialogFragment!!.show(
+                        requireActivity().supportFragmentManager,
+                        ChangeDialogFragment.TAG
+                    )
+                }
+            }
+
             TeamViewModel.TeamEvent.ChangeTeamImage -> {}
         }
     }

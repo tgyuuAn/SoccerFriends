@@ -5,6 +5,7 @@ import com.tgyuu.presentation.common.base.BaseActivity
 import com.tgyuu.soccerfriends.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 

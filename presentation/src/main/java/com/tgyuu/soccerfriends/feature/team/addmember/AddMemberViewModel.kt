@@ -2,8 +2,8 @@ package com.tgyuu.soccerfriends.feature.team.addmember
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tgyuu.domain.team.usecase.AddNewMemberUseCase
-import com.tgyuu.domain.team.usecase.ValidateNewMemberUseCase
+import com.tgyuu.domain.usecase.AddMemberUseCase
+import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
 import com.tgyuu.soccerfriends.common.base.UiState
 import com.tgyuu.soccerfriends.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddMemberViewModel @Inject constructor(
     private val validateNewMemberUseCase: ValidateNewMemberUseCase,
-    private val addNewMemberUseCase: AddNewMemberUseCase,
+    private val addMemberUseCase: AddMemberUseCase,
     @IO private val IOdispatcher: CoroutineDispatcher
 ) :
     ViewModel() {
@@ -52,16 +52,12 @@ class AddMemberViewModel @Inject constructor(
         }
 
         viewModelScope.launch(IOdispatcher) {
-            addNewMemberUseCase(
+            addMemberUseCase(
                 newMemberName,
                 newMemberBackNumber.toInt(),
                 newMemberPosition,
                 isBenchWarmer
-            ).fold(onSuccess = {
-                setAddMemberState(UiState.Success(Unit))
-            }, onFailure = {
-                setAddMemberState(UiState.Error("새로운 선수 등록에 실패하셨습니다."))
-            })
+            )
         }
     }
 

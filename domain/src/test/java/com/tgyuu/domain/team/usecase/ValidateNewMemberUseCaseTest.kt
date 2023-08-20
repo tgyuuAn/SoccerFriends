@@ -1,6 +1,7 @@
 package com.tgyuu.domain.team.usecase
 
 import com.google.common.truth.Truth.assertThat
+import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
 import org.junit.Test
 
 

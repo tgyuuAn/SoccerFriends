@@ -6,7 +6,7 @@ import com.tgyuu.data.database.MemberDao
 import com.tgyuu.data.database.MemberDatabase
 import com.tgyuu.data.datasource.LocalMemberDataSource
 import com.tgyuu.data.repositoryimpl.MemberRepositoryImpl
-import com.tgyuu.domain.team.repository.MemberRepository
+import com.tgyuu.domain.repository.MemberRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,13 +29,7 @@ object dataModule {
     @Singleton
     fun provideMemberDao(
         database: MemberDatabase
-    ) = database.getMemberDao()
-
-    @Provides
-    @Singleton
-    fun provideLocalMemberDataSource(
-        memberDao: MemberDao
-    ) : LocalMemberDataSource = LocalMemberDataSource(memberDao)
+    ): MemberDao = database.getMemberDao()
 
     @Provides
     @Singleton

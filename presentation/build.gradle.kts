@@ -44,6 +44,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation("com.github.cachapa:ExpandableLayout:2.9.2")
 

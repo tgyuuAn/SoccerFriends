@@ -1,4 +1,4 @@
-package com.tgyuu.domain.team.usecase
+package com.tgyuu.domain.usecase
 
 import java.lang.NumberFormatException
 import javax.inject.Inject

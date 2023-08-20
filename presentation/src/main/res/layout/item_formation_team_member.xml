@@ -6,7 +6,7 @@
 
         <variable
             name="member"
-            type="com.tgyuu.domain.team.entity.Member" />
+            type="com.tgyuu.domain.entity.Member" />
 
     </data>
 

@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [MemberEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class MemberDatabase : RoomDatabase(){
     abstract fun getMemberDao() : MemberDao

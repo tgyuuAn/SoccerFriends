@@ -1,4 +1,4 @@
-package com.tgyuu.domain.team.entity
+package com.tgyuu.domain.entity
 
 data class Member(
     val name : String,

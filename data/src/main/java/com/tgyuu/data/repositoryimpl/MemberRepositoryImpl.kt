@@ -2,8 +2,8 @@ package com.tgyuu.data.repositoryimpl
 
 import com.tgyuu.data.database.MemberEntity
 import com.tgyuu.data.datasource.LocalMemberDataSource
-import com.tgyuu.domain.team.entity.Member
-import com.tgyuu.domain.team.repository.MemberRepository
+import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.repository.MemberRepository
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(private val memberDataSource: LocalMemberDataSource) :

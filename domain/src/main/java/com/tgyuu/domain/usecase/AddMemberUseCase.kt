@@ -1,16 +1,16 @@
-package com.tgyuu.domain.team.usecase
+package com.tgyuu.domain.usecase
 
-import com.tgyuu.domain.team.entity.Member
-import com.tgyuu.domain.team.repository.MemberReposiory
+import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.repository.MemberRepository
 import javax.inject.Inject
 
-class AddNewMemberUseCase @Inject constructor(private val memberReposiory: MemberReposiory) {
+class AddMemberUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
     operator suspend fun invoke(
         newMemberName: String,
         newMemberBackNumber: Int,
         newMemberPosition: String,
         isBenchWarmer: Boolean
-    ): Result<Unit> {
+    ) {
         val newMember = Member(
             name = newMemberName,
             number = newMemberBackNumber,
@@ -18,7 +18,6 @@ class AddNewMemberUseCase @Inject constructor(private val memberReposiory: Membe
             isBenchWarmer = isBenchWarmer,
             image = ""
         )
-        return memberReposiory.addNewMember(newMember)
-            .fold(onSuccess = { Result.success(it) }, onFailure = { Result.failure(it) })
+        memberReposiory.addNewMember(newMember)
     }
 }

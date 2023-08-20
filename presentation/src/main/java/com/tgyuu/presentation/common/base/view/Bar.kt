@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
-import com.tgyuu.domain.R
+import com.tgyuu.presentation.R
 
 class Bar @JvmOverloads constructor(
     context: Context,

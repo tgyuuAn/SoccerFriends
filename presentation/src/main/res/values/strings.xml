@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">SoccerFriends</string>
-
     <string name="scoreBoard">점수판</string>
     <string name="formation">포메이션</string>
     <string name="teamManagement">내 팀 관리</string>

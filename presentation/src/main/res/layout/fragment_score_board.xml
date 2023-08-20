@@ -7,16 +7,16 @@
 
         <variable
             name="viewModel"
-            type="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardViewModel" />
+            type="com.tgyuu.presentation.feature.scoreboard.ScoreBoardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main"
-        tools:context=".feature.scoreboard.ScoreBoardFragment">
+        tools:context="com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment">
 
-        <com.tgyuu.soccerfriends.common.base.view.Bar
+        <com.tgyuu.presentation.common.base.view.Bar
             android:id="@+id/scoreBoardBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

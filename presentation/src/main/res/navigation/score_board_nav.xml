@@ -6,7 +6,7 @@
     app:startDestination="@id/scoreBoardFragment">
     <fragment
         android:id="@+id/scoreBoardFragment"
-        android:name="com.tgyuu.soccerfriends.feature.scoreboard.ScoreBoardFragment"
+        android:name="com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment"
         android:label="ScoreBoardFragment"
         tools:layout="@layout/fragment_score_board"/>
 

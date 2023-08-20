@@ -49,7 +49,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("com.google.dagger:hilt-android:2.44")
-    implementation(project(mapOf("path" to ":domain")))
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation("com.github.bumptech.glide:glide:4.15.1")
@@ -58,7 +57,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

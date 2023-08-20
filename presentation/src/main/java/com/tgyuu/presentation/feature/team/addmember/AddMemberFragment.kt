@@ -48,6 +48,7 @@ class AddMemberFragment :
         newMemberNameEDT.text = null
         newMemberPositionEDT.text = null
         newMemberBackNumberEDT.text = null
+        reserveCheckCB.setChecked(false)
     }
 
     private fun addNewMember() = binding.apply {

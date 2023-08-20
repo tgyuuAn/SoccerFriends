@@ -6,12 +6,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tgyuu.domain.entity.Member
 import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.BaseFragment
+import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentTeamBinding
 import com.tgyuu.presentation.feature.team.recyclerview.TeamListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TeamFragment :
     BaseFragment<FragmentTeamBinding, TeamViewModel>(FragmentTeamBinding::inflate) {
     override val fragmentViewModel: TeamViewModel by viewModels()
@@ -26,6 +30,9 @@ class TeamFragment :
             repeatOnStarted {
                 eventFlow.collect { handleEvent(it) }
             }
+            repeatOnStarted {
+                memberListFlow.collect { handleMemberListState(it) }
+            }
         }
         setRecyclerView()
     }
@@ -34,6 +41,23 @@ class TeamFragment :
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
         }
+    }
+
+    private fun handleMemberListState(uiState: UiState<List<Member>>) {
+        when (uiState) {
+            UiState.Loading -> loadingMemberList()
+            is UiState.Success -> updateMemberList(uiState.data)
+            is UiState.Error -> Unit
+        }
+    }
+
+    private fun loadingMemberList() {
+
+    }
+
+    private fun updateMemberList(memberList: List<Member>) {
+        teamListAdapter.submitList(memberList.toList())
+        binding.totalTeamTV.text = "* 총 팀원 수 : " + memberList.size.toString()
     }
 
     private fun setRecyclerView() =

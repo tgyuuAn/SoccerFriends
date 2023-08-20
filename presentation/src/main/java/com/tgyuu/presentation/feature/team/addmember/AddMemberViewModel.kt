@@ -58,6 +58,7 @@ class AddMemberViewModel @Inject constructor(
                 newMemberPosition,
                 isBenchWarmer
             )
+            setAddMemberState(UiState.Success(Unit))
         }
     }
 

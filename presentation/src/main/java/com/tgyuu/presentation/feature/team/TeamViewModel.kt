@@ -19,13 +19,10 @@ import javax.inject.Inject
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
     @IO private val IOdispatcher: CoroutineDispatcher
-) :
-    ViewModel() {
+) : ViewModel() {
 
-    init {
-        viewModelScope.launch(IOdispatcher) {
-            getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
-        }
+    init{
+        getMemberList()
     }
 
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
@@ -49,4 +46,11 @@ class TeamViewModel @Inject constructor(
     private fun setMemberListState(uiState: UiState<List<Member>>) {
         _memberListFlow.value = uiState
     }
+
+    fun getMemberList() {
+        viewModelScope.launch(IOdispatcher) {
+            getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
+        }
+    }
+
 }

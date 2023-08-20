@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChangeDialogViewModel @Inject constructor(
-    @IO private val IODispatcher: CoroutineDispatcher
+    @IO private val IODispatcher: CoroutineDispatcher,
+    private val validateTeamNameUseCase: ValidateTeamNameUseCase
 ) : ViewModel() {
     private val _eventFlow = MutableSharedFlow<DialogEvent>()
     val eventFlow = _eventFlow.asSharedFlow()

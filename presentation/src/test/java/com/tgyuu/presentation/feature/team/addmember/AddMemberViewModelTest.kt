@@ -1,10 +1,10 @@
-package com.tgyuu.soccerfriends.feature.team.addmember
+package com.tgyuu.presentation.feature.team.addmember
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.usecase.AddMemberUseCase
 import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
 import com.tgyuu.presentation.common.base.UiState
-import com.tgyuu.soccerfriends.rule.MainCoroutineRule
+import com.tgyuu.presentation.rule.MainCoroutineRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -36,7 +36,7 @@
                 android:id="@+id/playerNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름 : 플레이어"
+                android:text="@{member.name}"
                 android:textSize="20sp" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="포지션 : GK"
+                android:text="@{member.position}"
                 android:textColor="@color/light_gray4"
                 android:textSize="12sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="등 번호 : 1"
+                android:text="@{@string/MemberBackNumberFormat(member.number)}"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
         </LinearLayout>

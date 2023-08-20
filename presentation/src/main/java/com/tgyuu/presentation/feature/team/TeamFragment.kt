@@ -33,6 +33,7 @@ class TeamFragment :
             repeatOnStarted {
                 memberListFlow.collect { handleMemberListState(it) }
             }
+            getMemberList()
         }
         setRecyclerView()
     }

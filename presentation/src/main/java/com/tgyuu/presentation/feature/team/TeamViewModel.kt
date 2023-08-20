@@ -21,18 +21,10 @@ class TeamViewModel @Inject constructor(
     @IO private val IOdispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    init{
-        getMemberList()
-    }
-
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private fun event(event: TeamEvent) {
-        viewModelScope.launch {
-            _eventFlow.emit(event)
-        }
-    }
+    private fun event(event: TeamEvent) = viewModelScope.launch { _eventFlow.emit(event) }
 
     fun addMember() = event(TeamEvent.AddMember)
 

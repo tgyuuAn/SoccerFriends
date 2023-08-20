@@ -30,4 +30,6 @@
     <string name="reserveCheckBox">후보</string>
     <string name="initialSetting">설정 초기화</string>
     <string name="complete">완료</string>
+    
+    <string name="MemberBackNumberFormat">등 번호 : %d</string>
 </resources>

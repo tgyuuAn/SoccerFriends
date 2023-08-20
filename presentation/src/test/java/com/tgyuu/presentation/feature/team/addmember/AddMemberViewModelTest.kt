@@ -62,8 +62,9 @@ class AddMemberViewModelTest {
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -79,8 +80,9 @@ class AddMemberViewModelTest {
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -96,8 +98,9 @@ class AddMemberViewModelTest {
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -115,7 +118,8 @@ class AddMemberViewModelTest {
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Success(Unit)
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 }

@@ -44,7 +44,7 @@
             android:paddingHorizontal="10sp"
             android:textColor="@color/white"
             android:textColorHint="@color/gray3"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

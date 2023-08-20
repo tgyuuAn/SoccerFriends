@@ -70,6 +70,7 @@
             android:src="@drawable/more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->viewModel.clickMore(member)}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

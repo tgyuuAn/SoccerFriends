@@ -21,7 +21,7 @@ class TeamFragment :
     BaseFragment<FragmentTeamBinding, TeamViewModel>(FragmentTeamBinding::inflate) {
     override val fragmentViewModel: TeamViewModel by viewModels()
     private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
-    private val adapterViewModel : AdapterViewModel by viewModels()
+    private val adapterViewModel: AdapterViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +36,12 @@ class TeamFragment :
                 memberListFlow.collect { handleMemberListState(it) }
             }
             getMemberList()
+        }
+
+        adapterViewModel.apply {
+            repeatOnStarted {
+                eventFlow.collect { handleAdapterEvent(it) }
+            }
         }
         setRecyclerView()
     }
@@ -61,6 +67,12 @@ class TeamFragment :
     private fun updateMemberList(memberList: List<Member>) {
         teamListAdapter.submitList(memberList.toList())
         binding.totalTeamTV.text = "* 총 팀원 수 : " + memberList.size.toString()
+    }
+
+    private fun handleAdapterEvent(event : AdapterViewModel.AdapterEvent){
+        when(event){
+            is AdapterViewModel.AdapterEvent.ClickMore -> log("클릭!")
+        }
     }
 
     private fun setRecyclerView() =

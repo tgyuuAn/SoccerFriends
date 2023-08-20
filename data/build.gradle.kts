@@ -57,17 +57,16 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     testImplementation("com.google.truth:truth:1.1.3")
     testImplementation("org.assertj:assertj-core:3.22.0")
     testImplementation("io.mockk:mockk:1.13.5")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     androidTestImplementation("com.google.truth:truth:1.1.3")
     androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
-    androidTestImplementation("io.mockk:mockk:1.13.5")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestUtil("androidx.test:orchestrator:1.4.2")
 }

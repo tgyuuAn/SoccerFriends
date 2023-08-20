@@ -17,6 +17,7 @@
             android:id="@+id/playerImageIV"
             android:layout_width="52dp"
             android:layout_height="52dp"
+            android:contentDescription="@{@string/memberDescription(member.name)}"
             android:scaleType="centerCrop"
             android:src="@drawable/circle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,9 +60,11 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/memberMoreIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            android:contentDescription="@string/moreDescription"
             android:src="@drawable/more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

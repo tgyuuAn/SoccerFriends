@@ -30,6 +30,8 @@
     <string name="reserveCheckBox">후보</string>
     <string name="initialSetting">설정 초기화</string>
     <string name="complete">완료</string>
-    
+
     <string name="MemberBackNumberFormat">등 번호 : %d</string>
+    <string name="memberDescription">%s 선수 프로필 사진</string>
+    <string name="moreDescription">더 보기</string>
 </resources>

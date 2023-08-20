@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -31,7 +32,8 @@ class MemberDaoTest {
     }
 
     @Test
-    fun `새로운_선수를_등록한다`() = runTest {
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun 새로운_선수를_등록한다() = runTest {
         //given
         val memberEntity = MemberEntity(
             name = "Tgyuu",

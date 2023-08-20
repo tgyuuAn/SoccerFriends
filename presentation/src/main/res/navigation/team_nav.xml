@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/teamFragment"
-        android:name="com.tgyuu.soccerfriends.feature.team.TeamFragment"
+        android:name="com.tgyuu.presentation.feature.team.TeamFragment"
         android:label="TeamFragment"
         tools:layout="@layout/fragment_team" />
 
     <fragment
         android:id="@+id/addMemberFragment"
-        android:name="com.tgyuu.soccerfriends.feature.team.addmember.AddMemberFragment"
+        android:name="com.tgyuu.presentation.feature.team.addmember.AddMemberFragment"
         android:label="AddMemberFragment"
         tools:layout="@layout/fragment_add_member" />
 

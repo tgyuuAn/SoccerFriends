@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SoccerFriends"
-include(":presentation")
+include(":App")
 include(":data")
 include(":domain")
+include(":presentation")

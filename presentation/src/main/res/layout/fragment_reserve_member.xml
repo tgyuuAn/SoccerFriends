@@ -6,13 +6,13 @@
 
         <variable
             name="viewModel"
-            type="com.tgyuu.soccerfriends.feature.formation.FormationViewModel" />
+            type="com.tgyuu.presentation.feature.formation.FormationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/memberListFCVSize"
-        tools:context=".feature.formation.memberlist.ReserveMemberFragment">
+        tools:context="com.tgyuu.presentation.feature.formation.memberlist.ReserveMemberFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reserveMemberListRV"

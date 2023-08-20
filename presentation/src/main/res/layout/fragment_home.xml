@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.tgyuu.soccerfriends.feature.home.HomeViewModel" />
+            type="com.tgyuu.presentation.feature.home.HomeViewModel" />
     </data>
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:background="@color/main"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context=".feature.home.HomeFragment">
+        tools:context="com.tgyuu.presentation.feature.home.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

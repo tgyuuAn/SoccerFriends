@@ -7,16 +7,16 @@
 
         <variable
             name="viewModel"
-            type="com.tgyuu.soccerfriends.feature.team.TeamViewModel" />
+            type="com.tgyuu.presentation.feature.team.TeamViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main"
-        tools:context=".feature.team.TeamFragment">
+        tools:context="com.tgyuu.presentation.feature.team.TeamFragment">
 
-        <com.tgyuu.soccerfriends.common.base.view.Bar
+        <com.tgyuu.presentation.common.base.view.Bar
             android:id="@+id/teamManagementBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

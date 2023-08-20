@@ -1,23 +1,21 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.tgyuu.soccerfriends"
+    namespace = "com.tgyuu.presentation"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.tgyuu.soccerfriends"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -44,7 +42,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data"))
 
     implementation("com.github.cachapa:ExpandableLayout:2.9.2")
 
@@ -54,6 +51,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation(project(mapOf("path" to ":domain")))
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation("com.github.bumptech.glide:glide:4.15.1")
@@ -83,7 +81,6 @@ dependencies {
     androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
-    androidTestImplementation("io.mockk:mockk:1.13.5")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestUtil("androidx.test:orchestrator:1.4.2")
 

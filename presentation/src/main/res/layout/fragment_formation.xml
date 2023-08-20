@@ -7,15 +7,15 @@
 
         <variable
             name="viewModel"
-            type="com.tgyuu.soccerfriends.feature.formation.FormationViewModel" />
+            type="com.tgyuu.presentation.feature.formation.FormationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".feature.formation.FormationFragment">
+        tools:context="com.tgyuu.presentation.feature.formation.FormationFragment">
 
-        <com.tgyuu.soccerfriends.common.base.view.Bar
+        <com.tgyuu.presentation.common.base.view.Bar
             android:id="@+id/formationBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

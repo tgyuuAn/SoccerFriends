@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tgyuu.domain.usecase.ChangeTeamNameUseCase
 import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChangeDialogViewModel @Inject constructor(
     @IO private val IODispatcher: CoroutineDispatcher,
-    private val validateTeamNameUseCase: ValidateTeamNameUseCase
+    private val validateTeamNameUseCase: ValidateTeamNameUseCase,
+    private val changeTeamNameUseCase : ChangeTeamNameUseCase
 ) : ViewModel() {
     private val _eventFlow = MutableSharedFlow<DialogEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -33,10 +35,10 @@ class ChangeDialogViewModel @Inject constructor(
         object ClickComplete : DialogEvent()
     }
 
-    private val _teamName = MutableStateFlow<UiState<String>>(UiState.Loading)
+    private val _teamName = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val teamName = _teamName.asStateFlow()
 
-    private fun setTeamNameState(uiState: UiState<String>) {
+    private fun setTeamNameState(uiState: UiState<Unit>) {
         _teamName.value = uiState
     }
 
@@ -49,8 +51,8 @@ class ChangeDialogViewModel @Inject constructor(
         }
 
         viewModelScope.launch(IODispatcher) {
-
+            changeTeamNameUseCase(teamName)
+            setTeamNameState(UiState.Success(Unit))
         }
     }
-
 }

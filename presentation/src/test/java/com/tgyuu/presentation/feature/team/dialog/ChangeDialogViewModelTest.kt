@@ -1,16 +1,18 @@
 package com.tgyuu.presentation.feature.team.dialog
 
 import com.google.common.truth.Truth.assertThat
+import com.tgyuu.domain.usecase.ChangeTeamNameUseCase
 import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.rule.MainCoroutineRule
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ChangeDialogViewModelTest{
+class ChangeDialogViewModelTest {
 
     @get:Rule
     @ExperimentalCoroutinesApi
@@ -19,14 +21,16 @@ class ChangeDialogViewModelTest{
     lateinit var viewModel: ChangeDialogViewModel
     val testDispatcher = UnconfinedTestDispatcher()
     val validateTeamNameUseCase = ValidateTeamNameUseCase()
+    val changeTeamNameUsecase = mockk<ChangeTeamNameUseCase>()
 
     @Before
-    fun setUp(){
-        viewModel = ChangeDialogViewModel(testDispatcher,validateTeamNameUseCase)
+    fun setUp() {
+        viewModel =
+            ChangeDialogViewModel(testDispatcher, validateTeamNameUseCase, changeTeamNameUsecase)
     }
 
     @Test
-    fun `새로운 팀 이름은 빈 칸일 수 없다`(){
+    fun `새로운 팀 이름은 빈 칸일 수 없다`() {
         //given
         val wrongTeamName = ""
 

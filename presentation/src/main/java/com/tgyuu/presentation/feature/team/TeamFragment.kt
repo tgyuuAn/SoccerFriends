@@ -12,6 +12,7 @@ import com.tgyuu.presentation.common.base.BaseFragment
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentTeamBinding
+import com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel
 import com.tgyuu.presentation.feature.team.recyclerview.TeamListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class TeamFragment :
     BaseFragment<FragmentTeamBinding, TeamViewModel>(FragmentTeamBinding::inflate) {
     override val fragmentViewModel: TeamViewModel by viewModels()
-    private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter() }
+    private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
+    private val adapterViewModel : AdapterViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

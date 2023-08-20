@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="member"
             type="com.tgyuu.domain.entity.Member" />
+        <variable
+            name="viewModel"
+            type="com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

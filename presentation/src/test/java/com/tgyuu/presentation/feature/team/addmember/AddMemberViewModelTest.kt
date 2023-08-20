@@ -22,7 +22,7 @@ class AddMemberViewModelTest {
     @ExperimentalCoroutinesApi
     val mainCoroutineRule = MainCoroutineRule()
 
-    lateinit var viewModel: com.tgyuu.presentation.feature.team.addmember.AddMemberViewModel
+    lateinit var viewModel: AddMemberViewModel
 
     val addMemberUseCase = mockk<AddMemberUseCase>()
     val validateNewMemberUsecase = ValidateNewMemberUseCase()
@@ -38,10 +38,10 @@ class AddMemberViewModelTest {
                 any(),
                 any()
             )
-        } returns Result.success(Unit)
+        } returns Unit
 
         viewModel =
-            com.tgyuu.presentation.feature.team.addmember.AddMemberViewModel(
+            AddMemberViewModel(
                 validateNewMemberUsecase,
                 addMemberUseCase,
                 testDispatcher

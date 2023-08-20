@@ -26,7 +26,7 @@ class ChangeDialogViewModelTest{
     }
 
     @Test
-    fun `새로운 팀 이름은 1글자 이상이어야 한다`(){
+    fun `새로운 팀 이름은 빈 칸일 수 없다`(){
         //given
         val wrongTeamName = ""
 

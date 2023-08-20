@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,7 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
         viewModel = fragmentViewModel.apply {
             viewLifecycleOwner.apply {
                 repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+                repeatOnStarted { teamName.collect { handleTeamNameUiState(it) } }
             }
         }
     }
@@ -55,6 +57,14 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
             ChangeDialogViewModel.DialogEvent.ClickComplete -> {
                 fragmentViewModel.changeTeamName(binding.newTeamNameEDT.text.toString())
             }
+        }
+    }
+
+    private fun handleTeamNameUiState(uiState: UiState<String>){
+        when(uiState){
+            UiState.Loading -> {}
+            is UiState.Success -> {}
+            is UiState.Error -> {}
         }
     }
 

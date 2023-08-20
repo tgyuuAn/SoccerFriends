@@ -49,7 +49,7 @@ class AddMemberViewModelTest {
     }
 
     @Test
-    fun `선수이름은 최소 1글자 이상이어야 한다`() = runTest {
+    fun `선수이름은 빈 칸일 수 없다`() = runTest {
         //given
         val wrongName = ""
 

@@ -1,11 +1,11 @@
 package com.tgyuu.presentation.feature.team.dialog
 
+import com.google.common.truth.Truth.assertThat
+import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
 import com.tgyuu.presentation.common.base.UiState
-import com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel
 import com.tgyuu.presentation.rule.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,12 +16,13 @@ class ChangeDialogViewModelTest{
     @ExperimentalCoroutinesApi
     val mainCoroutineRule = MainCoroutineRule()
 
-    lateinit var viewModel: AdapterViewModel
+    lateinit var viewModel: ChangeDialogViewModel
     val testDispatcher = UnconfinedTestDispatcher()
+    val validateTeamNameUseCase = ValidateTeamNameUseCase()
 
     @Before
     fun setUp(){
-        viewModel = AdapterViewModel()
+        viewModel = ChangeDialogViewModel(testDispatcher,validateTeamNameUseCase)
     }
 
     @Test

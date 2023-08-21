@@ -22,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
+    private val changeMemberInformationUseCase: ChangeMemberInformationUseCase,
     private val changeTeamImageUseCase: ChangeTeamImageUseCase,
     private val getTeamUseCase: GetTeamUseCase,
     @IO private val iodispatcher: CoroutineDispatcher

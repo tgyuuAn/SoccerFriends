@@ -63,7 +63,7 @@ class ChangeDialogViewModel @Inject constructor(
     }
 
     private val _member = MutableStateFlow<UiState<Unit>>(UiState.Loading)
-    val member = _team.asStateFlow()
+    val member = _member.asStateFlow()
 
     private fun setMemberState(uiState: UiState<Unit>) {
         _member.value = uiState

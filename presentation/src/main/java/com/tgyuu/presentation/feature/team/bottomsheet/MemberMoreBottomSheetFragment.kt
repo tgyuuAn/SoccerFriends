@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -86,8 +88,12 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
 
     private fun handleEvent(event: MemberMoreBottomSheetViewModel.MemberMoreEvent) {
         when (event) {
-            MemberMoreBottomSheetViewModel.MemberMoreEvent.Complete -> dismiss()
+            MemberMoreBottomSheetViewModel.MemberMoreEvent.Complete -> completeBottomSheet()
         }
+    }
+    private fun completeBottomSheet() {
+        setFragmentResult(TAG, bundleOf(TAG to fragmentViewModel.bottomsheetFlag.value.value))
+        dismiss()
     }
 
     private fun handleFlag(flag: BottomSheetFlag) {

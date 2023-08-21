@@ -149,7 +149,10 @@ class TeamFragment :
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
-            TeamViewModel.TeamEvent.ChangeTeamName -> showChangeDialog(ChangeDialogFragment.DialogType.ChangeTeamName)
+            TeamViewModel.TeamEvent.ChangeTeamName -> {
+                if(fragmentViewModel.updateTeam !=null)
+                showChangeDialog(ChangeDialogFragment.DialogType.ChangeTeamName(fragmentViewModel.updateTeam!!))
+            }
             TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery(RequestCode.TeamImage)
         }
     }
@@ -187,16 +190,21 @@ class TeamFragment :
             imageUri = it.data!!.data.toString()
 
             when (requestCode!!) {
-                RequestCode.TeamImage -> fragmentViewModel.updateTeamImage(imageUri)
-                RequestCode.MemberImage -> fragmentViewModel.updateMemberImage(imageUri)
+                RequestCode.TeamImage -> {
+                    fragmentViewModel.updateTeamImage(imageUri)
+                    requestCode = null
+                }
+                RequestCode.MemberImage -> {
+                    fragmentViewModel.updateMemberImage(imageUri)
+                    requestCode = null
+                }
             }
         }
-        requestCode = null
     }
 
     private fun handleMemberListState(uiState: UiState<List<Member>>) {
         when (uiState) {
-            UiState.Init -> {}
+            UiState.Init -> hideLoadingScreen()
 
             UiState.Loading -> showLoadingScreen()
 

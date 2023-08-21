@@ -6,9 +6,9 @@ import com.tgyuu.domain.entity.Team
 
 @Entity(tableName = "team")
 data class TeamEntity(
-    @PrimaryKey(autoGenerate = false) val id : Int = 1,
+    @PrimaryKey(autoGenerate = false) val id: Int = 1,
     val name: String,
     val image: String = ""
 )
 
-fun TeamEntity.toTeam() = Team(name = name, image = image, member = listOf())
+fun TeamEntity.toTeam() = Team(name = name, image = image, id = id)

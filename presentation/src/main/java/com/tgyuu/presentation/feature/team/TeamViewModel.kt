@@ -1,5 +1,6 @@
 package com.tgyuu.presentation.feature.team
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
@@ -103,19 +104,30 @@ class TeamViewModel @Inject constructor(
         _team.value = uiState
     }
 
+    var updateTeam : Team? = null
+
     fun updateTeamImage(teamImage: String) {
+        Log.d("test","updateTeamImage")
         setTeamState(UiState.Loading)
+
+        if(updateTeam == null){
+            setTeamState(UiState.Error("팀이 없습니다."))
+            return
+        }
+
         viewModelScope.launch(ioDispatcher) {
-            updateTeamInformationUseCase.updateTeamImage(teamImage)
+            updateTeamInformationUseCase.updateTeamImage(updateTeam!!,teamImage)
         }
         getTeam()
     }
 
     fun getTeam() {
+        Log.d("test","getTeam")
         setTeamState(UiState.Loading)
         viewModelScope.launch(ioDispatcher) {
             getTeamUseCase().collect {
                 setTeamState(UiState.Success(it))
+                updateTeam = it
             }
         }
     }

@@ -12,6 +12,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
@@ -32,7 +33,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
         data class ChangeMemberName(val member: Member) : DialogType()
         data class ChangePosition(val member: Member) : DialogType()
         data class ChangeNumber(val member: Member) : DialogType()
-        object ChangeTeamName : DialogType()
+        data class ChangeTeamName(val team: Team) : DialogType()
     }
 
     private val fragmentViewModel: ChangeDialogViewModel by viewModels()
@@ -73,7 +74,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
                     R.string.changePositionHint
                 )
 
-                DialogType.ChangeTeamName -> requireContext().getString(R.string.changeTeamName) to requireContext().getString(
+                is DialogType.ChangeTeamName -> requireContext().getString(R.string.changeTeamName) to requireContext().getString(
                     R.string.changeTeamNameHint
                 )
             }
@@ -116,7 +117,10 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
                 binding.changeValueEDT.text.toString()
             )
 
-            DialogType.ChangeTeamName -> fragmentViewModel.changeTeamName(binding.changeValueEDT.text.toString())
+            is DialogType.ChangeTeamName -> fragmentViewModel.changeTeamName(
+                dialogType.team,
+                binding.changeValueEDT.text.toString()
+            )
         }
     }
 

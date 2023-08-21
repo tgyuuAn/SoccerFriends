@@ -1,5 +1,6 @@
 package com.tgyuu.data.repositoryimpl
 
+import android.util.Log
 import com.tgyuu.data.database.team.TeamEntity
 import com.tgyuu.data.database.team.toTeam
 import com.tgyuu.data.datasource.LocalTeamDataSource
@@ -11,18 +12,15 @@ import javax.inject.Inject
 
 class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: LocalTeamDataSource) :
     TeamRepository {
-    override suspend fun changeTeamName(teamName: String) {
-        getTeam().collect {
-            val newTeamEntity = TeamEntity(name = teamName, image = it.image)
-            localTeamDataSource.updateTeam(newTeamEntity)
-        }
+    override suspend fun changeTeamName(team: Team, teamName: String) {
+        val newTeamEntity = TeamEntity(name = teamName, image = team.image, id = team.id)
+        localTeamDataSource.updateTeam(newTeamEntity)
     }
 
-    override suspend fun changeTeamImage(imageUri: String) {
-        getTeam().collect {
-            val newTeamEntity = TeamEntity(name = it.name, image = imageUri)
-            localTeamDataSource.updateTeam(newTeamEntity)
-        }
+    override suspend fun changeTeamImage(team: Team, imageUri: String) {
+        Log.d("test", "getTeamImage")
+        val newTeamEntity = TeamEntity(name = team.name, image = imageUri, id = team.id)
+        localTeamDataSource.updateTeam(newTeamEntity)
     }
 
     override suspend fun getTeam(): Flow<Team> = flow {

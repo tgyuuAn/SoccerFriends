@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
@@ -44,9 +45,10 @@ class ChangeDialogViewModelTest {
     fun `새로운 팀 이름은 빈 칸일 수 없다`() {
         //given
         val wrongTeamName = ""
+        val team = Team(name = "팀 명", image = "", id = 1)
 
         //when
-        viewModel.changeTeamName(wrongTeamName)
+        viewModel.changeTeamName(team,wrongTeamName)
 
         //then
         val actual = viewModel.team.value

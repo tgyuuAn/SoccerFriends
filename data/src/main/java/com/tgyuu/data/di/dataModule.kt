@@ -56,4 +56,4 @@ object dataModule {
     ): TeamRepository = TeamRepositoryImpl(localTeamDataSource)
 }
 
-const val DATABASE_NAME = "member_db"
+const val DATABASE_NAME = "soccer_friends_db"

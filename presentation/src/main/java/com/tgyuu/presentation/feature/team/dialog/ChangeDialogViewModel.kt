@@ -3,6 +3,7 @@ package com.tgyuu.presentation.feature.team.dialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
@@ -47,7 +48,7 @@ class ChangeDialogViewModel @Inject constructor(
         _team.value = uiState
     }
 
-    fun changeTeamName(teamName: String) {
+    fun changeTeamName(team: Team, teamName: String) {
         setTeamNameState(UiState.Loading)
 
         if (!validateTeamFormatUseCase(teamName)) {
@@ -56,7 +57,7 @@ class ChangeDialogViewModel @Inject constructor(
         }
 
         viewModelScope.launch(ioDispatcher) {
-            updateTeamInformationUseCase.updateTeamName(teamName)
+            updateTeamInformationUseCase.updateTeamName(team, teamName)
         }
         setTeamNameState(UiState.Success(Unit))
     }

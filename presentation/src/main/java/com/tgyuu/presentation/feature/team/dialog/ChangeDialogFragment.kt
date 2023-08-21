@@ -13,6 +13,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tgyuu.domain.entity.Member
+import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
@@ -57,12 +58,13 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
     }
 
     private fun setDialogByDialogType() {
-        when (dialogType) {
-            is DialogType.ChangeNumber -> {}
-            is DialogType.ChangeMemberName -> {}
-            is DialogType.ChangePosition -> {}
-            DialogType.ChangeTeamName -> {}
-        }
+        binding.dialogTitleTV.text =
+            when (dialogType) {
+                is DialogType.ChangeNumber -> requireContext().getString(R.string.changeBackNumber)
+                is DialogType.ChangeMemberName -> requireContext().getString(R.string.changeNickName)
+                is DialogType.ChangePosition -> requireContext().getString(R.string.changePosition)
+                DialogType.ChangeTeamName -> requireContext().getString(R.string.changeTeamName)
+            }
     }
 
     private fun setBinding() = binding.apply {

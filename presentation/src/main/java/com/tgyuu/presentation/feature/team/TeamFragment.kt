@@ -117,7 +117,7 @@ class TeamFragment :
         when (uiState) {
             UiState.Loading -> loadingMemberList()
             is UiState.Success -> updateMemberList(uiState.data)
-            is UiState.Error -> Unit
+            is UiState.Error -> toast("멤버 정보 갱신에 실패하였습니다.")
         }
     }
 
@@ -133,9 +133,23 @@ class TeamFragment :
     private fun handleTeamState(teamState: UiState<Team>) {
         when (teamState) {
             UiState.Loading -> {}
-            is UiState.Success -> {}
-            is UiState.Error -> {}
+            is UiState.Success -> updateTeam(teamState.data)
+            is UiState.Error -> toast("팀 정보 갱신에 실패하였습니다.")
         }
+    }
+
+    private fun updateTeam(team: Team) {
+        binding.teamNameTV.text = team.name
+
+        if (team.image.isEmpty()) {
+            binding.teamLogoIV.setImageResource(R.drawable.circle)
+            return
+        }
+
+        Glide.with(requireContext())
+            .load(team.image)
+            .circleCrop()
+            .into(binding.teamLogoIV)
     }
 
     private fun handleAdapterEvent(event: AdapterViewModel.AdapterEvent) {

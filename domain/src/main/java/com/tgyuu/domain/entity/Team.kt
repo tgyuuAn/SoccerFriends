@@ -2,6 +2,6 @@ package com.tgyuu.domain.entity
 
 data class Team (
     val name : String,
-    val image : String? = null,
+    val image : String = "",
     val member : List<Member>
 )

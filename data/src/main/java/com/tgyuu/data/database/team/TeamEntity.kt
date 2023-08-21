@@ -8,7 +8,7 @@ import com.tgyuu.domain.entity.Team
 data class TeamEntity(
     @PrimaryKey(autoGenerate = false) val id : Int = 1,
     val name: String,
-    val image: String? = ""
+    val image: String = ""
 )
 
 fun TeamEntity.toTeam() = Team(name = name, image = image, member = listOf())

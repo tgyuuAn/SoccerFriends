@@ -41,6 +41,8 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation("com.airbnb.android:lottie:6.0.0")
+
     implementation("com.github.cachapa:ExpandableLayout:2.9.2")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")

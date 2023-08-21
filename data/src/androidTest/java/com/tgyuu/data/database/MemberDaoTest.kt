@@ -42,15 +42,21 @@ class MemberDaoTest {
             image = "",
             position = "GK",
             number = 1,
-            isBenchWarmer = false,
-            id = 1
+            isBenchWarmer = false
         )
 
         //when
         dao.insertMember(memberEntity)
 
         //then
-        val expected = memberEntity
+        val expected = MemberEntity(
+            id = 1,
+            name = "Tgyuu",
+            image = "",
+            position = "GK",
+            number = 1,
+            isBenchWarmer = false
+        )
         val actual: List<MemberEntity> = dao.getAllMembers().first()
         assertThat(actual).contains(expected)
     }

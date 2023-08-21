@@ -12,7 +12,6 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
     MemberRepository {
     override suspend fun addNewMember(member: Member) {
         val memberEntity = MemberEntity(
-            id = member.id,
             name = member.name,
             image = member.image,
             position = member.position,

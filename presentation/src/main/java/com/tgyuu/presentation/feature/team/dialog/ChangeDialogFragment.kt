@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tgyuu.domain.entity.Member
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
@@ -26,9 +27,9 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
     }
 
     sealed class DialogType{
-        object ChangeMemberName : DialogType()
-        object ChangePosition : DialogType()
-        object ChangeNumber : DialogType()
+        data class ChangeMemberName(val member : Member) : DialogType()
+        data class ChangePosition(val member : Member) : DialogType()
+        data class ChangeNumber(val member : Member) : DialogType()
         object ChangeTeamName : DialogType()
     }
 

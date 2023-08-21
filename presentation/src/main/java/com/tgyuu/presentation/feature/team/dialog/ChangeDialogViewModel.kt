@@ -23,7 +23,6 @@ import javax.inject.Inject
 class ChangeDialogViewModel @Inject constructor(
     private val validateTeamFormatUseCase: ValidateTeamFormatUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
-    private val getMemberUseCase: GetMemberUseCase,
     private val updateMemberInformationUseCase: UpdateMemberInformationUseCase,
     private val validateMemberFormatUseCase: ValidateMemberFormatUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher

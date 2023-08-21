@@ -25,7 +25,6 @@ class ChangeDialogViewModelTest {
     val testDispatcher = UnconfinedTestDispatcher()
     val validateTeamFormatUseCase = ValidateTeamFormatUseCase()
     val updateTeamInformationUsecase = mockk<UpdateTeamInformationUseCase>()
-    private val getMemberUseCase = mockk<GetMemberUseCase>()
     private val updateMemberInformationUseCase = mockk<UpdateMemberInformationUseCase>()
     private val validateMemberFormatUseCase = ValidateMemberFormatUseCase()
 
@@ -35,7 +34,6 @@ class ChangeDialogViewModelTest {
             ChangeDialogViewModel(
                 validateTeamFormatUseCase,
                 updateTeamInformationUsecase,
-                getMemberUseCase,
                 updateMemberInformationUseCase,
                 validateMemberFormatUseCase,
                 testDispatcher

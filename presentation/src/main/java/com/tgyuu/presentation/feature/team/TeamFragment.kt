@@ -104,7 +104,13 @@ class TeamFragment :
     }
 
     private fun changeNickName() {
-        showChangeDialog(ChangeDialogFragment.DialogType.ChangeMemberName)
+        if (fragmentViewModel.updateMember != null) {
+            showChangeDialog(
+                ChangeDialogFragment.DialogType.ChangeMemberName(
+                    fragmentViewModel.updateMember!!
+                )
+            )
+        }
     }
 
     private fun changeImage() {
@@ -112,11 +118,15 @@ class TeamFragment :
     }
 
     private fun changePosition() {
-        showChangeDialog(ChangeDialogFragment.DialogType.ChangePosition)
+        if (fragmentViewModel.updateMember != null) {
+            showChangeDialog(ChangeDialogFragment.DialogType.ChangePosition(fragmentViewModel.updateMember!!))
+        }
     }
 
     private fun changeBackNumber() {
-        showChangeDialog(ChangeDialogFragment.DialogType.ChangeNumber)
+        if (fragmentViewModel.updateMember != null) {
+            showChangeDialog(ChangeDialogFragment.DialogType.ChangeNumber(fragmentViewModel.updateMember!!))
+        }
     }
 
     private fun removeImage() {

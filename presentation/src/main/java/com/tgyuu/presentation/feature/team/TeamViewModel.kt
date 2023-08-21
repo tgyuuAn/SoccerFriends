@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.entity.Team
+import com.tgyuu.domain.usecase.DeleteMemberUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.GetTeamUseCase
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
+    private val deleteMemberUseCase: DeleteMemberUseCase,
     private val updateMemberInformationUseCase: UpdateMemberInformationUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     private val getTeamUseCase: GetTeamUseCase,
@@ -55,16 +57,43 @@ class TeamViewModel @Inject constructor(
     fun getMemberList() {
         setMemberListState(UiState.Loading)
         viewModelScope.launch(ioDispatcher) {
-            getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
+            getMemberUseCase.getAllMembers().collect { setMemberListState(UiState.Success(it)) }
         }
     }
 
-    fun updateMemberImage(member: Member, image: String) {
-        setMemberListState(UiState.Loading)
-        viewModelScope.launch(ioDispatcher) {
-            updateMemberInformationUseCase.updateMemberImage(member, image)
-            getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
+    var updateMember: Member? = null
+
+    fun updateMemberImage(image: String) {
+        if (updateMember == null) {
+            return
         }
+
+        viewModelScope.launch(ioDispatcher) {
+            updateMemberInformationUseCase.updateMemberImage(updateMember!!, image)
+        }
+        getMemberList()
+    }
+
+    fun removeMemberImage() {
+        if (updateMember == null) {
+            return
+        }
+
+        viewModelScope.launch(ioDispatcher) {
+            updateMemberInformationUseCase.removeMemberImage(updateMember!!)
+        }
+        getMemberList()
+    }
+
+    fun removeMember() {
+        if (updateMember == null) {
+            return
+        }
+
+        viewModelScope.launch(ioDispatcher) {
+            deleteMemberUseCase(updateMember!!)
+        }
+        getMemberList()
     }
 
     private val _team = MutableStateFlow<UiState<Team>>(UiState.Loading)

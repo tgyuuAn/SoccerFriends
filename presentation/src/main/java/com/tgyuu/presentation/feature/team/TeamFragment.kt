@@ -33,6 +33,12 @@ class TeamFragment :
     private var changeDialogFragment: ChangeDialogFragment? = null
     private var memberMoreBottomSheetFragment: MemberMoreBottomSheetFragment? = null
     private var imageUri: String = ""
+    private var requestCode: RequestCode? = null
+
+    sealed class RequestCode {
+        object TeamImage : RequestCode()
+        object MemberImage : RequestCode()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,35 +103,35 @@ class TeamFragment :
         }
     }
 
-    private fun changeNickName(){
+    private fun changeNickName() {
 
     }
 
-    private fun changeImage(){
+    private fun changeImage() {
+        navigateToGallery(RequestCode.MemberImage)
+    }
+
+    private fun changePosition() {
 
     }
 
-    private fun changePosition(){
+    private fun changeBackNumber() {
 
     }
 
-    private fun changeBackNumber(){
-
+    private fun removeImage() {
+        fragmentViewModel.removeMemberImage()
     }
 
-    private fun removeImage(){
-
-    }
-
-    private fun removeMember(){
-
+    private fun removeMember() {
+        fragmentViewModel.removeMember()
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
             TeamViewModel.TeamEvent.ChangeTeamName -> showChangeTeamNameDialog()
-            TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery()
+            TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery(RequestCode.TeamImage)
         }
     }
 
@@ -141,10 +147,13 @@ class TeamFragment :
         }
     }
 
-    private fun navigateToGallery() {
-        val intenet = Intent(Intent.ACTION_GET_CONTENT)
-        intenet.type = "image/*"
-        activityResult.launch(intenet)
+    private fun navigateToGallery(code: RequestCode) {
+        requestCode = code
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "image/*"
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        }
+        activityResult.launch(intent)
     }
 
     private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -153,12 +162,10 @@ class TeamFragment :
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
             imageUri = it.data!!.data.toString()
 
-            fragmentViewModel.updateTeamImage(imageUri)
-
-            Glide.with(requireContext())
-                .load(imageUri)
-                .circleCrop()
-                .into(binding.teamLogoIV)
+            when (requestCode!!) {
+                RequestCode.TeamImage -> fragmentViewModel.updateTeamImage(imageUri)
+                RequestCode.MemberImage -> fragmentViewModel.updateMemberImage(imageUri)
+            }
         }
     }
 
@@ -203,7 +210,10 @@ class TeamFragment :
 
     private fun handleAdapterEvent(event: AdapterViewModel.AdapterEvent) {
         when (event) {
-            is AdapterViewModel.AdapterEvent.ClickMore -> showMemberMoreBottomSheet()
+            is AdapterViewModel.AdapterEvent.ClickMore -> {
+                fragmentViewModel.updateMember = event.member
+                showMemberMoreBottomSheet()
+            }
         }
     }
 

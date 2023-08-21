@@ -31,6 +31,19 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
         )
     }
 
+    suspend fun removeMemberImage(member: Member) {
+        memberReposiory.updateMember(
+            Member(
+                id = member.id,
+                name = member.name,
+                image = "",
+                position = member.position,
+                number = member.number,
+                isBenchWarmer = member.isBenchWarmer
+            )
+        )
+    }
+
     suspend fun updateMemberPosition(member: Member, position: String) {
         memberReposiory.updateMember(
             Member(

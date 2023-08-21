@@ -5,8 +5,14 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetMemberUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
-    operator suspend fun invoke() = flow {
+    suspend fun getAllMembers() = flow {
         memberReposiory.getAllMembers().collect {
+            emit(it)
+        }
+    }
+
+    suspend fun getMemberById(id: Int) = flow {
+        memberReposiory.getMemberById(id).collect {
             emit(it)
         }
     }

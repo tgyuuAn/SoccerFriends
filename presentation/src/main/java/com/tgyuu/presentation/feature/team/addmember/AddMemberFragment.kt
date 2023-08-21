@@ -65,7 +65,10 @@ class AddMemberFragment :
     private fun handleAddMemberState(addMemberState: UiState<Unit>) {
         when (addMemberState) {
             UiState.Loading -> showLoadingScreen()
-            is UiState.Success -> findNavController().popBackStack()
+            is UiState.Success -> {
+                hideLoadingScreen()
+                findNavController().popBackStack()
+            }
             is UiState.Error -> {}
         }
     }
@@ -73,6 +76,11 @@ class AddMemberFragment :
     private fun showLoadingScreen() = binding.apply {
         addMemberLoadingView.visibility = View.VISIBLE
         addMemberLTV.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingScreen() = binding.apply {
+        addMemberLoadingView.visibility = View.GONE
+        addMemberLTV.visibility = View.GONE
     }
 
     private fun resetPage() = binding.apply {

@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor() : ViewModel() {
 
     init {
-        splash(2000L)
+        splashMillis(2000L)
     }
 
     private val _eventFlow = MutableSharedFlow<SplashEvent>()
@@ -25,7 +25,7 @@ class SplashViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun splash(delayMillis: Long) = viewModelScope.launch {
+    private fun splashMillis(delayMillis: Long) = viewModelScope.launch {
         delay(delayMillis)
         event(SplashEvent.Splash)
     }

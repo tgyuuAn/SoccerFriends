@@ -77,13 +77,13 @@ class TeamFragment :
             viewLifecycleOwner,
         ) { _, bundle ->
             val teamFlag = bundle.getString(ChangeDialogFragment.Team)
-            if (teamFlag != null){
+            if (teamFlag != null) {
                 fragmentViewModel.getTeam()
                 return@setFragmentResultListener
             }
 
             val memberFlag = bundle.getString(ChangeDialogFragment.Member)
-            if (memberFlag != null){
+            if (memberFlag != null) {
                 fragmentViewModel.getMemberList()
                 return@setFragmentResultListener
             }
@@ -193,7 +193,11 @@ class TeamFragment :
     private fun handleMemberListState(uiState: UiState<List<Member>>) {
         when (uiState) {
             UiState.Loading -> showLoadingScreen()
-            is UiState.Success -> updateMemberList(uiState.data)
+            is UiState.Success -> {
+                hideLoadingScreen()
+                updateMemberList(uiState.data)
+            }
+
             is UiState.Error -> toast("멤버 정보 갱신에 실패하였습니다.")
         }
     }
@@ -201,6 +205,11 @@ class TeamFragment :
     private fun showLoadingScreen() = binding.apply {
         teamLoadingView.visibility = View.VISIBLE
         teamLTV.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingScreen() = binding.apply {
+        teamLoadingView.visibility = View.GONE
+        teamLTV.visibility = View.GONE
     }
 
     private fun updateMemberList(memberList: List<Member>) {
@@ -211,7 +220,11 @@ class TeamFragment :
     private fun handleTeamState(teamState: UiState<Team>) {
         when (teamState) {
             UiState.Loading -> showLoadingScreen()
-            is UiState.Success -> updateTeam(teamState.data)
+            is UiState.Success -> {
+                hideLoadingScreen()
+                updateTeam(teamState.data)
+            }
+
             is UiState.Error -> toast("팀 정보 갱신에 실패하였습니다.")
         }
     }

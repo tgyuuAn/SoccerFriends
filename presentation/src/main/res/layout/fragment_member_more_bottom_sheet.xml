@@ -30,7 +30,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/changePasswordTV"
+            android:id="@+id/changeImageTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/withdrawalTV"
+            android:id="@+id/removeImageTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -52,7 +52,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/logoutTV"
+            android:id="@+id/kickOutPlayerTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

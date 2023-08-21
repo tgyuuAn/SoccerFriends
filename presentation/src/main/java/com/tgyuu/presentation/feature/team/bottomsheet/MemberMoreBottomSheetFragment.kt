@@ -24,7 +24,7 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
 
     private var _binding: FragmentMemberMoreBottomSheetBinding? = null
     val binding get() = _binding!!
-    private val fragmentViewModel : MemberMoreBottomSheetViewModel by viewModels()
+    private val fragmentViewModel: MemberMoreBottomSheetViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +34,7 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         bottomSheetDialog.setOnShowListener { onShowListner(bottomSheetDialog) }
@@ -63,14 +64,19 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
         binding.apply {
             viewModel = fragmentViewModel.apply {
                 viewLifecycleOwner.apply {
-                    repeatOnStarted {  }
+                    repeatOnStarted { }
                 }
             }
         }
     }
 
     private fun highlight(view: TextView) {
-        val flagTextViewList = listOf()
+        val flagTextViewList = listOf(
+            binding.changeNickNameTV,
+            binding.removeImageTV,
+            binding.kickOutPlayerTV,
+            binding.changeImageTV
+        )
 
         flagTextViewList.forEach { flagTextView ->
             if (view == flagTextView) {

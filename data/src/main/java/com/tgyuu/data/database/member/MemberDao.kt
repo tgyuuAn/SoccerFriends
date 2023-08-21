@@ -22,4 +22,7 @@ interface MemberDao {
 
     @Query("SELECT * FROM member")
     fun getAllMembers() : Flow<List<MemberEntity>>
+
+    @Query("SELECT * FROM member WHERE id = :id")
+    fun getMemberById(id: Int) : Flow<MemberEntity>
 }

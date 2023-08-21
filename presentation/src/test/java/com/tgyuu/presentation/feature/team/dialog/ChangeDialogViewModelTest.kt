@@ -1,7 +1,10 @@
 package com.tgyuu.presentation.feature.team.dialog
 
 import com.google.common.truth.Truth.assertThat
+import com.tgyuu.domain.usecase.GetMemberUseCase
+import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
+import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
 import com.tgyuu.domain.usecase.ValidateTeamFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.rule.MainCoroutineRule
@@ -22,11 +25,21 @@ class ChangeDialogViewModelTest {
     val testDispatcher = UnconfinedTestDispatcher()
     val validateTeamFormatUseCase = ValidateTeamFormatUseCase()
     val updateTeamInformationUsecase = mockk<UpdateTeamInformationUseCase>()
+    private val getMemberUseCase = mockk<GetMemberUseCase>()
+    private val updateMemberInformationUseCase = mockk<UpdateMemberInformationUseCase>()
+    private val validateMemberFormatUseCase = ValidateMemberFormatUseCase()
 
     @Before
     fun setUp() {
         viewModel =
-            ChangeDialogViewModel(validateTeamFormatUseCase, updateTeamInformationUsecase, testDispatcher)
+            ChangeDialogViewModel(
+                validateTeamFormatUseCase,
+                updateTeamInformationUsecase,
+                getMemberUseCase,
+                updateMemberInformationUseCase,
+                validateMemberFormatUseCase,
+                testDispatcher
+            )
     }
 
     @Test

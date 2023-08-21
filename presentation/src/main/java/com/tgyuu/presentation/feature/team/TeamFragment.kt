@@ -169,11 +169,14 @@ class TeamFragment :
     }
 
     private fun navigateToGallery(code: RequestCode) {
-        requestCode = code
+        if (requestCode != null) {
+            return
+        }
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
             flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
+        requestCode = code
         activityResult.launch(intent)
     }
 
@@ -188,6 +191,7 @@ class TeamFragment :
                 RequestCode.MemberImage -> fragmentViewModel.updateMemberImage(imageUri)
             }
         }
+        requestCode = null
     }
 
     private fun handleMemberListState(uiState: UiState<List<Member>>) {

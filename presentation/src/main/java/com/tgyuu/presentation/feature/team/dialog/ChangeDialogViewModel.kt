@@ -87,7 +87,7 @@ class ChangeDialogViewModel @Inject constructor(
         setMemberState(UiState.Loading)
 
         if (!validateMemberFormatUseCase.validateMemberPosition(position)) {
-            setTeamNameState(UiState.Error("최소 한 글자 이상의 포지션으로 설정해주세요"))
+            setMemberState(UiState.Error("최소 한 글자 이상의 포지션으로 설정해주세요"))
             return
         }
 
@@ -100,7 +100,7 @@ class ChangeDialogViewModel @Inject constructor(
     fun updateMemberName(member: Member, name: String) {
         setMemberState(UiState.Loading)
         if (!validateMemberFormatUseCase.validateMemberName(name)) {
-            setTeamNameState(UiState.Error("최소 한 글자 이상의 이름으로 설정해주세요"))
+            setMemberState(UiState.Error("최소 한 글자 이상의 이름으로 설정해주세요"))
             return
         }
 

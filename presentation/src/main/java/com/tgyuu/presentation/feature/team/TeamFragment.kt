@@ -39,6 +39,7 @@ class TeamFragment :
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
         setDialogFragmentResultListner()
+        setBottomSheetFragmentResultListner()
         setRecyclerView()
 
         binding.viewModel = fragmentViewModel.apply {
@@ -71,6 +72,28 @@ class TeamFragment :
         ) { _, bundle ->
             val flag = bundle.getString(ChangeDialogFragment.TAG)
             fragmentViewModel.getTeam()
+        }
+    }
+
+    private fun setBottomSheetFragmentResultListner() {
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            MemberMoreBottomSheetFragment.TAG,
+            viewLifecycleOwner,
+        ) { _, bundle ->
+            val flag = bundle.getInt(MemberMoreBottomSheetFragment.TAG)
+            handleBottomSheetFlag(flag)
+        }
+    }
+
+    private fun handleBottomSheetFlag(flag: Int) {
+        when (flag) {
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_NICKNAME.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_IMAGE.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_IMAGE.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_POSITION.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_BACKNUMBER.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_MEMBER.value -> {}
+            else -> Unit
         }
     }
 

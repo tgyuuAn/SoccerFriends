@@ -1,4 +1,4 @@
-package com.tgyuu.soccerfriends.rule
+package com.tgyuu.presentation.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

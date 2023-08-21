@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="70dp"
+            android:onClick="@{()->viewModel.changeTeamName()}"
             android:text="@string/teamName"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -50,6 +51,7 @@
             android:layout_height="64dp"
             android:layout_marginEnd="35dp"
             android:contentDescription="@string/teamLogo"
+            android:onClick="@{()->viewModel.changeTeamImage()}"
             android:scaleType="fitXY"
             android:src="@drawable/rectangle_17_white"
             app:layout_constraintBottom_toBottomOf="@id/teamNameTV"
@@ -71,7 +73,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="15dp"
-                android:text="* 총 팀원 수 : 7"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,11 +83,11 @@
                 android:layout_height="19dp"
                 android:layout_marginEnd="16.5dp"
                 android:contentDescription="@string/addTeamMember"
+                android:onClick="@{()->viewModel.addMember()}"
                 android:src="@drawable/plus"
                 app:layout_constraintBottom_toBottomOf="@id/totalTeamTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/totalTeamTV"
-                android:onClick="@{()->viewModel.addMember()}"/>
+                app:layout_constraintTop_toTopOf="@id/totalTeamTV" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/teamListRV"
@@ -97,6 +98,29 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/totalTeamTV" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/teamLoadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main"
+            android:elevation="1dp"
+            android:alpha="0.6"
+            android:visibility="gone"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/teamLTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

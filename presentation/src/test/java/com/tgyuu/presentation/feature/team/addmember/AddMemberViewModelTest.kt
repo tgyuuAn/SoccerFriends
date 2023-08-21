@@ -1,10 +1,10 @@
-package com.tgyuu.soccerfriends.feature.team.addmember
+package com.tgyuu.presentation.feature.team.addmember
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.usecase.AddMemberUseCase
-import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
+import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
-import com.tgyuu.soccerfriends.rule.MainCoroutineRule
+import com.tgyuu.presentation.rule.MainCoroutineRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,10 +22,10 @@ class AddMemberViewModelTest {
     @ExperimentalCoroutinesApi
     val mainCoroutineRule = MainCoroutineRule()
 
-    lateinit var viewModel: com.tgyuu.presentation.feature.team.addmember.AddMemberViewModel
+    lateinit var viewModel: AddMemberViewModel
 
     val addMemberUseCase = mockk<AddMemberUseCase>()
-    val validateNewMemberUsecase = ValidateNewMemberUseCase()
+    val validateMemberFormatUsecase = ValidateMemberFormatUseCase()
     val testDispatcher = UnconfinedTestDispatcher()
 
     @Before
@@ -36,20 +36,21 @@ class AddMemberViewModelTest {
                 any(),
                 any(),
                 any(),
+                any(),
                 any()
             )
-        } returns Result.success(Unit)
+        } returns Unit
 
         viewModel =
-            com.tgyuu.presentation.feature.team.addmember.AddMemberViewModel(
-                validateNewMemberUsecase,
+            AddMemberViewModel(
+                validateMemberFormatUsecase,
                 addMemberUseCase,
                 testDispatcher
             )
     }
 
     @Test
-    fun `선수이름은 최소 1글자 이상이어야 한다`() = runTest {
+    fun `선수이름은 빈 칸일 수 없다`() = runTest {
         //given
         val wrongName = ""
 
@@ -58,12 +59,14 @@ class AddMemberViewModelTest {
             newMemberName = wrongName,
             newMemberBackNumber = "1",
             newMemberPosition = "GK",
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -75,12 +78,14 @@ class AddMemberViewModelTest {
             newMemberName = "Tgyuu",
             newMemberBackNumber = wrongBackNumber,
             newMemberPosition = "GK",
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -92,12 +97,14 @@ class AddMemberViewModelTest {
             newMemberName = "Tgyuu",
             newMemberBackNumber = "1",
             newMemberPosition = wrongPosition,
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다.")
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -111,11 +118,13 @@ class AddMemberViewModelTest {
             newMemberName = newMemberName,
             newMemberBackNumber = newMemberBackNumber,
             newMemberPosition = newMemberPosition,
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
+        val actual = viewModel.addMemberState.value
         val expected = UiState.Success(Unit)
-        assertThat(viewModel.addMemberState.value).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 }

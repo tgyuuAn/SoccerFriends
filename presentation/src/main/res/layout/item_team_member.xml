@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="member"
             type="com.tgyuu.domain.entity.Member" />
+        <variable
+            name="viewModel"
+            type="com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +19,9 @@
             android:id="@+id/playerImageIV"
             android:layout_width="52dp"
             android:layout_height="52dp"
+            android:contentDescription="@{@string/memberDescription(member.name)}"
             android:scaleType="centerCrop"
-            android:src="@drawable/circle"
+            glide="@{member.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +39,7 @@
                 android:id="@+id/playerNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름 : 플레이어"
+                android:text="@{member.name}"
                 android:textSize="20sp" />
 
             <TextView
@@ -44,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="포지션 : GK"
+                android:text="@{member.position}"
                 android:textColor="@color/light_gray4"
                 android:textSize="12sp" />
 
@@ -53,18 +56,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="등 번호 : 1"
+                android:text="@{@string/MemberBackNumberFormat(member.number)}"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/memberMoreIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            android:contentDescription="@string/moreDescription"
             android:src="@drawable/more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->viewModel.clickMore(member)}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

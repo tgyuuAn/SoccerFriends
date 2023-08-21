@@ -9,4 +9,6 @@
     <dimen name="scoreBoardTimerSize">50sp</dimen>
 
     <dimen name="memberListFCVSize">100dp</dimen>
+
+    <dimen name="bottomSheetMarginTopSize">20dp</dimen>
 </resources>

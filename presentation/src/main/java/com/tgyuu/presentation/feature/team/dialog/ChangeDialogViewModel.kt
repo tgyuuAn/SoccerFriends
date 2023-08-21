@@ -3,7 +3,6 @@ package com.tgyuu.presentation.feature.team.dialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
-import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase

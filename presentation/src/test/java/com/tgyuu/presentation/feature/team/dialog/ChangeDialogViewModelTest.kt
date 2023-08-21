@@ -2,7 +2,6 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.entity.Member
-import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase

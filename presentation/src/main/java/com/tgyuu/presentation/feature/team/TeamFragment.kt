@@ -201,7 +201,10 @@ class TeamFragment :
                 updateMemberList(uiState.data)
             }
 
-            is UiState.Error -> toast("멤버 정보 갱신에 실패하였습니다.")
+            is UiState.Error -> {
+                hideLoadingScreen()
+                toast("멤버 정보 갱신에 실패하였습니다.")
+            }
         }
     }
 
@@ -231,7 +234,10 @@ class TeamFragment :
                 updateTeam(teamState.data)
             }
 
-            is UiState.Error -> toast("팀 정보 갱신에 실패하였습니다.")
+            is UiState.Error -> {
+                hideLoadingScreen()
+                toast("팀 정보 갱신에 실패하였습니다.")
+            }
         }
     }
 

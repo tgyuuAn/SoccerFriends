@@ -192,14 +192,15 @@ class TeamFragment :
 
     private fun handleMemberListState(uiState: UiState<List<Member>>) {
         when (uiState) {
-            UiState.Loading -> loadingMemberList()
+            UiState.Loading -> showLoadingScreen()
             is UiState.Success -> updateMemberList(uiState.data)
             is UiState.Error -> toast("멤버 정보 갱신에 실패하였습니다.")
         }
     }
 
-    private fun loadingMemberList() {
-        //Lottie
+    private fun showLoadingScreen() = binding.apply {
+        teamLoadingView.visibility = View.VISIBLE
+        teamLTV.visibility = View.VISIBLE
     }
 
     private fun updateMemberList(memberList: List<Member>) {
@@ -209,7 +210,7 @@ class TeamFragment :
 
     private fun handleTeamState(teamState: UiState<Team>) {
         when (teamState) {
-            UiState.Loading -> {}
+            UiState.Loading -> showLoadingScreen()
             is UiState.Success -> updateTeam(teamState.data)
             is UiState.Error -> toast("팀 정보 갱신에 실패하였습니다.")
         }

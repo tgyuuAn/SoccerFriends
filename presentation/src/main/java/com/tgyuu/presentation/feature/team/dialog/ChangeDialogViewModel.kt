@@ -3,7 +3,7 @@ package com.tgyuu.presentation.feature.team.dialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
-import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
+import com.tgyuu.domain.usecase.ValidateTeamFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChangeDialogViewModel @Inject constructor(
-    private val validateTeamNameUseCase: ValidateTeamNameUseCase,
+    private val validateTeamFormatUseCase: ValidateTeamFormatUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -45,7 +45,7 @@ class ChangeDialogViewModel @Inject constructor(
     fun changeTeamName(teamName: String) {
         setTeamNameState(UiState.Loading)
 
-        if (!validateTeamNameUseCase(teamName)) {
+        if (!validateTeamFormatUseCase(teamName)) {
             setTeamNameState(UiState.Error(""))
             return
         }

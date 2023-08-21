@@ -3,7 +3,7 @@ package com.tgyuu.presentation.feature.team.addmember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.usecase.AddMemberUseCase
-import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
+import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddMemberViewModel @Inject constructor(
-    private val validateNewMemberUseCase: ValidateNewMemberUseCase,
+    private val validateMemberFormatUseCase: ValidateMemberFormatUseCase,
     private val addMemberUseCase: AddMemberUseCase,
     @IO private val IOdispatcher: CoroutineDispatcher
 ) :
@@ -59,7 +59,7 @@ class AddMemberViewModel @Inject constructor(
     ) {
         setAddMemberState(UiState.Loading)
 
-        if (!validateNewMemberUseCase(newMemberName, newMemberBackNumber, newMemberPosition)) {
+        if (!validateMemberFormatUseCase(newMemberName, newMemberBackNumber, newMemberPosition)) {
             setAddMemberState(UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다."))
             return
         }

@@ -4,13 +4,13 @@ import com.google.common.truth.Truth
 import org.junit.Before
 import org.junit.Test
 
-class ValidateTeamNameUseCaseTest {
+class ValidateTeamFormatUseCaseTest {
 
-    lateinit var validateTeamNameUseCase: ValidateTeamNameUseCase
+    lateinit var validateTeamFormatUseCase: ValidateTeamFormatUseCase
 
     @Before
     fun setUp() {
-        validateTeamNameUseCase = ValidateTeamNameUseCase()
+        validateTeamFormatUseCase = ValidateTeamFormatUseCase()
     }
 
     @Test
@@ -22,7 +22,7 @@ class ValidateTeamNameUseCaseTest {
 
 
         //then
-        val actual = validateTeamNameUseCase(wrongTeamName)
+        val actual = validateTeamFormatUseCase(wrongTeamName)
         Truth.assertThat(actual).isFalse()
     }
 
@@ -35,7 +35,7 @@ class ValidateTeamNameUseCaseTest {
 
 
         //then
-        val actual = validateTeamNameUseCase(newTeamName)
+        val actual = validateTeamFormatUseCase(newTeamName)
         Truth.assertThat(actual).isTrue()
     }
 }

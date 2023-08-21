@@ -2,7 +2,7 @@ package com.tgyuu.domain.usecase
 
 import javax.inject.Inject
 
-class ValidateTeamNameUseCase @Inject constructor() {
+class ValidateTeamFormatUseCase @Inject constructor() {
     operator fun invoke(
         newTeamName: String
     ): Boolean {

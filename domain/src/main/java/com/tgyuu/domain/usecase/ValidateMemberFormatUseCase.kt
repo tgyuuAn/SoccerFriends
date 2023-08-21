@@ -3,7 +3,7 @@ package com.tgyuu.domain.usecase
 import java.lang.NumberFormatException
 import javax.inject.Inject
 
-class ValidateNewMemberUseCase @Inject constructor() {
+class ValidateMemberFormatUseCase @Inject constructor() {
 
     operator fun invoke(
         newMemberName: String,

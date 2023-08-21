@@ -2,7 +2,7 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
-import com.tgyuu.domain.usecase.ValidateTeamNameUseCase
+import com.tgyuu.domain.usecase.ValidateTeamFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.rule.MainCoroutineRule
 import io.mockk.mockk
@@ -20,13 +20,13 @@ class ChangeDialogViewModelTest {
 
     lateinit var viewModel: ChangeDialogViewModel
     val testDispatcher = UnconfinedTestDispatcher()
-    val validateTeamNameUseCase = ValidateTeamNameUseCase()
+    val validateTeamFormatUseCase = ValidateTeamFormatUseCase()
     val updateTeamInformationUsecase = mockk<UpdateTeamInformationUseCase>()
 
     @Before
     fun setUp() {
         viewModel =
-            ChangeDialogViewModel(validateTeamNameUseCase, updateTeamInformationUsecase, testDispatcher)
+            ChangeDialogViewModel(validateTeamFormatUseCase, updateTeamInformationUsecase, testDispatcher)
     }
 
     @Test

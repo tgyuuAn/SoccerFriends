@@ -2,7 +2,7 @@ package com.tgyuu.presentation.feature.team.addmember
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.usecase.AddMemberUseCase
-import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
+import com.tgyuu.domain.usecase.ValidateMemberFormatUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.rule.MainCoroutineRule
 import io.mockk.coEvery
@@ -25,7 +25,7 @@ class AddMemberViewModelTest {
     lateinit var viewModel: AddMemberViewModel
 
     val addMemberUseCase = mockk<AddMemberUseCase>()
-    val validateNewMemberUsecase = ValidateNewMemberUseCase()
+    val validateMemberFormatUsecase = ValidateMemberFormatUseCase()
     val testDispatcher = UnconfinedTestDispatcher()
 
     @Before
@@ -43,7 +43,7 @@ class AddMemberViewModelTest {
 
         viewModel =
             AddMemberViewModel(
-                validateNewMemberUsecase,
+                validateMemberFormatUsecase,
                 addMemberUseCase,
                 testDispatcher
             )

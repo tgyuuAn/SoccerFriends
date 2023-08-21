@@ -1,13 +1,12 @@
 package com.tgyuu.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
-import com.tgyuu.domain.usecase.ValidateNewMemberUseCase
 import org.junit.Test
 
 
-class ValidateNewMemberUseCaseTest {
+class ValidateMemberFormatUseCaseTest {
 
-    val validateNewMemberUseCase = ValidateNewMemberUseCase()
+    val validateMemberFormatUseCase = ValidateMemberFormatUseCase()
 
     @Test
     fun `등 번호는 문자일 수 없다`() {
@@ -18,6 +17,6 @@ class ValidateNewMemberUseCaseTest {
 
 
         //then
-        assertThat(validateNewMemberUseCase.isNumeric(wrongBackNumber)).isFalse()
+        assertThat(validateMemberFormatUseCase.isNumeric(wrongBackNumber)).isFalse()
     }
 }

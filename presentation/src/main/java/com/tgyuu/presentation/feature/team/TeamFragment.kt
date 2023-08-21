@@ -87,14 +87,38 @@ class TeamFragment :
 
     private fun handleBottomSheetFlag(flag: Int) {
         when (flag) {
-            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_NICKNAME.value -> {}
-            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_IMAGE.value -> {}
-            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_IMAGE.value -> {}
-            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_POSITION.value -> {}
-            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_BACKNUMBER.value -> {}
-            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_MEMBER.value -> {}
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_NICKNAME.value -> changeNickName()
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_IMAGE.value -> changeImage()
+            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_IMAGE.value -> removeImage()
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_POSITION.value -> changePosition()
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_BACKNUMBER.value -> changeBackNumber()
+            MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_MEMBER.value -> removeMember()
             else -> Unit
         }
+    }
+
+    private fun changeNickName(){
+
+    }
+
+    private fun changeImage(){
+
+    }
+
+    private fun changePosition(){
+
+    }
+
+    private fun changeBackNumber(){
+
+    }
+
+    private fun removeImage(){
+
+    }
+
+    private fun removeMember(){
+
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {

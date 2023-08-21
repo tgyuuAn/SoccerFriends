@@ -41,8 +41,10 @@
     <string name="changeTeamNameHint">새로운 팀 이름</string>
 
     <string name="changeNickName">닉네임 변경</string>
+    <string name="changeBackNumber">등 번호 변경</string>
+    <string name="changePosition">포지션 변경</string>
     <string name="changeImage">이미지 변경</string>
     <string name="removeImage">이미지 제거</string>
-    <string name="kickOutPlayer">선수 방출</string>
+    <string name="removeMember">선수 방출</string>
     <string name="confirm">확인</string>
 </resources>

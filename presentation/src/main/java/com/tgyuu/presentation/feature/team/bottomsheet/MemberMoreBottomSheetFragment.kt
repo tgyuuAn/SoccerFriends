@@ -22,6 +22,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
     BottomSheetDialogFragment() {
 
+    enum class BottomSheetFlag(val value: Int) {
+        CHANGE_NICKNAME(301),
+        CHANGE_BACKNUMBER(302),
+        CHANGE_POSITION(303),
+        CHANGE_IMAGE(304),
+        REMOVE_IMAGE(305),
+        REMOVE_MEMBER(306),
+    }
+
     private var _binding: FragmentMemberMoreBottomSheetBinding? = null
     val binding get() = _binding!!
     private val fragmentViewModel: MemberMoreBottomSheetViewModel by viewModels()
@@ -64,9 +73,27 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
         binding.apply {
             viewModel = fragmentViewModel.apply {
                 viewLifecycleOwner.apply {
-                    repeatOnStarted { }
+                    repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+                    repeatOnStarted { bottomsheetFlag.collect { handleFlag(it) } }
                 }
             }
+        }
+    }
+
+    private fun handleEvent(event: MemberMoreBottomSheetViewModel.MemberMoreEvent) {
+        when(event){
+            MemberMoreBottomSheetViewModel.MemberMoreEvent.Complete -> dismiss()
+        }
+    }
+
+    private fun handleFlag(flag: BottomSheetFlag) {
+        when (flag) {
+            BottomSheetFlag.CHANGE_NICKNAME -> highlight(binding.changeNickNameTV)
+            BottomSheetFlag.CHANGE_IMAGE -> highlight(binding.changeImageTV)
+            BottomSheetFlag.REMOVE_IMAGE -> highlight(binding.removeImageTV)
+            BottomSheetFlag.CHANGE_POSITION -> highlight(binding.changePositionTV)
+            BottomSheetFlag.CHANGE_BACKNUMBER -> highlight(binding.changeBackNumberTV)
+            BottomSheetFlag.REMOVE_MEMBER -> highlight(binding.removeMemberTV)
         }
     }
 
@@ -74,8 +101,10 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
         val flagTextViewList = listOf(
             binding.changeNickNameTV,
             binding.removeImageTV,
-            binding.kickOutPlayerTV,
-            binding.changeImageTV
+            binding.removeMemberTV,
+            binding.changeImageTV,
+            binding.changeBackNumberTV,
+            binding.changePositionTV
         )
 
         flagTextViewList.forEach { flagTextView ->

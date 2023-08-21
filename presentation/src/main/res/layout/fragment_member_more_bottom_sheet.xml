@@ -22,10 +22,35 @@
             android:id="@+id/changeNickNameTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/changeNickName"
+            android:textColor="@color/gray3"
+            android:onClick="@{()->viewModel.changeNickName()}"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/changePositionTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
+            android:gravity="center"
+            android:padding="10dp"
+            android:onClick="@{()->viewModel.changePosition()}"
+            android:text="@string/changePosition"
+            android:textColor="@color/gray3"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/changeBackNumberTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
+            android:gravity="center"
+            android:padding="10dp"
+            android:onClick="@{()->viewModel.changeBackNumber()}"
+            android:text="@string/changeBackNumber"
             android:textColor="@color/gray3"
             android:textSize="18sp" />
 
@@ -33,7 +58,8 @@
             android:id="@+id/changeImageTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:onClick="@{()->viewModel.changeImage()}"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/changeImage"
@@ -44,7 +70,8 @@
             android:id="@+id/removeImageTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:onClick="@{()->viewModel.removeImage()}"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/removeImage"
@@ -52,13 +79,14 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/kickOutPlayerTV"
+            android:id="@+id/removeMemberTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:onClick="@{()->viewModel.removeMember()}"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/kickOutPlayer"
+            android:text="@string/removeMember"
             android:textColor="@color/gray3"
             android:textSize="18sp" />
 
@@ -66,10 +94,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:layout_marginBottom="30dp"
             android:background="@drawable/rectangle_20_main"
             android:gravity="center"
+            android:onClick="@{()->viewModel.complete()}"
             android:paddingVertical="10dp"
             android:text="@string/confirm"
             android:textColor="@color/white"

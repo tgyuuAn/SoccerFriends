@@ -52,7 +52,7 @@ class ChangeDialogViewModel @Inject constructor(
         setTeamNameState(UiState.Loading)
 
         if (!validateTeamFormatUseCase(teamName)) {
-            setTeamNameState(UiState.Error("최소 한 글자 이상의 팀 명으로 설정해주세요!"))
+            setTeamNameState(UiState.Error("최소 한 글자 이상의 팀 명으로 설정해주세요"))
             return
         }
 
@@ -85,6 +85,12 @@ class ChangeDialogViewModel @Inject constructor(
 
     fun updateMemberPosition(member: Member, position: String) {
         setMemberState(UiState.Loading)
+
+        if (!validateMemberFormatUseCase.validateMemberPosition(position)) {
+            setTeamNameState(UiState.Error("최소 한 글자 이상의 포지션으로 설정해주세요"))
+            return
+        }
+
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberPosition(member, position)
             setMemberState(UiState.Success(Unit))
@@ -93,6 +99,11 @@ class ChangeDialogViewModel @Inject constructor(
 
     fun updateMemberName(member: Member, name: String) {
         setMemberState(UiState.Loading)
+        if (!validateMemberFormatUseCase.validateMemberName(name)) {
+            setTeamNameState(UiState.Error("최소 한 글자 이상의 이름으로 설정해주세요"))
+            return
+        }
+
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberName(member, name)
             setMemberState(UiState.Success(Unit))

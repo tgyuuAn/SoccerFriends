@@ -1,4 +1,4 @@
-package com.tgyuu.domain.team.usecase
+package com.tgyuu.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
 import com.tgyuu.domain.usecase.ValidateNewMemberUseCase

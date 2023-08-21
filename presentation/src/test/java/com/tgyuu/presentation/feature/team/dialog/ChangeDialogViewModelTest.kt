@@ -26,7 +26,7 @@ class ChangeDialogViewModelTest {
     @Before
     fun setUp() {
         viewModel =
-            ChangeDialogViewModel(testDispatcher, validateTeamNameUseCase, changeTeamNameUsecase)
+            ChangeDialogViewModel(validateTeamNameUseCase, changeTeamNameUsecase, testDispatcher)
     }
 
     @Test

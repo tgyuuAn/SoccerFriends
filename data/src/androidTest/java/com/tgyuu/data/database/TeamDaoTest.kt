@@ -40,19 +40,7 @@ class TeamDaoTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(
             context, SoccerFriendsDatabase::class.java
-        ).addCallback(object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                Log.d("Tgyuu","onCreate 들어옴")
-                Executors.newSingleThreadExecutor().execute {
-                    runTest {
-                        SoccerFriendsDatabase.getInstance(context).getTeamDao()
-                            .insertTeam(TeamEntity.DEFAULT_TEAM)
-                    }
-                }
-            }
-        })
-            .build()
+        ).build()
         dao = database.getTeamDao()
     }
 
@@ -63,22 +51,10 @@ class TeamDaoTest {
 
     @Test
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun 어플이_시작되자마자_하나의_팀을_생성한다() = runTest {
-        //given
-        val defaultTeam = TeamEntity.DEFAULT_TEAM
-        //when
-
-        //then
-        val actual: TeamEntity = dao.getTeam().first()
-        val expected = defaultTeam
-        Truth.assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    @OptIn(ExperimentalCoroutinesApi::class)
     fun 팀을_추가한다() = runTest {
         //given
         val teamEntity = TeamEntity(
+            id = 1,
             name = "Tgyuu",
             image = ""
         )
@@ -97,16 +73,23 @@ class TeamDaoTest {
     fun 팀의_이름을_바꾼다() = runTest {
         //given
         val teamEntity = TeamEntity(
+            id = 1,
             name = "Tgyuu",
+            image = ""
+        )
+        dao.insertTeam(teamEntity)
+        val newTeamEntity = TeamEntity(
+            id = 1,
+            name = "Uuygt",
             image = ""
         )
 
         //when
-        dao.updateTeam(teamEntity)
+        dao.updateTeam(newTeamEntity)
 
         //then
         val actual: TeamEntity = dao.getTeam().first()
-        val expected = teamEntity
+        val expected = newTeamEntity
         Truth.assertThat(actual).isEqualTo(expected)
     }
 }

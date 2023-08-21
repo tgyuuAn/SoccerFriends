@@ -58,13 +58,27 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
     }
 
     private fun setDialogByDialogType() {
-        binding.dialogTitleTV.text =
+        val titleHintPair: Pair<String, String> =
             when (dialogType) {
-                is DialogType.ChangeNumber -> requireContext().getString(R.string.changeBackNumber)
-                is DialogType.ChangeMemberName -> requireContext().getString(R.string.changeNickName)
-                is DialogType.ChangePosition -> requireContext().getString(R.string.changePosition)
-                DialogType.ChangeTeamName -> requireContext().getString(R.string.changeTeamName)
+                is DialogType.ChangeNumber -> requireContext().getString(R.string.changeBackNumber) to requireContext().getString(
+                    R.string.changeBackNumberHint
+                )
+
+                is DialogType.ChangeMemberName -> requireContext().getString(R.string.changeNickName) to requireContext().getString(
+                    R.string.changeNickNameHint
+                )
+
+                is DialogType.ChangePosition -> requireContext().getString(R.string.changePosition) to requireContext().getString(
+                    R.string.changePositionHint
+                )
+
+                DialogType.ChangeTeamName -> requireContext().getString(R.string.changeTeamName) to requireContext().getString(
+                    R.string.changeTeamNameHint
+                )
             }
+        
+        binding.dialogTitleTV.text = titleHintPair.first
+        binding.changeValueEDT.hint = titleHintPair.second
     }
 
     private fun setBinding() = binding.apply {

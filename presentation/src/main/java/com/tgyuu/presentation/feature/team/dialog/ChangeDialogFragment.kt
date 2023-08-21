@@ -26,10 +26,10 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
         const val TAG = "ChangeDialogFragment"
     }
 
-    sealed class DialogType{
-        data class ChangeMemberName(val member : Member) : DialogType()
-        data class ChangePosition(val member : Member) : DialogType()
-        data class ChangeNumber(val member : Member) : DialogType()
+    sealed class DialogType {
+        data class ChangeMemberName(val member: Member) : DialogType()
+        data class ChangePosition(val member: Member) : DialogType()
+        data class ChangeNumber(val member: Member) : DialogType()
         object ChangeTeamName : DialogType()
     }
 
@@ -52,7 +52,17 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setDialogByDialogType()
         setBinding()
+    }
+
+    private fun setDialogByDialogType() {
+        when (dialogType) {
+            is DialogType.ChangeNumber -> {}
+            is DialogType.ChangeMemberName -> {}
+            is DialogType.ChangePosition -> {}
+            DialogType.ChangeTeamName -> {}
+        }
     }
 
     private fun setBinding() = binding.apply {
@@ -67,10 +77,28 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
     private fun handleEvent(event: ChangeDialogViewModel.DialogEvent) {
         when (event) {
             ChangeDialogViewModel.DialogEvent.Cancel -> dismiss()
-            ChangeDialogViewModel.DialogEvent.ClickComplete -> {
-                Log.d("tgyuu", "ClickComplete 호출")
-                fragmentViewModel.changeTeamName(binding.newTeamNameEDT.text.toString())
-            }
+            ChangeDialogViewModel.DialogEvent.ClickComplete -> clickCompleteByDialogType()
+        }
+    }
+
+    private fun clickCompleteByDialogType() {
+        when (dialogType) {
+            is DialogType.ChangeNumber -> fragmentViewModel.updateMemberNumber(
+                dialogType.member,
+                binding.changeValueEDT.text.toString()
+            )
+
+            is DialogType.ChangeMemberName -> fragmentViewModel.updateMemberName(
+                dialogType.member,
+                binding.changeValueEDT.text.toString()
+            )
+
+            is DialogType.ChangePosition -> fragmentViewModel.updateMemberPosition(
+                dialogType.member,
+                binding.changeValueEDT.text.toString()
+            )
+
+            DialogType.ChangeTeamName -> fragmentViewModel.changeTeamName(binding.changeValueEDT.text.toString())
         }
     }
 

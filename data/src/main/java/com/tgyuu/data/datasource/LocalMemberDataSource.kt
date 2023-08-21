@@ -1,8 +1,8 @@
 package com.tgyuu.data.datasource
 
 
-import com.tgyuu.data.database.MemberDao
-import com.tgyuu.data.database.MemberEntity
+import com.tgyuu.data.database.member.MemberDao
+import com.tgyuu.data.database.member.MemberEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

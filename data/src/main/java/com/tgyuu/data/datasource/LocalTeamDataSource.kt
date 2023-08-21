@@ -1,7 +1,7 @@
 package com.tgyuu.data.datasource
 
-import com.tgyuu.data.database.TeamDao
-import com.tgyuu.data.database.TeamEntity
+import com.tgyuu.data.database.team.TeamDao
+import com.tgyuu.data.database.team.TeamEntity
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

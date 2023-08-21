@@ -36,6 +36,7 @@ class AddMemberViewModelTest {
                 any(),
                 any(),
                 any(),
+                any(),
                 any()
             )
         } returns Unit
@@ -58,7 +59,8 @@ class AddMemberViewModelTest {
             newMemberName = wrongName,
             newMemberBackNumber = "1",
             newMemberPosition = "GK",
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
@@ -76,7 +78,8 @@ class AddMemberViewModelTest {
             newMemberName = "Tgyuu",
             newMemberBackNumber = wrongBackNumber,
             newMemberPosition = "GK",
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
@@ -94,7 +97,8 @@ class AddMemberViewModelTest {
             newMemberName = "Tgyuu",
             newMemberBackNumber = "1",
             newMemberPosition = wrongPosition,
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then
@@ -114,7 +118,8 @@ class AddMemberViewModelTest {
             newMemberName = newMemberName,
             newMemberBackNumber = newMemberBackNumber,
             newMemberPosition = newMemberPosition,
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            newMemberImage = ""
         )
 
         //then

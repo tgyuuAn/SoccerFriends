@@ -31,6 +31,18 @@ class AddMemberViewModel @Inject constructor(
         }
     }
 
+    fun clickComplete() = event(AddMemberEvent.ClickComplete)
+
+    fun clickReset() = event(AddMemberEvent.ClickReset)
+
+    fun clickImage() = event(AddMemberEvent.ClickImage)
+
+    sealed class AddMemberEvent {
+        object ClickComplete : AddMemberEvent()
+        object ClickReset : AddMemberEvent()
+        object ClickImage : AddMemberEvent()
+    }
+
     private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val addMemberState = _addMemberState.asStateFlow()
 
@@ -39,6 +51,7 @@ class AddMemberViewModel @Inject constructor(
     }
 
     fun addNewMember(
+        newMemberImage : String,
         newMemberName: String,
         newMemberBackNumber: String,
         newMemberPosition: String,
@@ -53,6 +66,7 @@ class AddMemberViewModel @Inject constructor(
 
         viewModelScope.launch(IOdispatcher) {
             addMemberUseCase(
+                newMemberImage,
                 newMemberName,
                 newMemberBackNumber.toInt(),
                 newMemberPosition,
@@ -60,14 +74,5 @@ class AddMemberViewModel @Inject constructor(
             )
             setAddMemberState(UiState.Success(Unit))
         }
-    }
-
-    fun clickComplete() = event(AddMemberEvent.ClickComplete)
-
-    fun clickReset() = event(AddMemberEvent.ClickReset)
-
-    sealed class AddMemberEvent {
-        object ClickComplete : AddMemberEvent()
-        object ClickReset : AddMemberEvent()
     }
 }

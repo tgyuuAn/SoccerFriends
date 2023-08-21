@@ -1,4 +1,4 @@
-package com.tgyuu.data.database
+package com.tgyuu.data.database.member
 
 import androidx.room.Dao
 import androidx.room.Delete

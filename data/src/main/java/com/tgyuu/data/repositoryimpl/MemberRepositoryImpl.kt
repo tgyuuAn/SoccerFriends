@@ -1,7 +1,7 @@
 package com.tgyuu.data.repositoryimpl
 
-import com.tgyuu.data.database.MemberEntity
-import com.tgyuu.data.database.toMember
+import com.tgyuu.data.database.member.MemberEntity
+import com.tgyuu.data.database.member.toMember
 import com.tgyuu.data.datasource.LocalMemberDataSource
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.repository.MemberRepository

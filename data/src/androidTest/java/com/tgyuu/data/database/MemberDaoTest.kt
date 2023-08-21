@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import com.tgyuu.data.database.member.MemberDao
+import com.tgyuu.data.database.member.MemberEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -47,7 +49,8 @@ class MemberDaoTest {
         dao.insertMember(memberEntity)
 
         //then
-        val expected: List<MemberEntity> = dao.getAllMembers().first()
-        assertThat(expected).contains(memberEntity)
+        val expected = memberEntity
+        val actual: List<MemberEntity> = dao.getAllMembers().first()
+        assertThat(actual).contains(expected)
     }
 }

@@ -1,7 +1,7 @@
 package com.tgyuu.data.repositoryimpl
 
-import com.tgyuu.data.database.TeamEntity
-import com.tgyuu.data.database.toTeam
+import com.tgyuu.data.database.team.TeamEntity
+import com.tgyuu.data.database.team.toTeam
 import com.tgyuu.data.datasource.LocalTeamDataSource
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.repository.TeamRepository

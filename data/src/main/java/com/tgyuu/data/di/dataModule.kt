@@ -1,10 +1,9 @@
 package com.tgyuu.data.di
 
 import android.content.Context
-import androidx.room.Room
-import com.tgyuu.data.database.MemberDao
+import com.tgyuu.data.database.member.MemberDao
 import com.tgyuu.data.database.SoccerFriendsDatabase
-import com.tgyuu.data.database.TeamDao
+import com.tgyuu.data.database.team.TeamDao
 import com.tgyuu.data.datasource.LocalMemberDataSource
 import com.tgyuu.data.datasource.LocalTeamDataSource
 import com.tgyuu.data.repositoryimpl.MemberRepositoryImpl
@@ -24,10 +23,9 @@ object dataModule {
 
     @Provides
     @Singleton
-    fun proivdeMemberDatabase(
+    fun proivdeSoccerFriendsDatabase(
         @ApplicationContext context: Context
-    ): SoccerFriendsDatabase =
-        Room.databaseBuilder(context, SoccerFriendsDatabase::class.java, DATABASE_NAME).build()
+    ): SoccerFriendsDatabase = SoccerFriendsDatabase.getInstance(context)
 
     @Provides
     @Singleton

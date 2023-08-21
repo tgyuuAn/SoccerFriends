@@ -60,7 +60,7 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
         }
     }
 
-    private fun handleTeamNameUiState(uiState: UiState<String>){
+    private fun handleTeamNameUiState(uiState: UiState<Unit>){
         when(uiState){
             UiState.Loading -> {}
             is UiState.Success -> {}

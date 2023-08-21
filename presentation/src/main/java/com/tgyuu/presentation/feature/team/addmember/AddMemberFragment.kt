@@ -86,7 +86,7 @@ class AddMemberFragment :
     }
 
     private fun resetPage() = binding.apply {
-        newMemberIV.background = ContextCompat.getDrawable(requireContext(), R.drawable.circle)
+        newMemberIV.setImageResource(R.drawable.circle)
         newMemberNameEDT.text = null
         newMemberPositionEDT.text = null
         newMemberBackNumberEDT.text = null

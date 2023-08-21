@@ -77,14 +77,16 @@ class TeamDaoTest {
             name = "Tgyuu",
             image = ""
         )
+
         dao.insertTeam(teamEntity)
+
+        //when
         val newTeamEntity = TeamEntity(
             id = 1,
             name = "Uuygt",
             image = ""
         )
 
-        //when
         dao.updateTeam(newTeamEntity)
 
         //then

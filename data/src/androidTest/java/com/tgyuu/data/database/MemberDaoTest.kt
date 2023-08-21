@@ -60,4 +60,36 @@ class MemberDaoTest {
         val actual: List<MemberEntity> = dao.getAllMembers().first()
         assertThat(actual).contains(expected)
     }
+
+    @Test
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun 선수의_이름을_바꾼다() = runTest {
+        //given
+        val memberEntity = MemberEntity(
+            name = "Tgyuu",
+            image = "",
+            position = "GK",
+            number = 1,
+            isBenchWarmer = false
+        )
+
+        dao.insertMember(memberEntity)
+
+        //when
+        val newMemberEntity = MemberEntity(
+            id=1,
+            name = "Uuygt",
+            image = "",
+            position = "GK",
+            number = 1,
+            isBenchWarmer = false
+        )
+
+        dao.updateMember(newMemberEntity)
+
+        //then
+        val expected = newMemberEntity
+        val actual: List<MemberEntity> = dao.getAllMembers().first()
+        assertThat(actual).contains(expected)
+    }
 }

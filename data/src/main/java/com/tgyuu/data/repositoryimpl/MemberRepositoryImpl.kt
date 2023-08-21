@@ -21,6 +21,17 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
         memberDataSource.insertMember(memberEntity)
     }
 
+    override suspend fun deleteMember(member: Member) {
+        val memberEntity = MemberEntity(
+            name = member.name,
+            image = member.image,
+            position = member.position,
+            number = member.number,
+            isBenchWarmer = member.isBenchWarmer
+        )
+        memberDataSource.deleteMember(memberEntity)
+    }
+
     override fun getAllMembers() = flow {
         memberDataSource.getAllMembers().collect { MemberEntityList ->
             val MemberList = MemberEntityList.map { it.toMember() }

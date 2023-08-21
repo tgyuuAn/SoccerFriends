@@ -193,7 +193,9 @@ class TeamFragment :
     private fun handleMemberListState(uiState: UiState<List<Member>>) {
         when (uiState) {
             UiState.Init -> {}
+
             UiState.Loading -> showLoadingScreen()
+
             is UiState.Success -> {
                 hideLoadingScreen()
                 updateMemberList(uiState.data)
@@ -221,7 +223,9 @@ class TeamFragment :
     private fun handleTeamState(teamState: UiState<Team>) {
         when (teamState) {
             UiState.Init -> {}
+
             UiState.Loading -> showLoadingScreen()
+
             is UiState.Success -> {
                 hideLoadingScreen()
                 updateTeam(teamState.data)

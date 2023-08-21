@@ -6,7 +6,7 @@ import com.tgyuu.domain.entity.Member
 
 @Entity(tableName = "member")
 data class MemberEntity(
-    @PrimaryKey(autoGenerate = false) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
     val image: String,
     val position: String,
@@ -14,4 +14,11 @@ data class MemberEntity(
     val isBenchWarmer: Boolean? = false
 )
 
-fun MemberEntity.toMember() = Member(name, image, position, number, isBenchWarmer)
+fun MemberEntity.toMember() = Member(
+    id = id,
+    name = name,
+    image = image,
+    position = position,
+    number = number,
+    isBenchWarmer = isBenchWarmer
+)

@@ -8,6 +8,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     suspend fun updateMemberName(member: Member, name: String) {
         memberReposiory.updateMember(
             Member(
+                id = member.id,
                 name = name,
                 image = member.image,
                 position = member.position,

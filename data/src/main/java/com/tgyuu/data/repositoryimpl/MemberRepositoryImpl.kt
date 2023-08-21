@@ -12,6 +12,7 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
     MemberRepository {
     override suspend fun addNewMember(member: Member) {
         val memberEntity = MemberEntity(
+            id = member.id,
             name = member.name,
             image = member.image,
             position = member.position,
@@ -23,6 +24,7 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
 
     override suspend fun deleteMember(member: Member) {
         val memberEntity = MemberEntity(
+            id = member.id,
             name = member.name,
             image = member.image,
             position = member.position,
@@ -30,6 +32,18 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
             isBenchWarmer = member.isBenchWarmer
         )
         memberDataSource.deleteMember(memberEntity)
+    }
+
+    override suspend fun updateMember(member: Member) {
+        val memberEntity = MemberEntity(
+            id = member.id,
+            name = member.name,
+            image = member.image,
+            position = member.position,
+            number = member.number,
+            isBenchWarmer = member.isBenchWarmer
+        )
+        memberDataSource.updateMember(memberEntity)
     }
 
     override fun getAllMembers() = flow {

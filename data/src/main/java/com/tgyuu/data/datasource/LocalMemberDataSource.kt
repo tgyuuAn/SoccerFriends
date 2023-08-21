@@ -16,6 +16,10 @@ class LocalMemberDataSource @Inject constructor(private val memberDao: MemberDao
         return memberDao.deleteMember(member)
     }
 
+    suspend fun updateMember(member : MemberEntity){
+        return memberDao.updateMember(member)
+    }
+
     fun getAllMembers(): Flow<List<MemberEntity>> {
         return memberDao.getAllMembers()
     }

@@ -219,6 +219,7 @@ class TeamFragment :
 
     private fun handleTeamState(teamState: UiState<Team>) {
         when (teamState) {
+            UiState.Init -> {}
             UiState.Loading -> showLoadingScreen()
             is UiState.Success -> {
                 hideLoadingScreen()

@@ -47,7 +47,7 @@ class TeamViewModel @Inject constructor(
         object ChangeTeamImage : TeamEvent()
     }
 
-    private val _memberListFlow = MutableStateFlow<UiState<List<Member>>>(UiState.Loading)
+    private val _memberListFlow = MutableStateFlow<UiState<List<Member>>>(UiState.Init)
     val memberListFlow = _memberListFlow.asStateFlow()
 
     private fun setMemberListState(uiState: UiState<List<Member>>) {
@@ -96,7 +96,7 @@ class TeamViewModel @Inject constructor(
         getMemberList()
     }
 
-    private val _team = MutableStateFlow<UiState<Team>>(UiState.Loading)
+    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
     val team = _team.asStateFlow()
 
     private fun setTeamState(uiState: UiState<Team>) {

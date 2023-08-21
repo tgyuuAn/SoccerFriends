@@ -43,7 +43,7 @@ class AddMemberViewModel @Inject constructor(
         object ClickImage : AddMemberEvent()
     }
 
-    private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Init)
     val addMemberState = _addMemberState.asStateFlow()
 
     private fun setAddMemberState(uiState: UiState<Unit>) {

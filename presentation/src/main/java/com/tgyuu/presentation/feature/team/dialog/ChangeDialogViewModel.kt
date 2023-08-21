@@ -41,7 +41,7 @@ class ChangeDialogViewModel @Inject constructor(
         object ClickComplete : DialogEvent()
     }
 
-    private val _team = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    private val _team = MutableStateFlow<UiState<Unit>>(UiState.Init)
     val team = _team.asStateFlow()
 
     private fun setTeamNameState(uiState: UiState<Unit>) {
@@ -62,7 +62,7 @@ class ChangeDialogViewModel @Inject constructor(
         setTeamNameState(UiState.Success(Unit))
     }
 
-    private val _member = MutableStateFlow<UiState<Unit>>(UiState.Loading)
+    private val _member = MutableStateFlow<UiState<Unit>>(UiState.Init)
     val member = _member.asStateFlow()
 
     private fun setMemberState(uiState: UiState<Unit>) {

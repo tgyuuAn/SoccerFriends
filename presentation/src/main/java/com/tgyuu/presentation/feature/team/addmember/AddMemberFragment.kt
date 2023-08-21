@@ -64,6 +64,7 @@ class AddMemberFragment :
 
     private fun handleAddMemberState(addMemberState: UiState<Unit>) {
         when (addMemberState) {
+            UiState.Init -> {}
             UiState.Loading -> showLoadingScreen()
             is UiState.Success -> {
                 hideLoadingScreen()

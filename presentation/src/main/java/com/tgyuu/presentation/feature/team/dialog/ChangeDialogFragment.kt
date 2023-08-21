@@ -123,6 +123,8 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
 
     private fun handleTeamNameUiState(uiState: UiState<Unit>) {
         when (uiState) {
+            UiState.Init -> {}
+
             UiState.Loading -> {
                 //Lottie
             }
@@ -141,6 +143,8 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
 
     private fun handleMemberUiState(uiState: UiState<Unit>) {
         when (uiState) {
+            UiState.Init -> {}
+
             UiState.Loading -> {
                 //Lottie
             }

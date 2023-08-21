@@ -30,7 +30,6 @@
             android:elevation="-1dp"
             android:scaleType="fitXY"
             android:src="@drawable/team"
-            android:onClick="@{()->viewModel.changeTeamImage()}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -39,10 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="70dp"
+            android:onClick="@{()->viewModel.changeTeamName()}"
             android:text="@string/teamName"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:onClick="@{()->viewModel.changeTeamName()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/teamManagementBar" />
 
@@ -52,6 +51,7 @@
             android:layout_height="64dp"
             android:layout_marginEnd="35dp"
             android:contentDescription="@string/teamLogo"
+            android:onClick="@{()->viewModel.changeTeamImage()}"
             android:scaleType="fitXY"
             android:src="@drawable/rectangle_17_white"
             app:layout_constraintBottom_toBottomOf="@id/teamNameTV"
@@ -83,11 +83,11 @@
                 android:layout_height="19dp"
                 android:layout_marginEnd="16.5dp"
                 android:contentDescription="@string/addTeamMember"
+                android:onClick="@{()->viewModel.addMember()}"
                 android:src="@drawable/plus"
                 app:layout_constraintBottom_toBottomOf="@id/totalTeamTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/totalTeamTV"
-                android:onClick="@{()->viewModel.addMember()}"/>
+                app:layout_constraintTop_toTopOf="@id/totalTeamTV" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/teamListRV"

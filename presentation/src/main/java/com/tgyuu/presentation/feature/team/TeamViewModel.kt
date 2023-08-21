@@ -72,9 +72,12 @@ class TeamViewModel @Inject constructor(
         getTeam()
     }
 
-    fun getTeam() = viewModelScope.launch(iodispatcher) {
-        getTeamUseCase().collect {
-            _team.value = UiState.Success(it)
+    fun getTeam() {
+        setTeamState(UiState.Loading)
+        viewModelScope.launch(iodispatcher) {
+            getTeamUseCase().collect {
+                setTeamState(UiState.Success(it))
+            }
         }
     }
 }

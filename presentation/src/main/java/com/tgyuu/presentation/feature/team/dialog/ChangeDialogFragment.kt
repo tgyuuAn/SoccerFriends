@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.team.dialog
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,12 +60,13 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
         when (event) {
             ChangeDialogViewModel.DialogEvent.Cancel -> dismiss()
             ChangeDialogViewModel.DialogEvent.ClickComplete -> {
+                Log.d("tgyuu","ClickComplete 호출")
                 fragmentViewModel.changeTeamName(binding.newTeamNameEDT.text.toString())
             }
         }
     }
 
-    private fun handleTeamNameUiState(uiState: UiState<Team>) {
+    private fun handleTeamNameUiState(uiState: UiState<Unit>) {
         when (uiState) {
             UiState.Loading -> {
                 //Lottie
@@ -73,7 +75,7 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
             is UiState.Success -> {
                 setFragmentResult(
                     TAG,
-                    bundleOf(TAG to uiState.data),
+                    bundleOf(TAG to ""),
                 )
                 dismiss()
             }

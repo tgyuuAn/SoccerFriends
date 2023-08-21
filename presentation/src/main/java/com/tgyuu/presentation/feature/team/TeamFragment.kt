@@ -68,7 +68,7 @@ class TeamFragment :
             viewLifecycleOwner,
         ) { _, bundle ->
             val flag = bundle.getString(ChangeDialogFragment.TAG)
-            binding.teamNameTV.text = flag!!
+            fragmentViewModel.getTeam()
         }
     }
 

@@ -1,5 +1,6 @@
 package com.tgyuu.domain.usecase
 
+import android.util.Log
 import com.tgyuu.domain.repository.TeamRepository
 import javax.inject.Inject
 

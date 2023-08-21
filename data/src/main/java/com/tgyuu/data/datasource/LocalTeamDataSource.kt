@@ -15,4 +15,8 @@ class LocalTeamDataSource @Inject constructor(private val teamDao: TeamDao) {
             emit(it)
         }
     }
+
+    fun createNewTeam() {
+        teamDao.insertTeam(TeamEntity(id=1,name="팀 명", image=""))
+    }
 }

@@ -1,11 +1,16 @@
 package com.tgyuu.presentation.feature.team
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.BaseFragment
@@ -24,6 +29,7 @@ class TeamFragment :
     private val adapterViewModel: AdapterViewModel by viewModels()
     private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
     private var changeDialogFragment: ChangeDialogFragment? = null
+    private var imageUri : String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +69,26 @@ class TeamFragment :
                 }
             }
 
-            TeamViewModel.TeamEvent.ChangeTeamImage -> {}
+            TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery()
+        }
+    }
+
+    private fun navigateToGallery() {
+        val intenet = Intent(Intent.ACTION_GET_CONTENT)
+        intenet.type = "image/*"
+        activityResult.launch(intenet)
+    }
+
+    private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK && it.data != null) {
+            imageUri = it.data!!.data.toString()
+
+            Glide.with(requireContext())
+                .load(imageUri)
+                .circleCrop()
+                .into(binding.teamLogoIV)
         }
     }
 

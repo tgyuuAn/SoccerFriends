@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.entity.Team
-import com.tgyuu.domain.usecase.ChangeTeamImageUseCase
-import com.tgyuu.domain.usecase.ChangeTeamNameUseCase
+import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.GetTeamUseCase
 import com.tgyuu.presentation.common.base.UiState
@@ -23,7 +22,7 @@ import javax.inject.Inject
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
     private val changeMemberInformationUseCase: ChangeMemberInformationUseCase,
-    private val changeTeamImageUseCase: ChangeTeamImageUseCase,
+    private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     private val getTeamUseCase: GetTeamUseCase,
     @IO private val iodispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -68,7 +67,7 @@ class TeamViewModel @Inject constructor(
     fun updateTeamImage(teamImage: String) {
         setTeamState(UiState.Loading)
         viewModelScope.launch(iodispatcher) {
-            changeTeamImageUseCase(teamImage)
+            updateTeamInformationUseCase.updateTeamImage(teamImage)
         }
         getTeam()
     }

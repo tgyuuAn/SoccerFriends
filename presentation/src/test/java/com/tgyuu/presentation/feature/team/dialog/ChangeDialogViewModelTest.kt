@@ -38,7 +38,7 @@ class ChangeDialogViewModelTest {
         viewModel.changeTeamName(wrongTeamName)
 
         //then
-        val actual = viewModel.teamName.value
+        val actual = viewModel.team.value
         val expected = UiState.Error("")
         assertThat(actual).isEqualTo(expected)
     }

@@ -36,18 +36,23 @@ class TeamFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
+        setDialogFragmentResultListner()
+        setRecyclerView()
 
         binding.viewModel = fragmentViewModel.apply {
             repeatOnStarted {
                 eventFlow.collect { handleEvent(it) }
             }
+
             repeatOnStarted {
                 memberListFlow.collect { handleMemberListState(it) }
             }
+
             repeatOnStarted {
                 team.collect { handleTeamState(it) }
             }
             getMemberList()
+            getTeam()
         }
 
         adapterViewModel.apply {
@@ -55,7 +60,16 @@ class TeamFragment :
                 eventFlow.collect { handleAdapterEvent(it) }
             }
         }
-        setRecyclerView()
+    }
+
+    private fun setDialogFragmentResultListner() {
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            ChangeDialogFragment.TAG,
+            viewLifecycleOwner,
+        ) { _, bundle ->
+            val flag = bundle.getString(ChangeDialogFragment.TAG)
+            binding.teamNameTV.text = flag!!
+        }
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
@@ -89,6 +103,8 @@ class TeamFragment :
     ) {
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
             imageUri = it.data!!.data.toString()
+
+            fragmentViewModel.updateTeamImage(imageUri)
 
             Glide.with(requireContext())
                 .load(imageUri)

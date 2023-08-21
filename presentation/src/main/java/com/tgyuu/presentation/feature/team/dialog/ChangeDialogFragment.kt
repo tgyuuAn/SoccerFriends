@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
@@ -46,7 +50,7 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
         viewModel = fragmentViewModel.apply {
             viewLifecycleOwner.apply {
                 repeatOnStarted { eventFlow.collect { handleEvent(it) } }
-                repeatOnStarted { teamName.collect { handleTeamNameUiState(it) } }
+                repeatOnStarted { team.collect { handleTeamNameUiState(it) } }
             }
         }
     }
@@ -60,13 +64,26 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
         }
     }
 
-    private fun handleTeamNameUiState(uiState: UiState<Unit>){
-        when(uiState){
-            UiState.Loading -> {}
-            is UiState.Success -> {}
-            is UiState.Error -> {}
+    private fun handleTeamNameUiState(uiState: UiState<Team>) {
+        when (uiState) {
+            UiState.Loading -> {
+                //Lottie
+            }
+
+            is UiState.Success -> {
+                setFragmentResult(
+                    TAG,
+                    bundleOf(TAG to uiState.data),
+                )
+                dismiss()
+            }
+
+            is UiState.Error -> toast("최소 한 글자 이상의 팀 명으로 설정해주세요!")
         }
     }
+
+    private fun toast(str: String) =
+        Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
 
     override fun onDestroyView() {
         super.onDestroyView()

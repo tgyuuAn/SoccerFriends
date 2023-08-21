@@ -15,17 +15,10 @@ import java.util.concurrent.Executors
 
 @Database(
     entities = [MemberEntity::class, TeamEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class SoccerFriendsDatabase : RoomDatabase() {
     abstract fun getMemberDao(): MemberDao
     abstract fun getTeamDao(): TeamDao
-
-    companion object {
-        fun getInstance(context: Context): SoccerFriendsDatabase = Room.databaseBuilder(
-            context, SoccerFriendsDatabase::class.java,
-            DATABASE_NAME
-        ).build()
-    }
 }

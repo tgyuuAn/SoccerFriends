@@ -32,7 +32,7 @@ class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: Lo
 
     override suspend fun getTeam(): Flow<Team> = flow {
         localTeamDataSource.getTeam().collect {
-            emit(it.toTeam())
+            if(it != null) emit(it.toTeam())
         }
     }
 }

@@ -23,7 +23,6 @@ import javax.inject.Inject
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
     private val changeTeamImageUseCase: ChangeTeamImageUseCase,
-    private val changeTeamNameUseCase: ChangeTeamNameUseCase,
     private val getTeamUseCase: GetTeamUseCase,
     @IO private val iodispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -63,14 +62,6 @@ class TeamViewModel @Inject constructor(
 
     private fun setTeamState(uiState: UiState<Team>) {
         _team.value = uiState
-    }
-
-    fun updateTeamName(teamName: String) {
-        setTeamState(UiState.Loading)
-        viewModelScope.launch(iodispatcher) {
-            changeTeamNameUseCase(teamName)
-        }
-        getTeam()
     }
 
     fun updateTeamImage(teamImage: String) {

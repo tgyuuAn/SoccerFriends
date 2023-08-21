@@ -76,7 +76,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
                     R.string.changeTeamNameHint
                 )
             }
-        
+
         binding.dialogTitleTV.text = titleHintPair.first
         binding.changeValueEDT.hint = titleHintPair.second
     }
@@ -86,6 +86,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
             viewLifecycleOwner.apply {
                 repeatOnStarted { eventFlow.collect { handleEvent(it) } }
                 repeatOnStarted { team.collect { handleTeamNameUiState(it) } }
+                repeatOnStarted { member.collect { handleMemberUiState(it) } }
             }
         }
     }
@@ -133,6 +134,24 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
             }
 
             is UiState.Error -> toast("최소 한 글자 이상의 팀 명으로 설정해주세요!")
+        }
+    }
+
+    private fun handleMemberUiState(uiState: UiState<Unit>) {
+        when (uiState) {
+            UiState.Loading -> {
+                //Lottie
+            }
+
+            is UiState.Success -> {
+                setFragmentResult(
+                    TAG,
+                    bundleOf(TAG to ""),
+                )
+                dismiss()
+            }
+
+            is UiState.Error -> toast(uiState.message)
         }
     }
 

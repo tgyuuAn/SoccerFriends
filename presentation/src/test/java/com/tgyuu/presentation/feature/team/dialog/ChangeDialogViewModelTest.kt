@@ -50,7 +50,7 @@ class ChangeDialogViewModelTest {
 
         //then
         val actual = viewModel.team.value
-        val expected = UiState.Error("")
+        val expected = UiState.Error("최소 한 글자 이상의 팀 명으로 설정해주세요!")
         assertThat(actual).isEqualTo(expected)
     }
 }

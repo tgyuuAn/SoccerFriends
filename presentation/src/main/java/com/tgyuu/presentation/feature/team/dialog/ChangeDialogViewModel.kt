@@ -52,7 +52,7 @@ class ChangeDialogViewModel @Inject constructor(
         setTeamNameState(UiState.Loading)
 
         if (!validateTeamFormatUseCase(teamName)) {
-            setTeamNameState(UiState.Error(""))
+            setTeamNameState(UiState.Error("최소 한 글자 이상의 팀 명으로 설정해주세요!"))
             return
         }
 

@@ -18,6 +18,7 @@ import com.tgyuu.presentation.common.base.BaseFragment
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentTeamBinding
+import com.tgyuu.presentation.feature.team.bottomsheet.MemberMoreBottomSheetFragment
 import com.tgyuu.presentation.feature.team.dialog.ChangeDialogFragment
 import com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel
 import com.tgyuu.presentation.feature.team.recyclerview.TeamListAdapter
@@ -30,6 +31,7 @@ class TeamFragment :
     private val adapterViewModel: AdapterViewModel by viewModels()
     private val teamListAdapter: TeamListAdapter by lazy { TeamListAdapter(adapterViewModel) }
     private var changeDialogFragment: ChangeDialogFragment? = null
+    private var memberMoreBottomSheetFragment: MemberMoreBottomSheetFragment? = null
     private var imageUri: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,9 +84,9 @@ class TeamFragment :
 
     private fun showChangeTeamNameDialog() {
         if (changeDialogFragment == null) {
-            changeDialogFragment = ChangeDialogFragment {
-                changeDialogFragment = null
-            }
+            changeDialogFragment =
+                ChangeDialogFragment(callBack = { changeDialogFragment = null })
+
             changeDialogFragment!!.show(
                 requireActivity().supportFragmentManager,
                 ChangeDialogFragment.TAG
@@ -154,7 +156,19 @@ class TeamFragment :
 
     private fun handleAdapterEvent(event: AdapterViewModel.AdapterEvent) {
         when (event) {
-            is AdapterViewModel.AdapterEvent.ClickMore -> log("클릭!" + event.member.toString())
+            is AdapterViewModel.AdapterEvent.ClickMore -> showMemberMoreBottomSheet()
+        }
+    }
+
+    private fun showMemberMoreBottomSheet() {
+        if (memberMoreBottomSheetFragment == null) {
+            memberMoreBottomSheetFragment =
+                MemberMoreBottomSheetFragment(callBack = { memberMoreBottomSheetFragment = null })
+
+            memberMoreBottomSheetFragment!!.show(
+                requireActivity().supportFragmentManager,
+                MemberMoreBottomSheetFragment.TAG
+            )
         }
     }
 

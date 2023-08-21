@@ -12,14 +12,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFragment() {
+class ChangeDialogFragment(private val callBack: () -> Unit) : DialogFragment() {
 
     companion object {
         const val TAG = "ChangeDialogFragment"
@@ -90,6 +89,6 @@ class ChangeDialogFragment(private val dismissCallBack: () -> Unit) : DialogFrag
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        dismissCallBack()
+        callBack()
     }
 }

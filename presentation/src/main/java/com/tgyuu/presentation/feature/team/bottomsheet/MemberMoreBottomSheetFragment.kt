@@ -22,6 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
     BottomSheetDialogFragment() {
 
+    companion object {
+        const val TAG = "MemberMoreBottomSheetFragment"
+    }
+
     enum class BottomSheetFlag(val value: Int) {
         CHANGE_NICKNAME(301),
         CHANGE_BACKNUMBER(302),
@@ -81,7 +85,7 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
     }
 
     private fun handleEvent(event: MemberMoreBottomSheetViewModel.MemberMoreEvent) {
-        when(event){
+        when (event) {
             MemberMoreBottomSheetViewModel.MemberMoreEvent.Complete -> dismiss()
         }
     }

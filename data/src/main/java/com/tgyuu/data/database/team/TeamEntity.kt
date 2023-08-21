@@ -8,10 +8,6 @@ import com.tgyuu.domain.entity.Team
 data class TeamEntity(
     @PrimaryKey(autoGenerate = false) val name: String,
     val image: String? = ""
-) {
-    companion object {
-        val DEFAULT_TEAM: TeamEntity = TeamEntity(name = "팀 명", "")
-    }
-}
+)
 
 fun TeamEntity.toTeam() = Team(name = name, image = "", member = listOf())

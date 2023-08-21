@@ -12,11 +12,25 @@ import javax.inject.Inject
 class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: LocalTeamDataSource) :
     TeamRepository {
     override suspend fun changeTeamName(teamName: String) {
-        val teamEntity = TeamEntity(name = teamName)
-        localTeamDataSource.updateTeam(teamEntity)
+
+        lateinit var newTeamEntity: TeamEntity
+
+        getTeam().collect {
+            newTeamEntity = TeamEntity(name = teamName, image = it.image)
+        }
+        localTeamDataSource.updateTeam(newTeamEntity)
     }
 
-    override suspend fun getTeam(): Flow<Team> = flow{
+    override suspend fun changeTeamImage(imageUri: String) {
+        lateinit var newTeamEntity: TeamEntity
+
+        getTeam().collect {
+            newTeamEntity = TeamEntity(name = it.name, image = imageUri)
+        }
+        localTeamDataSource.updateTeam(newTeamEntity)
+    }
+
+    override suspend fun getTeam(): Flow<Team> = flow {
         localTeamDataSource.getTeam().collect {
             emit(it.toTeam())
         }

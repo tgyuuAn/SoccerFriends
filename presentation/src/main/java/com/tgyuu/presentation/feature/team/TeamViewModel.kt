@@ -3,7 +3,11 @@ package com.tgyuu.presentation.feature.team
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Member
+import com.tgyuu.domain.entity.Team
+import com.tgyuu.domain.usecase.ChangeTeamImageUseCase
+import com.tgyuu.domain.usecase.ChangeTeamNameUseCase
 import com.tgyuu.domain.usecase.GetMemberUseCase
+import com.tgyuu.domain.usecase.GetTeamUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +22,10 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
-    @IO private val IOdispatcher: CoroutineDispatcher
+    private val changeTeamImageUseCase: ChangeTeamImageUseCase,
+    private val changeTeamNameUseCase: ChangeTeamNameUseCase,
+    private val getTeamUseCase: GetTeamUseCase,
+    @IO private val iodispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
@@ -46,9 +53,37 @@ class TeamViewModel @Inject constructor(
     }
 
     fun getMemberList() {
-        viewModelScope.launch(IOdispatcher) {
+        viewModelScope.launch(iodispatcher) {
             getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
         }
     }
 
+    private val _team = MutableStateFlow<UiState<Team>>(UiState.Loading)
+    val team = _team.asStateFlow()
+
+    private fun setTeamState(uiState: UiState<Team>) {
+        _team.value = uiState
+    }
+
+    fun updateTeamName(teamName: String) {
+        setTeamState(UiState.Loading)
+        viewModelScope.launch(iodispatcher) {
+            changeTeamNameUseCase(teamName)
+        }
+        getTeam()
+    }
+
+    fun updateTeamImage(teamImage: String) {
+        setTeamState(UiState.Loading)
+        viewModelScope.launch(iodispatcher) {
+            changeTeamImageUseCase(teamImage)
+        }
+        getTeam()
+    }
+
+    fun getTeam() = viewModelScope.launch(iodispatcher) {
+        getTeamUseCase().collect {
+            _team.value = UiState.Success(it)
+        }
+    }
 }

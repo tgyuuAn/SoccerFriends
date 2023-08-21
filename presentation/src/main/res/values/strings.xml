@@ -39,6 +39,9 @@
     <string name="cancel">취소</string>
 
     <string name="changeTeamNameHint">새로운 팀 이름</string>
+    <string name="changeMemberNameHint">새로운 선수 이름</string>
+    <string name="changeMemberNumberHint">새로운 선수 등 번호</string>
+    <string name="changeMemberPositionHint">새로운 선수 포지션</string>
 
     <string name="changeNickName">닉네임 변경</string>
     <string name="changeBackNumber">등 번호 변경</string>

@@ -7,6 +7,7 @@ import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
 import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.GetTeamUseCase
+import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamViewModel @Inject constructor(
     private val getMemberUseCase: GetMemberUseCase,
-    private val changeMemberInformationUseCase: ChangeMemberInformationUseCase,
+    private val updateMemberInformationUseCase: UpdateMemberInformationUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     private val getTeamUseCase: GetTeamUseCase,
     @IO private val iodispatcher: CoroutineDispatcher

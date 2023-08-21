@@ -6,10 +6,11 @@ import com.tgyuu.domain.entity.Member
 
 @Entity(tableName = "member")
 data class MemberEntity(
+    @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
     val image: String,
     val position: String,
-    @PrimaryKey(autoGenerate = false) val number: Int,
+    val number: Int,
     val isBenchWarmer: Boolean? = false
 )
 

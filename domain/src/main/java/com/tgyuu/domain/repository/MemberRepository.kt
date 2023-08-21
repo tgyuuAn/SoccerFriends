@@ -8,5 +8,7 @@ interface MemberRepository {
 
     suspend fun deleteMember(member: Member)
 
+    suspend fun updateMember(member : Member)
+
     fun getAllMembers(): Flow<List<Member>>
 }

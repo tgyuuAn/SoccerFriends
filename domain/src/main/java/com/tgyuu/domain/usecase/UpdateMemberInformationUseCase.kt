@@ -17,4 +17,56 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
             )
         )
     }
+
+    suspend fun updateMemberImage(member: Member, image: String) {
+        memberReposiory.updateMember(
+            Member(
+                id = member.id,
+                name = member.name,
+                image = image,
+                position = member.position,
+                number = member.number,
+                isBenchWarmer = member.isBenchWarmer
+            )
+        )
+    }
+
+    suspend fun updateMemberPosition(member: Member, position: String) {
+        memberReposiory.updateMember(
+            Member(
+                id = member.id,
+                name = member.name,
+                image = member.image,
+                position = position,
+                number = member.number,
+                isBenchWarmer = member.isBenchWarmer
+            )
+        )
+    }
+
+    suspend fun updateMemberNumber(member: Member, number : Int) {
+        memberReposiory.updateMember(
+            Member(
+                id = member.id,
+                name = member.name,
+                image = member.image,
+                position = member.position,
+                number = number,
+                isBenchWarmer = member.isBenchWarmer
+            )
+        )
+    }
+
+    suspend fun updateMemberIsBenchWarmer(member: Member, isBenchWarmer : Boolean) {
+        memberReposiory.updateMember(
+            Member(
+                id = member.id,
+                name = member.name,
+                image = member.image,
+                position = member.position,
+                number = member.number,
+                isBenchWarmer = isBenchWarmer
+            )
+        )
+    }
 }

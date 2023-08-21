@@ -107,7 +107,6 @@ class TeamViewModel @Inject constructor(
     var updateTeam : Team? = null
 
     fun updateTeamImage(teamImage: String) {
-        Log.d("test","updateTeamImage")
         setTeamState(UiState.Loading)
 
         if(updateTeam == null){
@@ -122,7 +121,6 @@ class TeamViewModel @Inject constructor(
     }
 
     fun getTeam() {
-        Log.d("test","getTeam")
         setTeamState(UiState.Loading)
         viewModelScope.launch(ioDispatcher) {
             getTeamUseCase().collect {

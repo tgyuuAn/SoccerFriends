@@ -18,7 +18,6 @@ class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: Lo
     }
 
     override suspend fun changeTeamImage(team: Team, imageUri: String) {
-        Log.d("test", "getTeamImage")
         val newTeamEntity = TeamEntity(name = team.name, image = imageUri, id = team.id)
         localTeamDataSource.updateTeam(newTeamEntity)
     }

@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class LocalTeamDataSource @Inject constructor(private val teamDao: TeamDao) {
     suspend fun updateTeam(team: TeamEntity) {
-        Log.d("test","updateTeam")
         teamDao.updateTeam(team)
     }
 

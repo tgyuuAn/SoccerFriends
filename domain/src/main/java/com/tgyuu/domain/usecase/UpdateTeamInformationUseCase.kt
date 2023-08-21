@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class UpdateTeamInformationUseCase @Inject constructor(private val teamRepository: TeamRepository) {
     suspend fun updateTeamImage(team : Team, teamImage: String) {
-        Log.d("test","useCase")
         teamRepository.changeTeamImage(team,teamImage)
     }
 

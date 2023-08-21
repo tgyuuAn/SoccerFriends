@@ -18,10 +18,18 @@ import com.tgyuu.presentation.databinding.FragmentChangeDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChangeDialogFragment(private val callBack: () -> Unit) : DialogFragment() {
+class ChangeDialogFragment(private val dialogType: DialogType, private val callBack: () -> Unit) :
+    DialogFragment() {
 
     companion object {
         const val TAG = "ChangeDialogFragment"
+    }
+
+    sealed class DialogType{
+        object ChangeMemberName : DialogType()
+        object ChangePosition : DialogType()
+        object ChangeNumber : DialogType()
+        object ChangeTeamName : DialogType()
     }
 
     private val fragmentViewModel: ChangeDialogViewModel by viewModels()
@@ -59,7 +67,7 @@ class ChangeDialogFragment(private val callBack: () -> Unit) : DialogFragment() 
         when (event) {
             ChangeDialogViewModel.DialogEvent.Cancel -> dismiss()
             ChangeDialogViewModel.DialogEvent.ClickComplete -> {
-                Log.d("tgyuu","ClickComplete 호출")
+                Log.d("tgyuu", "ClickComplete 호출")
                 fragmentViewModel.changeTeamName(binding.newTeamNameEDT.text.toString())
             }
         }

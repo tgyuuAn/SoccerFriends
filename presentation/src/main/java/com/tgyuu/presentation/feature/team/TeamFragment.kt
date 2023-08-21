@@ -104,7 +104,7 @@ class TeamFragment :
     }
 
     private fun changeNickName() {
-
+        showChangeDialog(ChangeDialogFragment.DialogType.ChangeMemberName)
     }
 
     private fun changeImage() {
@@ -112,11 +112,11 @@ class TeamFragment :
     }
 
     private fun changePosition() {
-
+        showChangeDialog(ChangeDialogFragment.DialogType.ChangePosition)
     }
 
     private fun changeBackNumber() {
-
+        showChangeDialog(ChangeDialogFragment.DialogType.ChangeNumber)
     }
 
     private fun removeImage() {
@@ -130,15 +130,17 @@ class TeamFragment :
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
-            TeamViewModel.TeamEvent.ChangeTeamName -> showChangeTeamNameDialog()
+            TeamViewModel.TeamEvent.ChangeTeamName -> showChangeDialog(ChangeDialogFragment.DialogType.ChangeTeamName)
             TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery(RequestCode.TeamImage)
         }
     }
 
-    private fun showChangeTeamNameDialog() {
+    private fun showChangeDialog(dialogType: ChangeDialogFragment.DialogType) {
         if (changeDialogFragment == null) {
             changeDialogFragment =
-                ChangeDialogFragment(callBack = { changeDialogFragment = null })
+                ChangeDialogFragment(
+                    dialogType = dialogType,
+                    callBack = { changeDialogFragment = null })
 
             changeDialogFragment!!.show(
                 requireActivity().supportFragmentManager,

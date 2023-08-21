@@ -42,7 +42,8 @@ class MemberDaoTest {
             image = "",
             position = "GK",
             number = 1,
-            isBenchWarmer = false
+            isBenchWarmer = false,
+            id = 1
         )
 
         //when

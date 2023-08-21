@@ -25,7 +25,7 @@ class TeamViewModel @Inject constructor(
     private val updateMemberInformationUseCase: UpdateMemberInformationUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     private val getTeamUseCase: GetTeamUseCase,
-    @IO private val iodispatcher: CoroutineDispatcher
+    @IO private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
@@ -53,7 +53,16 @@ class TeamViewModel @Inject constructor(
     }
 
     fun getMemberList() {
-        viewModelScope.launch(iodispatcher) {
+        setMemberListState(UiState.Loading)
+        viewModelScope.launch(ioDispatcher) {
+            getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
+        }
+    }
+
+    fun updateMemberImage(member: Member, image: String) {
+        setMemberListState(UiState.Loading)
+        viewModelScope.launch(ioDispatcher) {
+            updateMemberInformationUseCase.updateMemberImage(member, image)
             getMemberUseCase().collect { setMemberListState(UiState.Success(it)) }
         }
     }
@@ -67,7 +76,7 @@ class TeamViewModel @Inject constructor(
 
     fun updateTeamImage(teamImage: String) {
         setTeamState(UiState.Loading)
-        viewModelScope.launch(iodispatcher) {
+        viewModelScope.launch(ioDispatcher) {
             updateTeamInformationUseCase.updateTeamImage(teamImage)
         }
         getTeam()
@@ -75,7 +84,7 @@ class TeamViewModel @Inject constructor(
 
     fun getTeam() {
         setTeamState(UiState.Loading)
-        viewModelScope.launch(iodispatcher) {
+        viewModelScope.launch(ioDispatcher) {
             getTeamUseCase().collect {
                 setTeamState(UiState.Success(it))
             }

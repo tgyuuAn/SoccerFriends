@@ -76,8 +76,17 @@ class TeamFragment :
             ChangeDialogFragment.TAG,
             viewLifecycleOwner,
         ) { _, bundle ->
-            val flag = bundle.getString(ChangeDialogFragment.TAG)
-            fragmentViewModel.getTeam()
+            val teamFlag = bundle.getString(ChangeDialogFragment.Team)
+            if (teamFlag != null){
+                fragmentViewModel.getTeam()
+                return@setFragmentResultListener
+            }
+
+            val memberFlag = bundle.getString(ChangeDialogFragment.Member)
+            if (memberFlag != null){
+                fragmentViewModel.getMemberList()
+                return@setFragmentResultListener
+            }
         }
     }
 

@@ -79,8 +79,8 @@ class ChangeDialogViewModel @Inject constructor(
 
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberNumber(member, number.toInt())
-            setMemberState(UiState.Success(Unit))
         }
+        setMemberState(UiState.Success(Unit))
     }
 
     fun updateMemberPosition(member: Member, position: String) {
@@ -93,8 +93,8 @@ class ChangeDialogViewModel @Inject constructor(
 
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberPosition(member, position)
-            setMemberState(UiState.Success(Unit))
         }
+        setMemberState(UiState.Success(Unit))
     }
 
     fun updateMemberName(member: Member, name: String) {
@@ -106,7 +106,7 @@ class ChangeDialogViewModel @Inject constructor(
 
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberName(member, name)
-            setMemberState(UiState.Success(Unit))
         }
+        setMemberState(UiState.Success(Unit))
     }
 }

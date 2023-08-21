@@ -25,6 +25,8 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
 
     companion object {
         const val TAG = "ChangeDialogFragment"
+        const val Member = "Member"
+        const val Team = "Team"
     }
 
     sealed class DialogType {
@@ -128,7 +130,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
             is UiState.Success -> {
                 setFragmentResult(
                     TAG,
-                    bundleOf(TAG to ""),
+                    bundleOf(Team to ""),
                 )
                 dismiss()
             }
@@ -146,7 +148,7 @@ class ChangeDialogFragment(private val dialogType: DialogType, private val callB
             is UiState.Success -> {
                 setFragmentResult(
                     TAG,
-                    bundleOf(TAG to ""),
+                    bundleOf(Member to ""),
                 )
                 dismiss()
             }

@@ -398,7 +398,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="10dp"
-                        android:text="플레이 타임 = 15 분"
+                        android:text="@{@string/timeBoardPlayTime(viewModel.playTime)}"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider5" />
@@ -409,7 +409,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:text="경기 종료 전 알림 = 3 분"
+                        android:text="@{@string/timeBoardAlarmTime(viewModel.alarmTime)}"
                         android:textSize="14sp"
                         app:layout_constraintStart_toEndOf="@id/playTimeDescriptionTV"
                         app:layout_constraintTop_toBottomOf="@id/divider5" />

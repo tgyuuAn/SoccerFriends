@@ -30,14 +30,21 @@ class ScoreBoardFragment :
 
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
-            ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> binding.apply {
-                if (expandableLayout.isExpanded) expandableLayout.collapse()
-                else expandableLayout.expand()
-            }
+            ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPlusPlayTime -> {}
             ScoreBoardViewModel.ScoreBoardEvent.ClickMinusPlayTime -> {}
             ScoreBoardViewModel.ScoreBoardEvent.ClickPlusAlarmTime -> {}
             ScoreBoardViewModel.ScoreBoardEvent.ClickMinusAlarmTime -> {}
+        }
+    }
+
+    private fun handleExpandableLayout() = binding.apply {
+        if (expandableTimeBoardEL.isExpanded) {
+            expandableTimeBoardEL.collapse()
+            expandableSettingEL.expand()
+        } else {
+            expandableTimeBoardEL.expand()
+            expandableSettingEL.collapse()
         }
     }
 }

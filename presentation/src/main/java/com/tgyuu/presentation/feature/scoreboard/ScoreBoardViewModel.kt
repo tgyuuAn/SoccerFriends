@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,28 +16,38 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    private fun event(event : ScoreBoardEvent){
-        viewModelScope.launch{
+    private fun event(event: ScoreBoardEvent) {
+        viewModelScope.launch {
             _eventFlow.emit(event)
         }
     }
 
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
-    fun clickPlusPlayTime() = event(ScoreBoardEvent.ClickPlusPlayTime)
+    private val _playTime = MutableStateFlow<Int>(0)
+    val playTime = _playTime.asStateFlow()
 
-    fun clickMinusPlayTime() = event(ScoreBoardEvent.ClickMinusPlayTime)
+    fun clickPlusPlayTime() {
+        _playTime.value = _playTime.value.plus(1)
+    }
 
-    fun clickPlusAlarmTime() = event(ScoreBoardEvent.ClickPlusAlarmTime)
+    fun clickMinusPlayTime() {
+        if (_playTime.value - 1 >= 0) _playTime.value = _playTime.value.minus(1)
+    }
 
-    fun clickMinusAlarmTime() = event(ScoreBoardEvent.ClickMinusAlarmTime)
+    private val _alarmTime = MutableStateFlow<Int>(0)
+    val alarmTime = _alarmTime.asStateFlow()
+
+    fun clickPlusAlarmTime() {
+        _alarmTime.value = _alarmTime.value.plus(1)
+    }
+
+    fun clickMinusAlarmTime() {
+        if (_alarmTime.value - 1 >= 0) _alarmTime.value = _alarmTime.value.minus(1)
+    }
 
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
-        object ClickPlusPlayTime : ScoreBoardEvent()
-        object ClickMinusPlayTime : ScoreBoardEvent()
-        object ClickPlusAlarmTime : ScoreBoardEvent()
-        object ClickMinusAlarmTime : ScoreBoardEvent()
     }
 
 }

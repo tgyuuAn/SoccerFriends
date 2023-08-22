@@ -82,6 +82,19 @@
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamIV" />
 
+        <Button
+            android:id="@+id/homeTeamScoreMinusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/minus_button"
+            android:elevation="3dp"
+            android:onClick="@{()->viewModel.clickMinusHomeTeamScore()}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
+            app:layout_constraintEnd_toStartOf="@id/homeTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV" />
+
         <TextView
             android:id="@+id/homeTeamScoreTV"
             android:layout_width="54dp"
@@ -90,11 +103,25 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
+            android:text="@{String.valueOf(viewModel.homeTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/homeTeamIV"
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamTV" />
+
+        <Button
+            android:id="@+id/homeTeamScorePlusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/plus_button"
+            android:elevation="3dp"
+            android:onClick="@{()->viewModel.clickPlusHomeTeamScore()}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
+            app:layout_constraintStart_toEndOf="@id/homeTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV" />
 
         <TextView
             android:layout_width="30dp"
@@ -138,6 +165,19 @@
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamIV" />
 
+        <Button
+            android:id="@+id/awayTeamScoreMinusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/minus_button"
+            android:elevation="3dp"
+            android:onClick="@{()->viewModel.clickMinusAwayTeamScore()}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
+            app:layout_constraintEnd_toStartOf="@id/awayTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />
+
         <TextView
             android:id="@+id/awayTeamScoreTV"
             android:layout_width="54dp"
@@ -147,10 +187,24 @@
             android:elevation="3dp"
             android:gravity="center"
             android:textSize="@dimen/scoreBoardTextSize"
+            android:text="@{String.valueOf(viewModel.awayTeamScore)}"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/awayTeamIV"
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamTV" />
+
+        <Button
+            android:id="@+id/awayTeamScorePlusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/plus_button"
+            android:elevation="3dp"
+            android:onClick="@{()->viewModel.clickPlusAwayTeamScore()}"
+            app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
+            app:layout_constraintStart_toEndOf="@id/awayTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider1"
@@ -388,9 +442,9 @@
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
+                        android:text="@{String.valueOf(viewModel.playTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="@{String.valueOf(viewModel.playTime)}"
                         app:layout_constraintBottom_toBottomOf="@id/divider3"
                         app:layout_constraintEnd_toStartOf="@id/playTimePlusBTN"
                         app:layout_constraintStart_toEndOf="@id/playTimeMinusBTN"
@@ -453,9 +507,9 @@
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
+                        android:text="@{String.valueOf(viewModel.alarmTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="@{String.valueOf(viewModel.alarmTime)}"
                         app:layout_constraintBottom_toBottomOf="@id/divider4"
                         app:layout_constraintEnd_toStartOf="@id/alarmPlusBTN"
                         app:layout_constraintStart_toEndOf="@id/alarmMinusBTN"

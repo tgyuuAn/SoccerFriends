@@ -18,6 +18,10 @@ class ScoreBoardFragment :
         PLAY, ALARM
     }
 
+    enum class ScoreType {
+        HOME, AWAY
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -32,7 +36,10 @@ class ScoreBoardFragment :
                     playTime.collect { handleTimeUI(it, TimeType.PLAY) }
                 }
                 repeatOnStarted {
-                    alarmTime.collect { handleTimeUI(it, TimeType.ALARM) }
+                    homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) }
+                }
+                repeatOnStarted {
+                    awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) }
                 }
             }
         }
@@ -54,9 +61,40 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun handleTimeUI(time: Int, flag: TimeType) {
-        when (flag) {
+    private fun handleTimeUI(score: Int, type: TimeType) {
+        when (type) {
             TimeType.PLAY -> {
+                if (score <= 0) {
+                    binding.playTimeMinusBTN.isEnabled = false
+                    return
+                }
+
+                if (score >= 99) {
+                    binding.playTimePlusBTN.isEnabled = false
+                    return
+                }
+                binding.playTimeMinusBTN.isEnabled = true
+                binding.playTimePlusBTN.isEnabled = true
+            }
+
+            TimeType.ALARM -> {
+                if (score <= 0) {
+                    binding.alarmMinusBTN.isEnabled = false
+                    return
+                }
+                if (score >= 99) {
+                    binding.alarmPlusBTN.isEnabled = false
+                    return
+                }
+                binding.alarmMinusBTN.isEnabled = true
+                binding.alarmPlusBTN.isEnabled = true
+            }
+        }
+    }
+
+    private fun handleScoreUI(time: Int, type: ScoreType) {
+        when (type) {
+            ScoreType.HOME -> {
                 if (time <= 0) {
                     binding.playTimeMinusBTN.isEnabled = false
                     return
@@ -70,7 +108,7 @@ class ScoreBoardFragment :
                 binding.playTimePlusBTN.isEnabled = true
             }
 
-            TimeType.ALARM -> {
+            ScoreType.AWAY -> {
                 if (time <= 0) {
                     binding.alarmMinusBTN.isEnabled = false
                     return

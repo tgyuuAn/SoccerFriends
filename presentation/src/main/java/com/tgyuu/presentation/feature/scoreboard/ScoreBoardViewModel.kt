@@ -29,7 +29,7 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
 
     fun clickPlusPlayTime() {
         if (_playTime.value + 1 <= 99)
-        _playTime.value = _playTime.value.plus(1)
+            _playTime.value = _playTime.value.plus(1)
     }
 
     fun clickMinusPlayTime() {
@@ -42,12 +42,38 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
 
     fun clickPlusAlarmTime() {
         if (_alarmTime.value + 1 <= 99)
-        _alarmTime.value = _alarmTime.value.plus(1)
+            _alarmTime.value = _alarmTime.value.plus(1)
     }
 
     fun clickMinusAlarmTime() {
         if (_alarmTime.value - 1 >= 0)
             _alarmTime.value = _alarmTime.value.minus(1)
+    }
+
+    private val _homeTeamScore = MutableStateFlow<Int>(0)
+    val homeTeamScore = _homeTeamScore.asStateFlow()
+
+    fun clickPlusHomeTeamScore() {
+        if (_homeTeamScore.value + 1 <= 99)
+            _homeTeamScore.value = _homeTeamScore.value.plus(1)
+    }
+
+    fun clickMinusHomeTeamScore() {
+        if (_homeTeamScore.value - 1 >= 0)
+            _homeTeamScore.value = _homeTeamScore.value.minus(1)
+    }
+
+    private val _awayTeamScore = MutableStateFlow<Int>(0)
+    val awayTeamScore = _awayTeamScore.asStateFlow()
+
+    fun clickPlusAwayTeamScore() {
+        if (_awayTeamScore.value + 1 <= 99)
+            _awayTeamScore.value = _awayTeamScore.value.plus(1)
+    }
+
+    fun clickMinusAwayTeamScore() {
+        if (_awayTeamScore.value - 1 >= 0)
+            _awayTeamScore.value = _awayTeamScore.value.minus(1)
     }
 
     sealed class ScoreBoardEvent {

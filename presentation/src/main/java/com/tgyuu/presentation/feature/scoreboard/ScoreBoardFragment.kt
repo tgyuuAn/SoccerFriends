@@ -34,6 +34,10 @@ class ScoreBoardFragment :
                 if (expandableLayout.isExpanded) expandableLayout.collapse()
                 else expandableLayout.expand()
             }
+            ScoreBoardViewModel.ScoreBoardEvent.ClickPlusPlayTime -> {}
+            ScoreBoardViewModel.ScoreBoardEvent.ClickMinusPlayTime -> {}
+            ScoreBoardViewModel.ScoreBoardEvent.ClickPlusAlarmTime -> {}
+            ScoreBoardViewModel.ScoreBoardEvent.ClickMinusAlarmTime -> {}
         }
     }
 }

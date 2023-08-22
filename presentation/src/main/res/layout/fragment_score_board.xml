@@ -82,18 +82,26 @@
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamIV" />
 
-        <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/homeTeamScoreMinusBTN"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="9dp"
-            android:background="@drawable/minus_button"
+            android:background="@drawable/rectangle_6_white"
             android:elevation="3dp"
-            android:onClick="@{()->viewModel.clickMinusHomeTeamScore()}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
             app:layout_constraintEnd_toStartOf="@id/homeTeamScoreTV"
-            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV" />
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusHomeTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/homeTeamScoreTV"
@@ -110,18 +118,26 @@
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamTV" />
 
-        <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/homeTeamScorePlusBTN"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="9dp"
-            android:background="@drawable/plus_button"
+            android:background="@drawable/rectangle_6_white"
             android:elevation="3dp"
-            android:onClick="@{()->viewModel.clickPlusHomeTeamScore()}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
             app:layout_constraintStart_toEndOf="@id/homeTeamScoreTV"
-            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV" />
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plus_button"
+                android:onClick="@{()->viewModel.clickPlusHomeTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="30dp"
@@ -165,18 +181,26 @@
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamIV" />
 
-        <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/awayTeamScoreMinusBTN"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="9dp"
-            android:background="@drawable/minus_button"
+            android:background="@drawable/rectangle_6_white"
             android:elevation="3dp"
-            android:onClick="@{()->viewModel.clickMinusAwayTeamScore()}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
             app:layout_constraintEnd_toStartOf="@id/awayTeamScoreTV"
-            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusAwayTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/awayTeamScoreTV"
@@ -193,18 +217,27 @@
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamTV" />
 
-        <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/awayTeamScorePlusBTN"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="9dp"
-            android:background="@drawable/plus_button"
+            android:background="@drawable/rectangle_6_white"
             android:elevation="3dp"
-            android:onClick="@{()->viewModel.clickPlusAwayTeamScore()}"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
             app:layout_constraintStart_toEndOf="@id/awayTeamScoreTV"
-            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plus_button"
+                android:elevation="5dp"
+                android:onClick="@{()->viewModel.clickPlusAwayTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider1"

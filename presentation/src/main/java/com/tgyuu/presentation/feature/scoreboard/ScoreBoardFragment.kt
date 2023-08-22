@@ -14,6 +14,10 @@ class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
 
+    enum class TimeType {
+        PLAY, ALARM
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -24,6 +28,12 @@ class ScoreBoardFragment :
                 repeatOnStarted {
                     eventFlow.collect { handleEvent(it) }
                 }
+                repeatOnStarted {
+                    playTime.collect { handleTimeUI(it, TimeType.PLAY) }
+                }
+                repeatOnStarted {
+                    alarmTime.collect { handleTimeUI(it, TimeType.ALARM) }
+                }
             }
         }
     }
@@ -31,10 +41,6 @@ class ScoreBoardFragment :
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
-            ScoreBoardViewModel.ScoreBoardEvent.ClickPlusPlayTime -> {}
-            ScoreBoardViewModel.ScoreBoardEvent.ClickMinusPlayTime -> {}
-            ScoreBoardViewModel.ScoreBoardEvent.ClickPlusAlarmTime -> {}
-            ScoreBoardViewModel.ScoreBoardEvent.ClickMinusAlarmTime -> {}
         }
     }
 
@@ -45,6 +51,26 @@ class ScoreBoardFragment :
         } else {
             expandableTimeBoardEL.expand()
             expandableSettingEL.collapse()
+        }
+    }
+
+    private fun handleTimeUI(time: Int, flag: TimeType) {
+        when (flag) {
+            TimeType.PLAY -> {
+                if (time <= 0) {
+                    binding.playTimeMinusBTN.isEnabled = false
+                    return
+                }
+                binding.playTimeMinusBTN.isEnabled = true
+            }
+
+            TimeType.ALARM -> {
+                if (time <= 0) {
+                    binding.alarmMinusBTN.isEnabled = false
+                    return
+                }
+                binding.alarmMinusBTN.isEnabled = true
+            }
         }
     }
 }

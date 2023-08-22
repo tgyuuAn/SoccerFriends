@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:el_duration="500"
-                app:el_expanded="true"
+                app:el_expanded="false"
                 app:el_parallax="0.5"
                 app:layout_constraintTop_toBottomOf="@id/guideline">
 
@@ -333,7 +333,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:el_duration="500"
-                app:el_expanded="false"
+                app:el_expanded="true"
                 app:el_parallax="0.5"
                 app:layout_constraintTop_toBottomOf="@id/expandableTimeBoardEL">
 

@@ -72,11 +72,11 @@ class ScoreBoardFragment :
 
             TimeType.ALARM -> {
                 if (time <= 0) {
-                    binding.alarmPlusBTN.isEnabled = false
+                    binding.alarmMinusBTN.isEnabled = false
                     return
                 }
                 if (time >= 99) {
-                    binding.alarmMinusBTN.isEnabled = false
+                    binding.alarmPlusBTN.isEnabled = false
                     return
                 }
                 binding.alarmMinusBTN.isEnabled = true

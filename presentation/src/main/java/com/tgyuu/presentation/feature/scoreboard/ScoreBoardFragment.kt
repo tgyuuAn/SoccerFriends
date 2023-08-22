@@ -53,81 +53,104 @@ class ScoreBoardFragment :
 
     private fun handleExpandableLayout() = binding.apply {
         if (expandableTimeBoardEL.isExpanded) {
-            expandableTimeBoardEL.collapse()
-            expandableSettingEL.expand()
-            awayTeamScorePlusBTN.visibility = View.GONE
-            homeTeamScorePlusBTN.visibility = View.GONE
-            awayTeamScoreMinusBTN.visibility = View.GONE
-            homeTeamScoreMinusBTN.visibility = View.GONE
+            expandSettingCollapseTimeBoard()
+            setScoreBTNInvisible()
         } else {
-            expandableTimeBoardEL.expand()
-            expandableSettingEL.collapse()
-            awayTeamScorePlusBTN.visibility = View.VISIBLE
-            homeTeamScorePlusBTN.visibility = View.VISIBLE
-            awayTeamScoreMinusBTN.visibility = View.VISIBLE
-            homeTeamScoreMinusBTN.visibility = View.VISIBLE
+            expandTimeBoardCollapseSetting()
+            setScoreBTNVisible()
         }
+    }
+
+    private fun expandSettingCollapseTimeBoard() = binding.apply {
+        expandableTimeBoardEL.collapse()
+        expandableSettingEL.expand()
+    }
+
+    private fun expandTimeBoardCollapseSetting() = binding.apply {
+        expandableTimeBoardEL.expand()
+        expandableSettingEL.collapse()
+    }
+
+    private fun setScoreBTNInvisible() = binding.apply {
+        awayTeamScorePlusBTN.visibility = View.GONE
+        homeTeamScorePlusBTN.visibility = View.GONE
+        awayTeamScoreMinusBTN.visibility = View.GONE
+        homeTeamScoreMinusBTN.visibility = View.GONE
+    }
+
+    private fun setScoreBTNVisible() = binding.apply {
+        awayTeamScorePlusBTN.visibility = View.VISIBLE
+        homeTeamScorePlusBTN.visibility = View.VISIBLE
+        awayTeamScoreMinusBTN.visibility = View.VISIBLE
+        homeTeamScoreMinusBTN.visibility = View.VISIBLE
     }
 
     private fun handleTimeUI(score: Int, type: TimeType) {
         when (type) {
-            TimeType.PLAY -> {
-                if (score <= 0) {
-                    binding.playTimeMinusBTN.isEnabled = false
-                    return
-                }
-
-                if (score >= 99) {
-                    binding.playTimePlusBTN.isEnabled = false
-                    return
-                }
-                binding.playTimeMinusBTN.isEnabled = true
-                binding.playTimePlusBTN.isEnabled = true
-            }
-
-            TimeType.ALARM -> {
-                if (score <= 0) {
-                    binding.alarmMinusBTN.isEnabled = false
-                    return
-                }
-                if (score >= 99) {
-                    binding.alarmPlusBTN.isEnabled = false
-                    return
-                }
-                binding.alarmMinusBTN.isEnabled = true
-                binding.alarmPlusBTN.isEnabled = true
-            }
+            TimeType.PLAY -> handlePlayTimeUI(score)
+            TimeType.ALARM -> handleAlarmTimeUI(score)
         }
     }
 
     private fun handleScoreUI(time: Int, type: ScoreType) {
         when (type) {
-            ScoreType.HOME -> {
-                if (time <= 0) {
-                    binding.playTimeMinusBTN.isEnabled = false
-                    return
-                }
-
-                if (time >= 99) {
-                    binding.playTimePlusBTN.isEnabled = false
-                    return
-                }
-                binding.playTimeMinusBTN.isEnabled = true
-                binding.playTimePlusBTN.isEnabled = true
-            }
-
-            ScoreType.AWAY -> {
-                if (time <= 0) {
-                    binding.alarmMinusBTN.isEnabled = false
-                    return
-                }
-                if (time >= 99) {
-                    binding.alarmPlusBTN.isEnabled = false
-                    return
-                }
-                binding.alarmMinusBTN.isEnabled = true
-                binding.alarmPlusBTN.isEnabled = true
-            }
+            ScoreType.HOME -> handleHomeScoreUI(time)
+            ScoreType.AWAY -> handleAlarmTimeUI(time)
         }
     }
+
+    private fun handlePlayTimeUI(score: Int) = binding.apply {
+        if (score <= 0) {
+            playTimeMinusBTN.isEnabled = false
+            return@apply
+        }
+
+        if (score >= 99) {
+            playTimePlusBTN.isEnabled = false
+            return@apply
+        }
+        playTimeMinusBTN.isEnabled = true
+        playTimePlusBTN.isEnabled = true
+    }
+
+    private fun handleAlarmTimeUI(score: Int) = binding.apply {
+        if (score <= 0) {
+            alarmMinusBTN.isEnabled = false
+            return@apply
+        }
+        if (score >= 99) {
+            alarmPlusBTN.isEnabled = false
+            return@apply
+        }
+        alarmMinusBTN.isEnabled = true
+        alarmPlusBTN.isEnabled = true
+    }
+
+    private fun handleHomeScoreUI(time: Int) = binding.apply {
+        if (time <= 0) {
+            playTimeMinusBTN.isEnabled = false
+            return@apply
+        }
+
+        if (time >= 99) {
+            playTimePlusBTN.isEnabled = false
+            return@apply
+        }
+        playTimeMinusBTN.isEnabled = true
+        playTimePlusBTN.isEnabled = true
+    }
+
+    private fun handleAwayScoreUI(time: Int) = binding.apply {
+        if (time <= 0) {
+            alarmMinusBTN.isEnabled = false
+            return@apply
+        }
+        if (time >= 99) {
+            alarmPlusBTN.isEnabled = false
+            return@apply
+        }
+        alarmMinusBTN.isEnabled = true
+        alarmPlusBTN.isEnabled = true
+    }
+
 }

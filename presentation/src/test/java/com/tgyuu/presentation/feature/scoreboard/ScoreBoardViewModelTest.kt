@@ -161,4 +161,32 @@ class ScoreBoardViewModelTest{
         val actual = scoreBoardViewModel.alarmTime.value
         assertThat(actual).isEqualTo(expected)
     }
+
+    @Test
+    fun `홈 팀의 기본 점수는 0이다`(){
+        //given
+
+
+        //when
+
+
+        //then
+        val expected = 0
+        val actual = scoreBoardViewModel.alarmTime.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `어웨이 팀의 기본 점수는 0이다`(){
+        //given
+
+
+        //when
+
+
+        //then
+        val expected = 0
+        val actual = scoreBoardViewModel.alarmTime.value
+        assertThat(actual).isEqualTo(expected)
+    }
 }

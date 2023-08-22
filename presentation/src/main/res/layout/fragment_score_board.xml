@@ -173,6 +173,7 @@
             android:background="@drawable/minus_button"
             android:elevation="3dp"
             android:onClick="@{()->viewModel.clickMinusAwayTeamScore()}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
             app:layout_constraintEnd_toStartOf="@id/awayTeamScoreTV"
             app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />
@@ -185,8 +186,8 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
-            android:textSize="@dimen/scoreBoardTextSize"
             android:text="@{String.valueOf(viewModel.awayTeamScore)}"
+            android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/awayTeamIV"
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
@@ -199,8 +200,8 @@
             android:layout_marginStart="9dp"
             android:background="@drawable/plus_button"
             android:elevation="3dp"
-            android:visibility="gone"
             android:onClick="@{()->viewModel.clickPlusAwayTeamScore()}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
             app:layout_constraintStart_toEndOf="@id/awayTeamScoreTV"
             app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV" />

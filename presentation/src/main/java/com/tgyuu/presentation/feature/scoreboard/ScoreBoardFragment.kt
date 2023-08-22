@@ -57,11 +57,15 @@ class ScoreBoardFragment :
             expandableSettingEL.expand()
             awayTeamScorePlusBTN.visibility = View.GONE
             homeTeamScorePlusBTN.visibility = View.GONE
+            awayTeamScoreMinusBTN.visibility = View.GONE
+            homeTeamScoreMinusBTN.visibility = View.GONE
         } else {
             expandableTimeBoardEL.expand()
             expandableSettingEL.collapse()
             awayTeamScorePlusBTN.visibility = View.VISIBLE
             homeTeamScorePlusBTN.visibility = View.VISIBLE
+            awayTeamScoreMinusBTN.visibility = View.VISIBLE
+            homeTeamScoreMinusBTN.visibility = View.VISIBLE
         }
     }
 

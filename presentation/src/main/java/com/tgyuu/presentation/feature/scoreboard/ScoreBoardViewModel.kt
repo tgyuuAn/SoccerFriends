@@ -22,8 +22,20 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
 
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
-    sealed class ScoreBoardEvent(){
+    fun clickPlusPlayTime() = event(ScoreBoardEvent.ClickPlusPlayTime)
+
+    fun clickMinusPlayTime() = event(ScoreBoardEvent.ClickMinusPlayTime)
+
+    fun clickPlusAlarmTime() = event(ScoreBoardEvent.ClickPlusAlarmTime)
+
+    fun clickMinusAlarmTime() = event(ScoreBoardEvent.ClickMinusAlarmTime)
+
+    sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
+        object ClickPlusPlayTime : ScoreBoardEvent()
+        object ClickMinusPlayTime : ScoreBoardEvent()
+        object ClickPlusAlarmTime : ScoreBoardEvent()
+        object ClickMinusAlarmTime : ScoreBoardEvent()
     }
 
 }

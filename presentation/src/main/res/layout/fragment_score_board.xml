@@ -334,6 +334,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="150dp"
                 android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusPlayTime()}"
                 app:layout_constraintBottom_toBottomOf="@id/divider3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider2" />
@@ -356,6 +357,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/plus_button"
+                android:onClick="@{()->viewModel.clickPlusPlayTime()}"
                 app:layout_constraintBottom_toBottomOf="@id/divider3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider2" />
@@ -396,6 +398,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="150dp"
                 android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusAlarmTime()}"
                 app:layout_constraintBottom_toBottomOf="@id/divider4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider3" />
@@ -418,6 +421,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/plus_button"
+                android:onClick="@{()->viewModel.clickPlusAlarmTime()}"
                 app:layout_constraintBottom_toBottomOf="@id/divider4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider3" />

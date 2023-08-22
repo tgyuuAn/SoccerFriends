@@ -1,8 +1,6 @@
 package com.tgyuu.presentation.feature.scoreboard
 
 import com.tgyuu.presentation.rule.MainCoroutineRule
-import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

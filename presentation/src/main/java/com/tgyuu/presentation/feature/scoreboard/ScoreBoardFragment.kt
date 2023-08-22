@@ -61,15 +61,26 @@ class ScoreBoardFragment :
                     binding.playTimeMinusBTN.isEnabled = false
                     return
                 }
+
+                if (time >= 99) {
+                    binding.playTimePlusBTN.isEnabled = false
+                    return
+                }
                 binding.playTimeMinusBTN.isEnabled = true
+                binding.playTimePlusBTN.isEnabled = true
             }
 
             TimeType.ALARM -> {
                 if (time <= 0) {
+                    binding.alarmPlusBTN.isEnabled = false
+                    return
+                }
+                if (time >= 99) {
                     binding.alarmMinusBTN.isEnabled = false
                     return
                 }
                 binding.alarmMinusBTN.isEnabled = true
+                binding.alarmPlusBTN.isEnabled = true
             }
         }
     }

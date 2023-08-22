@@ -28,22 +28,26 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     val playTime = _playTime.asStateFlow()
 
     fun clickPlusPlayTime() {
+        if (_playTime.value + 1 <= 99)
         _playTime.value = _playTime.value.plus(1)
     }
 
     fun clickMinusPlayTime() {
-        if (_playTime.value - 1 >= 0) _playTime.value = _playTime.value.minus(1)
+        if (_playTime.value - 1 >= 0)
+            _playTime.value = _playTime.value.minus(1)
     }
 
     private val _alarmTime = MutableStateFlow<Int>(0)
     val alarmTime = _alarmTime.asStateFlow()
 
     fun clickPlusAlarmTime() {
+        if (_alarmTime.value + 1 <= 99)
         _alarmTime.value = _alarmTime.value.plus(1)
     }
 
     fun clickMinusAlarmTime() {
-        if (_alarmTime.value - 1 >= 0) _alarmTime.value = _alarmTime.value.minus(1)
+        if (_alarmTime.value - 1 >= 0)
+            _alarmTime.value = _alarmTime.value.minus(1)
     }
 
     sealed class ScoreBoardEvent {

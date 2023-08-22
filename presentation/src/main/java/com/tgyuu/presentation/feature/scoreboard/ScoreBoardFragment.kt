@@ -55,9 +55,13 @@ class ScoreBoardFragment :
         if (expandableTimeBoardEL.isExpanded) {
             expandableTimeBoardEL.collapse()
             expandableSettingEL.expand()
+            awayTeamScorePlusBTN.visibility = View.GONE
+            homeTeamScorePlusBTN.visibility = View.GONE
         } else {
             expandableTimeBoardEL.expand()
             expandableSettingEL.collapse()
+            awayTeamScorePlusBTN.visibility = View.VISIBLE
+            homeTeamScorePlusBTN.visibility = View.VISIBLE
         }
     }
 

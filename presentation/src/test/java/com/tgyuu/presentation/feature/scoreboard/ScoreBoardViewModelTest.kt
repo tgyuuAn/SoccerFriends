@@ -176,6 +176,21 @@ class ScoreBoardViewModelTest{
     }
 
     @Test
+    fun `플레이 타임이 경기 종료 전 알림과 같을 경우 감소되지 않는다`(){
+        //given
+        scoreBoardViewModel.clickPlusPlayTime()
+        scoreBoardViewModel.clickPlusAlarmTime()
+
+        //when
+        scoreBoardViewModel.clickMinusPlayTime()
+
+        //then
+        val expected = 1
+        val actual = scoreBoardViewModel.alarmTime.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
     fun `홈 팀의 기본 점수는 0이다`(){
         //given
 

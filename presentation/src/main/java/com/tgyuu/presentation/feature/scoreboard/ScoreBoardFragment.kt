@@ -102,6 +102,9 @@ class ScoreBoardFragment :
         }
     }
 
+    /**
+     * PlayTime이 AlarmTime보다 작을 수 없습니다.
+     */
     private fun handlePlayTimeUI(score: Int) = binding.apply {
         if (score <= 0) {
             playTimeMinusBTN.isEnabled = false
@@ -129,6 +132,9 @@ class ScoreBoardFragment :
         }
     }
 
+    /**
+     * AlarmTime이 Playime보다 클 수 없습니다.
+     */
     private fun handleAlarmTimeUI(score: Int) = binding.apply {
         if (score <= 0) {
             alarmMinusBTN.isEnabled = false

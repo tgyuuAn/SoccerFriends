@@ -472,12 +472,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-                    <EditText
+                    <TextView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
-                        android:inputType="number"
                         android:text="@{String.valueOf(viewModel.playTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -538,12 +537,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-                    <EditText
+                    <TextView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
-                        android:inputType="number"
                         android:text="@{String.valueOf(viewModel.alarmTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"

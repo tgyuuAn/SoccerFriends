@@ -54,13 +54,8 @@ class TeamFragment :
             }
 
             repeatOnStarted {
-                memberListFlow.collect { handleMemberListState(it) }
-            }
-
-            repeatOnStarted {
                 team.collect { handleTeamState(it) }
             }
-            getMemberList()
             getTeam()
         }
 
@@ -68,6 +63,12 @@ class TeamFragment :
             repeatOnStarted {
                 eventFlow.collect { handleAdapterEvent(it) }
             }
+
+            repeatOnStarted {
+                memberListFlow.collect { handleMemberListState(it) }
+            }
+
+            getMemberList()
         }
     }
 
@@ -84,7 +85,7 @@ class TeamFragment :
 
             val memberFlag = bundle.getString(ChangeDialogFragment.Member)
             if (memberFlag != null) {
-                fragmentViewModel.getMemberList()
+                adapterViewModel.getMemberList()
                 return@setFragmentResultListener
             }
         }
@@ -113,10 +114,10 @@ class TeamFragment :
     }
 
     private fun changeNickName() {
-        if (fragmentViewModel.updateMember != null) {
+        if (adapterViewModel.updateMember != null) {
             showChangeDialog(
                 ChangeDialogFragment.DialogType.ChangeMemberName(
-                    fragmentViewModel.updateMember!!
+                    adapterViewModel.updateMember!!
                 )
             )
         }
@@ -127,32 +128,37 @@ class TeamFragment :
     }
 
     private fun changePosition() {
-        if (fragmentViewModel.updateMember != null) {
-            showChangeDialog(ChangeDialogFragment.DialogType.ChangePosition(fragmentViewModel.updateMember!!))
+        if (adapterViewModel.updateMember != null) {
+            showChangeDialog(ChangeDialogFragment.DialogType.ChangePosition(adapterViewModel.updateMember!!))
         }
     }
 
     private fun changeBackNumber() {
-        if (fragmentViewModel.updateMember != null) {
-            showChangeDialog(ChangeDialogFragment.DialogType.ChangeNumber(fragmentViewModel.updateMember!!))
+        if (adapterViewModel.updateMember != null) {
+            showChangeDialog(ChangeDialogFragment.DialogType.ChangeNumber(adapterViewModel.updateMember!!))
         }
     }
 
     private fun removeImage() {
-        fragmentViewModel.removeMemberImage()
+        adapterViewModel.removeMemberImage()
     }
 
     private fun removeMember() {
-        fragmentViewModel.removeMember()
+        adapterViewModel.removeMember()
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
         when (event) {
             TeamViewModel.TeamEvent.AddMember -> findNavController().navigate(R.id.action_global_addMemberFragment)
             TeamViewModel.TeamEvent.ChangeTeamName -> {
-                if(fragmentViewModel.updateTeam !=null)
-                showChangeDialog(ChangeDialogFragment.DialogType.ChangeTeamName(fragmentViewModel.updateTeam!!))
+                if (fragmentViewModel.updateTeam != null)
+                    showChangeDialog(
+                        ChangeDialogFragment.DialogType.ChangeTeamName(
+                            fragmentViewModel.updateTeam!!
+                        )
+                    )
             }
+
             TeamViewModel.TeamEvent.ChangeTeamImage -> navigateToGallery(RequestCode.TeamImage)
         }
     }
@@ -194,8 +200,9 @@ class TeamFragment :
                     fragmentViewModel.updateTeamImage(imageUri)
                     requestCode = null
                 }
+
                 RequestCode.MemberImage -> {
-                    fragmentViewModel.updateMemberImage(imageUri)
+                    adapterViewModel.updateMemberImage(imageUri)
                     requestCode = null
                 }
             }
@@ -270,7 +277,7 @@ class TeamFragment :
     private fun handleAdapterEvent(event: AdapterViewModel.AdapterEvent) {
         when (event) {
             is AdapterViewModel.AdapterEvent.ClickMore -> {
-                fragmentViewModel.updateMember = event.member
+                adapterViewModel.updateMember = event.member
                 showMemberMoreBottomSheet()
             }
         }

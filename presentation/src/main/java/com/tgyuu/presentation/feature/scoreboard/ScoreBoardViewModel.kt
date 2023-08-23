@@ -16,6 +16,18 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+    private val _playTime = MutableStateFlow<Int>(0)
+    val playTime = _playTime.asStateFlow()
+
+    private val _alarmTime = MutableStateFlow<Int>(0)
+    val alarmTime = _alarmTime.asStateFlow()
+
+    private val _homeTeamScore = MutableStateFlow<Int>(0)
+    val homeTeamScore = _homeTeamScore.asStateFlow()
+
+    private val _awayTeamScore = MutableStateFlow<Int>(0)
+    val awayTeamScore = _awayTeamScore.asStateFlow()
+
     private fun event(event: ScoreBoardEvent) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -23,9 +35,6 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     }
 
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
-
-    private val _playTime = MutableStateFlow<Int>(0)
-    val playTime = _playTime.asStateFlow()
 
     fun clickPlusPlayTime() {
         if (_playTime.value + 1 <= 99)
@@ -41,9 +50,6 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
             _playTime.value = _playTime.value.minus(1)
     }
 
-    private val _alarmTime = MutableStateFlow<Int>(0)
-    val alarmTime = _alarmTime.asStateFlow()
-
     fun clickPlusAlarmTime() {
         if(_alarmTime.value == _playTime.value){
             return
@@ -58,9 +64,6 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
             _alarmTime.value = _alarmTime.value.minus(1)
     }
 
-    private val _homeTeamScore = MutableStateFlow<Int>(0)
-    val homeTeamScore = _homeTeamScore.asStateFlow()
-
     fun clickPlusHomeTeamScore() {
         if (_homeTeamScore.value + 1 <= 99)
             _homeTeamScore.value = _homeTeamScore.value.plus(1)
@@ -70,9 +73,6 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
         if (_homeTeamScore.value - 1 >= 0)
             _homeTeamScore.value = _homeTeamScore.value.minus(1)
     }
-
-    private val _awayTeamScore = MutableStateFlow<Int>(0)
-    val awayTeamScore = _awayTeamScore.asStateFlow()
 
     fun clickPlusAwayTeamScore() {
         if (_awayTeamScore.value + 1 <= 99)

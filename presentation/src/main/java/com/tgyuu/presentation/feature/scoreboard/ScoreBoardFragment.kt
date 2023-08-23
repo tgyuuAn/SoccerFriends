@@ -105,30 +105,55 @@ class ScoreBoardFragment :
     private fun handlePlayTimeUI(score: Int) = binding.apply {
         if (score <= 0) {
             playTimeMinusBTN.isEnabled = false
-            return@apply
+        } else {
+            playTimeMinusBTN.isEnabled = true
         }
 
         if (score >= 99) {
             playTimePlusBTN.isEnabled = false
-            return@apply
+        } else {
+            playTimePlusBTN.isEnabled = true
         }
-        playTimeMinusBTN.isEnabled = true
-        playTimePlusBTN.isEnabled = true
+
+        if (score == fragmentViewModel.alarmTime.value) {
+            alarmPlusBTN.isEnabled = false
+            playTimeMinusBTN.isEnabled = false
+        } else {
+            alarmPlusBTN.isEnabled = true
+            playTimeMinusBTN.isEnabled = true
+        }
+
+        if (score != fragmentViewModel.alarmTime.value) {
+            playTimeMinusBTN.isEnabled = true
+            playTimePlusBTN.isEnabled = true
+        }
     }
 
     private fun handleAlarmTimeUI(score: Int) = binding.apply {
         if (score <= 0) {
             alarmMinusBTN.isEnabled = false
-            return@apply
+        } else {
+            alarmMinusBTN.isEnabled = true
         }
 
-        if (score >= 99 || fragmentViewModel.playTime.value == score) {
+        if (score >= 99) {
             alarmPlusBTN.isEnabled = false
-            return@apply
+        } else {
+            alarmPlusBTN.isEnabled = true
         }
 
-        alarmMinusBTN.isEnabled = true
-        alarmPlusBTN.isEnabled = true
+        if (score == fragmentViewModel.playTime.value) {
+            alarmPlusBTN.isEnabled = false
+            playTimeMinusBTN.isEnabled = false
+        } else {
+            alarmPlusBTN.isEnabled = true
+            playTimeMinusBTN.isEnabled = true
+        }
+
+        if (score != fragmentViewModel.playTime.value) {
+            alarmMinusBTN.isEnabled = true
+            alarmPlusBTN.isEnabled = true
+        }
     }
 
     private fun handleHomeScoreUI(time: Int) = binding.apply {

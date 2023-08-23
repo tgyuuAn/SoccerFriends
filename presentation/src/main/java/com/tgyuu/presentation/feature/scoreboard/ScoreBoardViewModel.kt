@@ -6,6 +6,8 @@ import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.GetTeamUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
+import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MAX_VALUE
+import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MIN_VALUE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -66,7 +68,7 @@ class ScoreBoardViewModel @Inject constructor(
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
     fun clickPlusPlayTime() {
-        if (_playTime.value + 1 <= 99)
+        if (_playTime.value + 1 <= MAX_VALUE)
             _playTime.value = _playTime.value.plus(1)
     }
 
@@ -75,7 +77,7 @@ class ScoreBoardViewModel @Inject constructor(
             return
         }
 
-        if (_playTime.value - 1 >= 0)
+        if (_playTime.value - 1 >= MIN_VALUE)
             _playTime.value = _playTime.value.minus(1)
     }
 
@@ -84,32 +86,32 @@ class ScoreBoardViewModel @Inject constructor(
             return
         }
 
-        if (_alarmTime.value + 1 <= 99)
+        if (_alarmTime.value + 1 <= MAX_VALUE)
             _alarmTime.value = _alarmTime.value.plus(1)
     }
 
     fun clickMinusAlarmTime() {
-        if (_alarmTime.value - 1 >= 0)
+        if (_alarmTime.value - 1 >= MIN_VALUE)
             _alarmTime.value = _alarmTime.value.minus(1)
     }
 
     fun clickPlusHomeTeamScore() {
-        if (_homeTeamScore.value + 1 <= 99)
+        if (_homeTeamScore.value + 1 <= MAX_VALUE)
             _homeTeamScore.value = _homeTeamScore.value.plus(1)
     }
 
     fun clickMinusHomeTeamScore() {
-        if (_homeTeamScore.value - 1 >= 0)
+        if (_homeTeamScore.value - 1 >= MIN_VALUE)
             _homeTeamScore.value = _homeTeamScore.value.minus(1)
     }
 
     fun clickPlusAwayTeamScore() {
-        if (_awayTeamScore.value + 1 <= 99)
+        if (_awayTeamScore.value + 1 <= MAX_VALUE)
             _awayTeamScore.value = _awayTeamScore.value.plus(1)
     }
 
     fun clickMinusAwayTeamScore() {
-        if (_awayTeamScore.value - 1 >= 0)
+        if (_awayTeamScore.value - 1 >= MIN_VALUE)
             _awayTeamScore.value = _awayTeamScore.value.minus(1)
     }
 }

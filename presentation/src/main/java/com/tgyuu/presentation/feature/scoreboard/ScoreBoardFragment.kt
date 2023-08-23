@@ -36,6 +36,9 @@ class ScoreBoardFragment :
                     playTime.collect { handleTimeUI(it, TimeType.PLAY) }
                 }
                 repeatOnStarted {
+                    alarmTime.collect { handleTimeUI(it, TimeType.ALARM) }
+                }
+                repeatOnStarted {
                     homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) }
                 }
                 repeatOnStarted {
@@ -95,7 +98,7 @@ class ScoreBoardFragment :
     private fun handleScoreUI(time: Int, type: ScoreType) {
         when (type) {
             ScoreType.HOME -> handleHomeScoreUI(time)
-            ScoreType.AWAY -> handleAlarmTimeUI(time)
+            ScoreType.AWAY -> handleAwayScoreUI(time)
         }
     }
 
@@ -118,10 +121,12 @@ class ScoreBoardFragment :
             alarmMinusBTN.isEnabled = false
             return@apply
         }
-        if (score >= 99) {
+
+        if (score >= 99 || fragmentViewModel.playTime.value == score) {
             alarmPlusBTN.isEnabled = false
             return@apply
         }
+
         alarmMinusBTN.isEnabled = true
         alarmPlusBTN.isEnabled = true
     }

@@ -41,6 +41,10 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     val alarmTime = _alarmTime.asStateFlow()
 
     fun clickPlusAlarmTime() {
+        if(_alarmTime.value == _playTime.value){
+            return
+        }
+
         if (_alarmTime.value + 1 <= 99)
             _alarmTime.value = _alarmTime.value.plus(1)
     }

@@ -103,7 +103,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <EditText
             android:id="@+id/homeTeamScoreTV"
             android:layout_width="54dp"
             android:layout_height="32dp"
@@ -111,6 +111,7 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
+            android:inputType="number"
             android:text="@{String.valueOf(viewModel.homeTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -210,6 +211,7 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
+            android:inputType="number"
             android:text="@{String.valueOf(viewModel.awayTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -604,24 +606,24 @@
             android:id="@+id/scoreBoardLoadingView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="0.6"
             android:background="@color/main"
             android:elevation="1dp"
-            android:alpha="0.6"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/scoreBoardLTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:lottie_rawRes="@raw/loading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:visibility="gone"/>
+            app:lottie_rawRes="@raw/loading" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

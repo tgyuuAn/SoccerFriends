@@ -26,6 +26,11 @@ class ScoreBoardFragment :
         HOME, AWAY
     }
 
+    companion object{
+        const val MAX_VALUE = 99
+        const val MIN_VALUE = 0
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -85,8 +90,8 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun handleExpandableLayout() = binding.apply {
-        if (expandableTimeBoardEL.isExpanded) {
+    private fun handleExpandableLayout() {
+        if (binding.expandableTimeBoardEL.isExpanded) {
             expandSettingCollapseTimeBoard()
             setScoreBTNInvisible()
         } else {
@@ -161,13 +166,13 @@ class ScoreBoardFragment :
      * PlayTime이 AlarmTime보다 작을 수 없습니다.
      */
     private fun handlePlayTimeUI(score: Int) = binding.apply {
-        if (score <= 0) {
+        if (score <= MIN_VALUE) {
             playTimeMinusBTN.isEnabled = false
         } else {
             playTimeMinusBTN.isEnabled = true
         }
 
-        if (score >= 99) {
+        if (score >= MAX_VALUE) {
             playTimePlusBTN.isEnabled = false
         } else {
             playTimePlusBTN.isEnabled = true
@@ -191,13 +196,13 @@ class ScoreBoardFragment :
      * AlarmTime이 Playime보다 클 수 없습니다.
      */
     private fun handleAlarmTimeUI(score: Int) = binding.apply {
-        if (score <= 0) {
+        if (score <= MIN_VALUE) {
             alarmMinusBTN.isEnabled = false
         } else {
             alarmMinusBTN.isEnabled = true
         }
 
-        if (score >= 99) {
+        if (score >= MAX_VALUE) {
             alarmPlusBTN.isEnabled = false
         } else {
             alarmPlusBTN.isEnabled = true
@@ -218,12 +223,12 @@ class ScoreBoardFragment :
     }
 
     private fun handleHomeScoreUI(time: Int) = binding.apply {
-        if (time <= 0) {
+        if (time <= MIN_VALUE) {
             playTimeMinusBTN.isEnabled = false
             return@apply
         }
 
-        if (time >= 99) {
+        if (time >= MAX_VALUE) {
             playTimePlusBTN.isEnabled = false
             return@apply
         }
@@ -232,11 +237,11 @@ class ScoreBoardFragment :
     }
 
     private fun handleAwayScoreUI(time: Int) = binding.apply {
-        if (time <= 0) {
+        if (time <= MIN_VALUE) {
             alarmMinusBTN.isEnabled = false
             return@apply
         }
-        if (time >= 99) {
+        if (time >= MAX_VALUE) {
             alarmPlusBTN.isEnabled = false
             return@apply
         }

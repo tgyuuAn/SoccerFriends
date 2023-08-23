@@ -20,10 +20,19 @@ class AddMemberViewModel @Inject constructor(
     private val validateMemberFormatUseCase: ValidateMemberFormatUseCase,
     private val addMemberUseCase: AddMemberUseCase,
     @IO private val IOdispatcher: CoroutineDispatcher
-) :
-    ViewModel() {
+) : ViewModel() {
+
+    sealed class AddMemberEvent {
+        object ClickComplete : AddMemberEvent()
+        object ClickReset : AddMemberEvent()
+        object ClickImage : AddMemberEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<AddMemberEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Init)
+    val addMemberState = _addMemberState.asStateFlow()
 
     private fun event(event: AddMemberEvent) {
         viewModelScope.launch {
@@ -36,15 +45,6 @@ class AddMemberViewModel @Inject constructor(
     fun clickReset() = event(AddMemberEvent.ClickReset)
 
     fun clickImage() = event(AddMemberEvent.ClickImage)
-
-    sealed class AddMemberEvent {
-        object ClickComplete : AddMemberEvent()
-        object ClickReset : AddMemberEvent()
-        object ClickImage : AddMemberEvent()
-    }
-
-    private val _addMemberState = MutableStateFlow<UiState<Unit>>(UiState.Init)
-    val addMemberState = _addMemberState.asStateFlow()
 
     private fun setAddMemberState(uiState: UiState<Unit>) {
         _addMemberState.value = uiState

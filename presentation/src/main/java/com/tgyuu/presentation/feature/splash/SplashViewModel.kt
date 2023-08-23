@@ -12,6 +12,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor() : ViewModel() {
 
+    sealed class SplashEvent {
+        object Splash : SplashEvent()
+    }
+
     init {
         splashMillis(2000L)
     }
@@ -28,9 +32,5 @@ class SplashViewModel @Inject constructor() : ViewModel() {
     private fun splashMillis(delayMillis: Long) = viewModelScope.launch {
         delay(delayMillis)
         event(SplashEvent.Splash)
-    }
-
-    sealed class SplashEvent {
-        object Splash : SplashEvent()
     }
 }

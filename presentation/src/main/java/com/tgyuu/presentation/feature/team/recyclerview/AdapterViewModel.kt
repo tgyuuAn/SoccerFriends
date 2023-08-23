@@ -25,6 +25,10 @@ class AdapterViewModel @Inject constructor(
     @IO private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    sealed class AdapterEvent {
+        data class ClickMore(val member: Member) : AdapterEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<AdapterEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -38,10 +42,6 @@ class AdapterViewModel @Inject constructor(
     private fun event(event: AdapterEvent) = viewModelScope.launch { _eventFlow.emit(event) }
 
     fun clickMore(member: Member) = event(AdapterEvent.ClickMore(member))
-
-    sealed class AdapterEvent {
-        data class ClickMore(val member: Member) : AdapterEvent()
-    }
 
     fun getMemberList() {
         setMemberListState(UiState.Loading)
@@ -60,6 +60,7 @@ class AdapterViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.updateMemberImage(updateMember!!, image)
         }
+
         getMemberList()
     }
 
@@ -71,6 +72,7 @@ class AdapterViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateMemberInformationUseCase.removeMemberImage(updateMember!!)
         }
+
         getMemberList()
     }
 
@@ -82,6 +84,7 @@ class AdapterViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             deleteMemberUseCase(updateMember!!)
         }
+
         getMemberList()
     }
 }

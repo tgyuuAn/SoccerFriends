@@ -28,8 +28,17 @@ class TeamViewModel @Inject constructor(
     @IO private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    sealed class TeamEvent {
+        object AddMember : TeamEvent()
+        object ChangeTeamName : TeamEvent()
+        object ChangeTeamImage : TeamEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
+    val team = _team.asStateFlow()
 
     private fun event(event: TeamEvent) = viewModelScope.launch { _eventFlow.emit(event) }
 
@@ -39,17 +48,19 @@ class TeamViewModel @Inject constructor(
 
     fun changeTeamImage() = event(TeamEvent.ChangeTeamImage)
 
-    sealed class TeamEvent {
-        object AddMember : TeamEvent()
-        object ChangeTeamName : TeamEvent()
-        object ChangeTeamImage : TeamEvent()
-    }
-
-    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
-    val team = _team.asStateFlow()
-
     private fun setTeamState(uiState: UiState<Team>) {
         _team.value = uiState
+    }
+
+    fun getTeam() {
+        setTeamState(UiState.Loading)
+
+        viewModelScope.launch(ioDispatcher) {
+            getTeamUseCase().collect {
+                setTeamState(UiState.Success(it))
+                updateTeam = it
+            }
+        }
     }
 
     var updateTeam : Team? = null
@@ -65,16 +76,7 @@ class TeamViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateTeamInformationUseCase.updateTeamImage(updateTeam!!,teamImage)
         }
-        getTeam()
-    }
 
-    fun getTeam() {
-        setTeamState(UiState.Loading)
-        viewModelScope.launch(ioDispatcher) {
-            getTeamUseCase().collect {
-                setTeamState(UiState.Success(it))
-                updateTeam = it
-            }
-        }
+        getTeam()
     }
 }

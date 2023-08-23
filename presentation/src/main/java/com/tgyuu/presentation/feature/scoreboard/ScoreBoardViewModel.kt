@@ -13,6 +13,10 @@ import javax.inject.Inject
 @HiltViewModel
 class ScoreBoardViewModel @Inject constructor() : ViewModel() {
 
+    sealed class ScoreBoardEvent {
+        object ClickButton : ScoreBoardEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -83,9 +87,4 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
         if (_awayTeamScore.value - 1 >= 0)
             _awayTeamScore.value = _awayTeamScore.value.minus(1)
     }
-
-    sealed class ScoreBoardEvent {
-        object ClickButton : ScoreBoardEvent()
-    }
-
 }

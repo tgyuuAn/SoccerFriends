@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.scoreboard
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.tgyuu.domain.entity.Team
@@ -137,7 +138,7 @@ class ScoreBoardFragment :
         }
 
         Glide.with(requireContext())
-            .load(team.image)
+            .load(team.image.toUri())
             .circleCrop()
             .into(binding.homeTeamIV)
     }

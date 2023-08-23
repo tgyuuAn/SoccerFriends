@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -269,7 +270,7 @@ class TeamFragment :
         }
 
         Glide.with(requireContext())
-            .load(team.image)
+            .load(team.image.toUri())
             .circleCrop()
             .into(binding.teamLogoIV)
     }

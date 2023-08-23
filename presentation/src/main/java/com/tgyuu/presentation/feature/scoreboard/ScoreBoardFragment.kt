@@ -3,8 +3,11 @@ package com.tgyuu.presentation.feature.scoreboard
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.R
 import com.tgyuu.presentation.common.base.BaseFragment
+import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,18 +35,27 @@ class ScoreBoardFragment :
                 repeatOnStarted {
                     eventFlow.collect { handleEvent(it) }
                 }
+
+                repeatOnStarted {
+                    team.collect { handleTeamState(it) }
+                }
+
                 repeatOnStarted {
                     playTime.collect { handleTimeUI(it, TimeType.PLAY) }
                 }
+
                 repeatOnStarted {
                     alarmTime.collect { handleTimeUI(it, TimeType.ALARM) }
                 }
+
                 repeatOnStarted {
                     homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) }
                 }
+
                 repeatOnStarted {
                     awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) }
                 }
+                getTeam()
             }
         }
     }
@@ -51,6 +63,24 @@ class ScoreBoardFragment :
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
+        }
+    }
+
+    private fun handleTeamState(teamState: UiState<Team>) {
+        when (teamState) {
+            UiState.Init -> {}
+
+            UiState.Loading -> showLoadingScreen()
+
+            is UiState.Success -> {
+                hideLoadingScreen()
+                updateTeam(teamState.data)
+            }
+
+            is UiState.Error -> {
+                hideLoadingScreen()
+                toast("팀 정보 갱신에 실패하였습니다.")
+            }
         }
     }
 
@@ -86,6 +116,30 @@ class ScoreBoardFragment :
         homeTeamScorePlusBTN.visibility = View.VISIBLE
         awayTeamScoreMinusBTN.visibility = View.VISIBLE
         homeTeamScoreMinusBTN.visibility = View.VISIBLE
+    }
+
+    private fun showLoadingScreen() = binding.apply {
+        scoreBoardLoadingView.visibility = View.VISIBLE
+        scoreBoardLTV.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingScreen() = binding.apply {
+        scoreBoardLoadingView.visibility = View.GONE
+        scoreBoardLTV.visibility = View.GONE
+    }
+
+    private fun updateTeam(team: Team) {
+        binding.homeTeamTV.text = team.name
+
+        if (team.image.isEmpty()) {
+            binding.homeTeamIV.setImageResource(R.drawable.circle)
+            return
+        }
+
+        Glide.with(requireContext())
+            .load(team.image)
+            .circleCrop()
+            .into(binding.homeTeamIV)
     }
 
     private fun handleTimeUI(score: Int, type: TimeType) {

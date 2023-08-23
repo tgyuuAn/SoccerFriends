@@ -10,6 +10,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
+
+    sealed class HomeEvent {
+        object MoveToScoreBoard : HomeEvent()
+        object MoveToFormation : HomeEvent()
+        object MoveToTeamManagement : HomeEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<HomeEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -22,10 +29,4 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     fun moveToScoreBoard() = event(HomeEvent.MoveToScoreBoard)
     fun moveToFormation() = event(HomeEvent.MoveToFormation)
     fun moveToTeamManagement() = event(HomeEvent.MoveToTeamManagement)
-
-    sealed class HomeEvent {
-        object MoveToScoreBoard : HomeEvent()
-        object MoveToFormation : HomeEvent()
-        object MoveToTeamManagement : HomeEvent()
-    }
 }

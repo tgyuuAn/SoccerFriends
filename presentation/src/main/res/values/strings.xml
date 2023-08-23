@@ -50,4 +50,7 @@
     <string name="removeImage">이미지 제거</string>
     <string name="removeMember">선수 방출</string>
     <string name="confirm">확인</string>
+
+    <string name="timeBoardPlayTime">플레이 타임 = %d 분</string>
+    <string name="timeBoardAlarmTime">경기 종료 전 알림 = %d 분</string>
 </resources>

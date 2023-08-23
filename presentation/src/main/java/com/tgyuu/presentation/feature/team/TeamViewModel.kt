@@ -23,16 +23,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
-    private val getMemberUseCase: GetMemberUseCase,
-    private val deleteMemberUseCase: DeleteMemberUseCase,
-    private val updateMemberInformationUseCase: UpdateMemberInformationUseCase,
     private val updateTeamInformationUseCase: UpdateTeamInformationUseCase,
     private val getTeamUseCase: GetTeamUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    sealed class TeamEvent {
+        object AddMember : TeamEvent()
+        object ChangeTeamName : TeamEvent()
+        object ChangeTeamImage : TeamEvent()
+    }
+
     private val _eventFlow = MutableSharedFlow<TeamEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
+    val team = _team.asStateFlow()
 
     private fun event(event: TeamEvent) = viewModelScope.launch { _eventFlow.emit(event) }
 
@@ -42,66 +48,19 @@ class TeamViewModel @Inject constructor(
 
     fun changeTeamImage() = event(TeamEvent.ChangeTeamImage)
 
-    sealed class TeamEvent {
-        object AddMember : TeamEvent()
-        object ChangeTeamName : TeamEvent()
-        object ChangeTeamImage : TeamEvent()
-    }
-
-    private val _memberListFlow = MutableStateFlow<UiState<List<Member>>>(UiState.Init)
-    val memberListFlow = _memberListFlow.asStateFlow()
-
-    private fun setMemberListState(uiState: UiState<List<Member>>) {
-        _memberListFlow.value = uiState
-    }
-
-    fun getMemberList() {
-        setMemberListState(UiState.Loading)
-        viewModelScope.launch(ioDispatcher) {
-            getMemberUseCase.getAllMembers().collect { setMemberListState(UiState.Success(it)) }
-        }
-    }
-
-    var updateMember: Member? = null
-
-    fun updateMemberImage(image: String) {
-        if (updateMember == null) {
-            return
-        }
-
-        viewModelScope.launch(ioDispatcher) {
-            updateMemberInformationUseCase.updateMemberImage(updateMember!!, image)
-        }
-        getMemberList()
-    }
-
-    fun removeMemberImage() {
-        if (updateMember == null) {
-            return
-        }
-
-        viewModelScope.launch(ioDispatcher) {
-            updateMemberInformationUseCase.removeMemberImage(updateMember!!)
-        }
-        getMemberList()
-    }
-
-    fun removeMember() {
-        if (updateMember == null) {
-            return
-        }
-
-        viewModelScope.launch(ioDispatcher) {
-            deleteMemberUseCase(updateMember!!)
-        }
-        getMemberList()
-    }
-
-    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
-    val team = _team.asStateFlow()
-
     private fun setTeamState(uiState: UiState<Team>) {
         _team.value = uiState
+    }
+
+    fun getTeam() {
+        setTeamState(UiState.Loading)
+
+        viewModelScope.launch(ioDispatcher) {
+            getTeamUseCase().collect {
+                setTeamState(UiState.Success(it))
+                updateTeam = it
+            }
+        }
     }
 
     var updateTeam : Team? = null
@@ -117,16 +76,7 @@ class TeamViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateTeamInformationUseCase.updateTeamImage(updateTeam!!,teamImage)
         }
-        getTeam()
-    }
 
-    fun getTeam() {
-        setTeamState(UiState.Loading)
-        viewModelScope.launch(ioDispatcher) {
-            getTeamUseCase().collect {
-                setTeamState(UiState.Success(it))
-                updateTeam = it
-            }
-        }
+        getTeam()
     }
 }

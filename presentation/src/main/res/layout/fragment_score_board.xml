@@ -82,6 +82,27 @@
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamIV" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/homeTeamScoreMinusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/rectangle_6_white"
+            android:elevation="3dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
+            app:layout_constraintEnd_toStartOf="@id/homeTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusHomeTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/homeTeamScoreTV"
             android:layout_width="54dp"
@@ -90,11 +111,33 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
+            android:text="@{String.valueOf(viewModel.homeTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/homeTeamIV"
             app:layout_constraintStart_toStartOf="@id/homeTeamIV"
             app:layout_constraintTop_toBottomOf="@id/homeTeamTV" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/homeTeamScorePlusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rectangle_6_white"
+            android:elevation="3dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/homeTeamScoreTV"
+            app:layout_constraintStart_toEndOf="@id/homeTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/homeTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plus_button"
+                android:onClick="@{()->viewModel.clickPlusHomeTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="30dp"
@@ -138,6 +181,27 @@
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamIV" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/awayTeamScoreMinusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/rectangle_6_white"
+            android:elevation="3dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
+            app:layout_constraintEnd_toStartOf="@id/awayTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/minus_button"
+                android:onClick="@{()->viewModel.clickMinusAwayTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/awayTeamScoreTV"
             android:layout_width="54dp"
@@ -146,11 +210,34 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
+            android:text="@{String.valueOf(viewModel.awayTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/awayTeamIV"
             app:layout_constraintStart_toStartOf="@id/awayTeamIV"
             app:layout_constraintTop_toBottomOf="@id/awayTeamTV" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/awayTeamScorePlusBTN"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="9dp"
+            android:background="@drawable/rectangle_6_white"
+            android:elevation="3dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/awayTeamScoreTV"
+            app:layout_constraintStart_toEndOf="@id/awayTeamScoreTV"
+            app:layout_constraintTop_toTopOf="@id/awayTeamScoreTV">
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/plus_button"
+                android:elevation="5dp"
+                android:onClick="@{()->viewModel.clickPlusAwayTeamScore()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider1"
@@ -191,7 +278,9 @@
             android:layout_height="0dp"
             android:background="@drawable/rectangle_30_white_top"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/scoreBoardIV">
+            app:layout_constraintTop_toTopOf="@id/scoreBoardIV"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -201,7 +290,7 @@
                 app:layout_constraintGuide_begin="250dp" />
 
             <net.cachapa.expandablelayout.ExpandableLayout
-                android:id="@+id/expandableLayout"
+                android:id="@+id/expandableTimeBoardEL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -236,6 +325,7 @@
                         app:layout_constraintTop_toBottomOf="@id/remainTimeTV" />
 
                     <LinearLayout
+                        android:id="@+id/TimeBoardLL"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_marginHorizontal="25dp"
@@ -294,152 +384,203 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="30dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/TimeBoardLL" />
+
+                    <TextView
+                        android:id="@+id/playTimeDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@{@string/timeBoardPlayTime(viewModel.playTime)}"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider5" />
+
+                    <TextView
+                        android:id="@+id/alarmTimeDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@{@string/timeBoardAlarmTime(viewModel.alarmTime)}"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/playTimeDescriptionTV"
+                        app:layout_constraintTop_toBottomOf="@id/divider5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
-            <TextView
-                android:id="@+id/matchDetailTV"
-                android:layout_width="wrap_content"
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandableSettingEL"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
                 android:layout_marginTop="15dp"
-                android:text="@string/matchDetail"
-                android:textSize="@dimen/scoreBoardHeaderSize"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/expandableLayout" />
+                app:el_duration="500"
+                app:el_expanded="true"
+                app:el_parallax="0.5"
+                app:layout_constraintTop_toBottomOf="@id/expandableTimeBoardEL">
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="10dp"
-                app:dividerColor="@color/light_gray"
-                app:layout_constraintTop_toBottomOf="@id/matchDetailTV" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:text="@string/playTime"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <TextView
+                        android:id="@+id/matchDetailTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/matchDetail"
+                        android:textSize="@dimen/scoreBoardHeaderSize"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/playTimeMinusBTN"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="150dp"
-                android:background="@drawable/minus_button"
-                app:layout_constraintBottom_toBottomOf="@id/divider3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/matchDetailTV" />
 
-            <TextView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/rectangle_10_light_gray"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider3"
-                app:layout_constraintEnd_toStartOf="@id/playTimePlusBTN"
-                app:layout_constraintStart_toEndOf="@id/playTimeMinusBTN"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="45dp"
+                        android:text="@string/playTime"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <Button
-                android:id="@+id/playTimePlusBTN"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/plus_button"
-                app:layout_constraintBottom_toBottomOf="@id/divider3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <Button
+                        android:id="@+id/playTimeMinusBTN"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="150dp"
+                        android:background="@drawable/minus_button"
+                        android:onClick="@{()->viewModel.clickMinusPlayTime()}"
+                        app:layout_constraintBottom_toBottomOf="@id/divider3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/minute"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider3"
-                app:layout_constraintStart_toEndOf="@id/playTimePlusBTN"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/rectangle_10_light_gray"
+                        android:gravity="center"
+                        android:text="@{String.valueOf(viewModel.playTime)}"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider3"
+                        app:layout_constraintEnd_toStartOf="@id/playTimePlusBTN"
+                        app:layout_constraintStart_toEndOf="@id/playTimeMinusBTN"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="80dp"
-                app:dividerColor="@color/light_gray"
-                app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    <Button
+                        android:id="@+id/playTimePlusBTN"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@drawable/plus_button"
+                        android:onClick="@{()->viewModel.clickPlusPlayTime()}"
+                        app:layout_constraintBottom_toBottomOf="@id/divider3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:text="@string/matchEndAlarm"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/minute"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider3"
+                        app:layout_constraintStart_toEndOf="@id/playTimePlusBTN"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <Button
-                android:id="@+id/alarmMinusBTN"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="150dp"
-                android:background="@drawable/minus_button"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider3"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="80dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-            <TextView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/rectangle_10_light_gray"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintEnd_toStartOf="@id/alarmPlusBTN"
-                app:layout_constraintStart_toEndOf="@id/alarmMinusBTN"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="45dp"
+                        android:text="@string/matchEndAlarm"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-            <Button
-                android:id="@+id/alarmPlusBTN"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/plus_button"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <Button
+                        android:id="@+id/alarmMinusBTN"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="150dp"
+                        android:background="@drawable/minus_button"
+                        android:onClick="@{()->viewModel.clickMinusAlarmTime()}"
+                        app:layout_constraintBottom_toBottomOf="@id/divider4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/minute"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintStart_toEndOf="@id/alarmPlusBTN"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/rectangle_10_light_gray"
+                        android:gravity="center"
+                        android:text="@{String.valueOf(viewModel.alarmTime)}"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider4"
+                        app:layout_constraintEnd_toStartOf="@id/alarmPlusBTN"
+                        app:layout_constraintStart_toEndOf="@id/alarmMinusBTN"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="80dp"
-                app:dividerColor="@color/light_gray"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                    <Button
+                        android:id="@+id/alarmPlusBTN"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@drawable/plus_button"
+                        android:onClick="@{()->viewModel.clickPlusAlarmTime()}"
+                        app:layout_constraintBottom_toBottomOf="@id/divider4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/minute"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/divider4"
+                        app:layout_constraintStart_toEndOf="@id/alarmPlusBTN"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider4"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="80dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/divider3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
 
             <TextView
                 android:id="@+id/scoreBoardBTN"
@@ -448,15 +589,39 @@
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/button"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.clickButton()}"
                 android:text="@string/matchStart"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:onClick="@{()->viewModel.clickButton()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/scoreBoardLoadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.6"
+            android:background="@color/main"
+            android:elevation="1dp"
+            android:visibility="gone" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/scoreBoardLTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

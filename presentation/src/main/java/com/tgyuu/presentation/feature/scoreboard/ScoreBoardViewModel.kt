@@ -33,6 +33,10 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     }
 
     fun clickMinusPlayTime() {
+        if(_alarmTime.value == _playTime.value){
+            return
+        }
+
         if (_playTime.value - 1 >= 0)
             _playTime.value = _playTime.value.minus(1)
     }

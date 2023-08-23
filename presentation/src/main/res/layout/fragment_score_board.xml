@@ -103,7 +103,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
+        <TextView
             android:id="@+id/homeTeamScoreTV"
             android:layout_width="54dp"
             android:layout_height="32dp"
@@ -111,7 +111,6 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
-            android:inputType="number"
             android:text="@{String.valueOf(viewModel.homeTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -211,7 +210,6 @@
             android:background="@drawable/rectangle_30_white"
             android:elevation="3dp"
             android:gravity="center"
-            android:inputType="number"
             android:text="@{String.valueOf(viewModel.awayTeamScore)}"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -474,11 +472,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-                    <TextView
+                    <EditText
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
+                        android:inputType="number"
                         android:text="@{String.valueOf(viewModel.playTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -539,11 +538,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-                    <TextView
+                    <EditText
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:background="@drawable/rectangle_10_light_gray"
                         android:gravity="center"
+                        android:inputType="number"
                         android:text="@{String.valueOf(viewModel.alarmTime)}"
                         android:textSize="20sp"
                         android:textStyle="bold"

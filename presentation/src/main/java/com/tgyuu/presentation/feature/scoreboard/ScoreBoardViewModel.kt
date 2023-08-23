@@ -2,7 +2,12 @@ package com.tgyuu.presentation.feature.scoreboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tgyuu.domain.entity.Team
+import com.tgyuu.domain.usecase.GetTeamUseCase
+import com.tgyuu.presentation.common.base.UiState
+import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -11,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ScoreBoardViewModel @Inject constructor() : ViewModel() {
+class ScoreBoardViewModel @Inject constructor(
+    private val getTeamUseCase: GetTeamUseCase,
+    @IO private val ioDispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
@@ -19,6 +27,9 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
 
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
+    val team = _team.asStateFlow()
 
     private val _playTime = MutableStateFlow<Int>(0)
     val playTime = _playTime.asStateFlow()
@@ -38,6 +49,20 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    private fun setTeamState(uiState: UiState<Team>) {
+        _team.value = uiState
+    }
+
+    fun getTeam() {
+        setTeamState(UiState.Loading)
+
+        viewModelScope.launch(ioDispatcher) {
+            getTeamUseCase().collect {
+                setTeamState(UiState.Success(it))
+            }
+        }
+    }
+
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
     fun clickPlusPlayTime() {
@@ -46,7 +71,7 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     }
 
     fun clickMinusPlayTime() {
-        if(_alarmTime.value == _playTime.value){
+        if (_alarmTime.value == _playTime.value) {
             return
         }
 
@@ -55,7 +80,7 @@ class ScoreBoardViewModel @Inject constructor() : ViewModel() {
     }
 
     fun clickPlusAlarmTime() {
-        if(_alarmTime.value == _playTime.value){
+        if (_alarmTime.value == _playTime.value) {
             return
         }
 

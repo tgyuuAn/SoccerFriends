@@ -96,6 +96,7 @@ class ScoreBoardFragment :
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
+            ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
         }
     }
 
@@ -157,6 +158,11 @@ class ScoreBoardFragment :
         pauseBTN.visibility = View.VISIBLE
     }
 
+    private fun setPauseButtonText() = binding.apply {
+        if (fragmentViewModel.timerJob == null) pauseBTN.text = getString(R.string.restartMatch)
+        else pauseBTN.text = getString(R.string.pause)
+    }
+
     private fun showLoadingScreen() = binding.apply {
         scoreBoardLoadingView.visibility = View.VISIBLE
         scoreBoardLTV.visibility = View.VISIBLE
@@ -195,9 +201,6 @@ class ScoreBoardFragment :
         }
     }
 
-    /**
-     * PlayTime이 AlarmTime보다 작을 수 없습니다.
-     */
     private fun handlePlayTimeUI(score: Int) = binding.apply {
         if (score <= MIN_VALUE) {
             playTimeMinusBTN.isEnabled = false
@@ -225,9 +228,6 @@ class ScoreBoardFragment :
         }
     }
 
-    /**
-     * AlarmTime이 Playime보다 클 수 없습니다.
-     */
     private fun handleAlarmTimeUI(score: Int) = binding.apply {
         if (score <= MIN_VALUE) {
             alarmMinusBTN.isEnabled = false

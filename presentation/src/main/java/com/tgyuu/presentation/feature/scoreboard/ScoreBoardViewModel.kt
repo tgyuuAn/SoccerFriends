@@ -31,6 +31,7 @@ class ScoreBoardViewModel @Inject constructor(
 
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
+        object ClickPause : ScoreBoardEvent()
     }
 
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
@@ -116,6 +117,8 @@ class ScoreBoardViewModel @Inject constructor(
     fun clickPuase(){
         if(timerJob == null) startTimer()
         else pauseTimer()
+
+        event(ScoreBoardEvent.ClickPause)
     }
 
     fun clickPlusPlayTime() {

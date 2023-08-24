@@ -26,9 +26,14 @@ class ScoreBoardFragment :
         HOME, AWAY
     }
 
-    companion object{
+    companion object {
         const val MAX_VALUE = 99
         const val MIN_VALUE = 0
+        const val LONG_TO_SECOND = 1000
+        const val TENS = 10
+
+        fun Long.totalToTens() = (this / TENS)
+        fun Long.tensToDigit() = (this % TENS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,10 +68,22 @@ class ScoreBoardFragment :
                 }
 
                 repeatOnStarted {
-                    timer.collect { log(it.toString()) }
+                    timer.collect { setTimerUI(it) }
                 }
                 getTeam()
             }
+        }
+    }
+
+    private fun setTimerUI(timeMillis: Long) {
+        val minute = (timeMillis / (60 * LONG_TO_SECOND))
+        val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
+
+        binding.apply {
+            timerMinuteTV1.text = minute.totalToTens().toString()
+            timerMinuteTV2.text = minute.tensToDigit().toString()
+            timerSecondTV1.text = second.totalToTens().toString()
+            timerSecondTV2.text = second.tensToDigit().toString()
         }
     }
 

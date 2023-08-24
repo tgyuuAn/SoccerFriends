@@ -334,6 +334,7 @@
                         app:layout_constraintTop_toBottomOf="@id/expnadDivider">
 
                         <TextView
+                            android:id="@+id/timerMinuteTV1"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -344,6 +345,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/timerMinuteTV2"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_marginStart="8dp"
@@ -363,6 +365,7 @@
                             android:src="@drawable/seperate" />
 
                         <TextView
+                            android:id="@+id/timerSecondTV1"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -373,6 +376,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/timerSecondTV2"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_marginStart="8dp"

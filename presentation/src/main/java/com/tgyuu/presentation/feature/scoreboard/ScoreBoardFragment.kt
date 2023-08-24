@@ -120,7 +120,7 @@ class ScoreBoardFragment :
 
     private fun setAwayTeamImage(){
         if(fragmentViewModel.awayTeamImage.value.isEmpty()){
-            binding.awayTeamIV.setImageResource(R.drawable.rectangle_30_white)
+            binding.awayTeamIV.setImageResource(R.drawable.rectangle_17_white)
             return
         }
 
@@ -230,10 +230,7 @@ class ScoreBoardFragment :
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
             fragmentViewModel.setAwayTeamImage(it.data!!.data.toString())
 
-            Glide.with(requireContext())
-                .load(fragmentViewModel.awayTeamImage.value)
-                .circleCrop()
-                .into(binding.awayTeamIV)
+            setAwayTeamImage()
         }
     }
 

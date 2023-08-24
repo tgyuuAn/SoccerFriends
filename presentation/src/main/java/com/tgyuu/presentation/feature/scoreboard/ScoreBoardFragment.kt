@@ -22,7 +22,6 @@ import java.time.LocalDate
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
-    private var awayImageUri: String = ""
 
     enum class TimeType {
         PLAY, ALARM
@@ -65,6 +64,7 @@ class ScoreBoardFragment :
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
         setDateTime()
+        setAwayTeamUI()
 
         binding.apply {
             viewModel = fragmentViewModel.apply {
@@ -107,6 +107,27 @@ class ScoreBoardFragment :
         if(day.length == 1) day = "0"+day
 
         binding.calendarTV.text = "${day} ${month}"
+    }
+
+    private fun setAwayTeamUI(){
+        setAwayTeamName()
+        setAwayTeamImage()
+    }
+
+    private fun setAwayTeamName(){
+
+    }
+
+    private fun setAwayTeamImage(){
+        if(fragmentViewModel.awayTeamImage.value.isEmpty()){
+            binding.awayTeamIV.setImageResource(R.drawable.rectangle_30_white)
+            return
+        }
+
+        Glide.with(requireContext())
+            .load(fragmentViewModel.awayTeamImage.value)
+            .circleCrop()
+            .into(binding.awayTeamIV)
     }
 
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
@@ -207,10 +228,10 @@ class ScoreBoardFragment :
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
-            awayImageUri = it.data!!.data.toString()
+            fragmentViewModel.setAwayTeamImage(it.data!!.data.toString())
 
             Glide.with(requireContext())
-                .load(awayImageUri)
+                .load(fragmentViewModel.awayTeamImage.value)
                 .circleCrop()
                 .into(binding.awayTeamIV)
         }

@@ -587,7 +587,7 @@
                 android:layout_width="280dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button"
+                android:background="@drawable/pause_button"
                 android:gravity="center"
                 android:onClick="@{()->viewModel.clickPause()}"
                 android:text="@string/pause"

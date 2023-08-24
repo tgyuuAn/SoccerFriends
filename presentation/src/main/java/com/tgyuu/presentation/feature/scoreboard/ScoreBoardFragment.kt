@@ -118,7 +118,7 @@ class ScoreBoardFragment :
     }
 
     private fun setAwayTeamName(name : String){
-        binding.awayTeamTV.text = name
+        binding.awayTeamTV.setText(name)
     }
 
     private fun setAwayTeamImage(imageUri : String){

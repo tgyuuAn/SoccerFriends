@@ -57,7 +57,7 @@ class ScoreBoardViewModel @Inject constructor(
     private val _awayTeamScore = MutableStateFlow<Int>(0)
     val awayTeamScore = _awayTeamScore.asStateFlow()
 
-    private val _awayTeamName = MutableStateFlow<String>("")
+    private val _awayTeamName = MutableStateFlow<String>("팀 명")
     val awayTeamName = _awayTeamName.asStateFlow()
 
     private val _awayTeamImage = MutableStateFlow<String>("")

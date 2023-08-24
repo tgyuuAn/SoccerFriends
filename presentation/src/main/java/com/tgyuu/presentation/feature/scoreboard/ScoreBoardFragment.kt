@@ -30,10 +30,28 @@ class ScoreBoardFragment :
         const val MAX_VALUE = 99
         const val MIN_VALUE = 0
         const val LONG_TO_SECOND = 1000
-        const val TENS = 10
 
-        fun Long.totalToTens() = (this / TENS)
-        fun Long.tensToDigit() = (this % TENS)
+        /**
+         * 토탈 시간을 십의자리 시간으로 바꿔줍니다.
+         *
+         * ex)
+         *
+         * 59분 -> 50분
+         *
+         * 59초 -> 50초
+         */
+        fun Long.totalToTens() = (this / 10)
+
+        /**
+         * 토탈 시간을 일의자리 시간으로 바꿔줍니다.
+         *
+         * ex)
+         *
+         * 59분 -> 9분
+         *
+         * 59초 -> 9초
+         */
+        fun Long.tensToDigit() = (this % 10)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

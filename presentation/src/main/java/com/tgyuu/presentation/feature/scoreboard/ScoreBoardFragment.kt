@@ -94,9 +94,11 @@ class ScoreBoardFragment :
         if (binding.expandableTimeBoardEL.isExpanded) {
             expandSettingCollapseTimeBoard()
             setScoreBTNInvisible()
+            binding.scoreBoardBTN.text = getString(R.string.matchStart)
         } else {
             expandTimeBoardCollapseSetting()
             setScoreBTNVisible()
+            binding.scoreBoardBTN.text = getString(R.string.matchSet)
         }
     }
 
@@ -115,6 +117,7 @@ class ScoreBoardFragment :
         homeTeamScorePlusBTN.visibility = View.GONE
         awayTeamScoreMinusBTN.visibility = View.GONE
         homeTeamScoreMinusBTN.visibility = View.GONE
+        pauseBTN.visibility = View.GONE
     }
 
     private fun setScoreBTNVisible() = binding.apply {
@@ -122,6 +125,7 @@ class ScoreBoardFragment :
         homeTeamScorePlusBTN.visibility = View.VISIBLE
         awayTeamScoreMinusBTN.visibility = View.VISIBLE
         homeTeamScoreMinusBTN.visibility = View.VISIBLE
+        pauseBTN.visibility = View.VISIBLE
     }
 
     private fun showLoadingScreen() = binding.apply {

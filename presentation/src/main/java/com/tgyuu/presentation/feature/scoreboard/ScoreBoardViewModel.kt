@@ -67,6 +67,8 @@ class ScoreBoardViewModel @Inject constructor(
 
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
+    fun clickPause() = {}
+
     fun clickPlusPlayTime() {
         if (_playTime.value + 1 <= MAX_VALUE)
             _playTime.value = _playTime.value.plus(1)

@@ -583,6 +583,23 @@
             </net.cachapa.expandablelayout.ExpandableLayout>
 
             <TextView
+                android:id="@+id/pauseBTN"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.clickPause()}"
+                android:text="@string/pause"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/scoreBoardBTN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
                 android:id="@+id/scoreBoardBTN"
                 android:layout_width="280dp"
                 android:layout_height="50dp"

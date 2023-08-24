@@ -1,5 +1,6 @@
 package com.tgyuu.presentation.feature.scoreboard
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Team
@@ -10,6 +11,9 @@ import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MA
 import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MIN_VALUE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -39,6 +43,9 @@ class ScoreBoardViewModel @Inject constructor(
     private val _alarmTime = MutableStateFlow<Int>(0)
     val alarmTime = _alarmTime.asStateFlow()
 
+    private val _timer = MutableStateFlow<Long>(0)
+    val timer = _timer.asStateFlow()
+
     private val _homeTeamScore = MutableStateFlow<Int>(0)
     val homeTeamScore = _homeTeamScore.asStateFlow()
 
@@ -65,9 +72,41 @@ class ScoreBoardViewModel @Inject constructor(
         }
     }
 
+    var timerJob: Job? = null
+
+    fun initTimer() {
+        _timer.value = (_playTime.value * 60 * 1000).toLong()
+    }
+
+    fun startTimer() {
+        timerJob = viewModelScope.launch(ioDispatcher, CoroutineStart.LAZY) {
+            if (_timer.value == 0L) initTimer()
+
+            while (_timer.value >= 0) {
+                delay(1000L)
+                _timer.value = _timer.value - 1000L
+            }
+        }
+        timerJob!!.start()
+    }
+
+    fun pauseTimer() {
+        timerJob!!.cancel()
+        timerJob = null
+    }
+
+    fun resetTimer() {
+        timerJob!!.cancel()
+        timerJob = null
+        _timer.value = 0
+    }
+
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
 
-    fun clickPause() = {}
+    fun clickPuase(){
+        if(timerJob == null) startTimer()
+        else pauseTimer()
+    }
 
     fun clickPlusPlayTime() {
         if (_playTime.value + 1 <= MAX_VALUE)

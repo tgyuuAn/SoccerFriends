@@ -61,6 +61,10 @@ class ScoreBoardFragment :
                 repeatOnStarted {
                     awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) }
                 }
+
+                repeatOnStarted {
+                    timer.collect { log(it.toString()) }
+                }
                 getTeam()
             }
         }
@@ -94,10 +98,12 @@ class ScoreBoardFragment :
         if (binding.expandableTimeBoardEL.isExpanded) {
             expandSettingCollapseTimeBoard()
             setScoreBTNInvisible()
+            fragmentViewModel.resetTimer()
             binding.scoreBoardBTN.text = getString(R.string.matchStart)
         } else {
             expandTimeBoardCollapseSetting()
             setScoreBTNVisible()
+            fragmentViewModel.startTimer()
             binding.scoreBoardBTN.text = getString(R.string.matchSet)
         }
     }

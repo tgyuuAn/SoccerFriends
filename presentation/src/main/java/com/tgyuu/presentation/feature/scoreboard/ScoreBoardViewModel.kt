@@ -32,6 +32,7 @@ class ScoreBoardViewModel @Inject constructor(
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
         object ClickPause : ScoreBoardEvent()
+        object ChangeAwayTeamImage : ScoreBoardEvent()
         data class GameSet(val homeScore : Int, val awayScore : Int) : ScoreBoardEvent()
     }
 
@@ -76,6 +77,10 @@ class ScoreBoardViewModel @Inject constructor(
                 setTeamState(UiState.Success(it))
             }
         }
+    }
+
+    fun changeAwayTeamImage(){
+        event(ScoreBoardEvent.ChangeAwayTeamImage)
     }
 
     fun gameStart(){

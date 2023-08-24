@@ -1,7 +1,11 @@
 package com.tgyuu.presentation.feature.scoreboard
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -18,6 +22,7 @@ import java.time.LocalDate
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
+    private var awayImageUri: String = ""
 
     enum class TimeType {
         PLAY, ALARM
@@ -108,6 +113,7 @@ class ScoreBoardFragment :
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
+            ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> {}
             is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(event.homeScore,event.awayScore)
         }
     }
@@ -189,6 +195,25 @@ class ScoreBoardFragment :
     private fun setPauseButtonText() = binding.apply {
         if (fragmentViewModel.timerJob == null) pauseBTN.text = getString(R.string.restartMatch)
         else pauseBTN.text = getString(R.string.pause)
+    }
+
+    private fun navigateToGallery() {
+        val intenet = Intent(Intent.ACTION_GET_CONTENT)
+        intenet.type = "image/*"
+        activityResult.launch(intenet)
+    }
+
+    private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK && it.data != null) {
+            awayImageUri = it.data!!.data.toString()
+
+            Glide.with(requireContext())
+                .load(awayImageUri)
+                .circleCrop()
+                .into(binding.awayTeamIV)
+        }
     }
 
     private fun calculateMatchResult(homeScore : Int, awayScore : Int){

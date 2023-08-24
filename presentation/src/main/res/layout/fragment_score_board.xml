@@ -244,8 +244,8 @@
             android:layout_width="match_parent"
             android:layout_height="1.2dp"
             android:layout_marginTop="25dp"
-            android:visibility="invisible"
             android:elevation="3dp"
+            android:visibility="invisible"
             app:dividerColor="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/awayTeamScoreTV" />
 
@@ -277,6 +277,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/rectangle_30_white_top"
+            android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV"
             app:layout_constraintVertical_bias="0.0"

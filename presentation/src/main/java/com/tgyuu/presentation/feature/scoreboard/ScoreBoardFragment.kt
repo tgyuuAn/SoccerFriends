@@ -246,9 +246,9 @@ class ScoreBoardFragment :
         }
 
         if(homeScore > awayScore){
-            toast("홈 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
+            toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
         } else if(awayScore > homeScore){
-            toast("어웨이 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
+            toast("${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
         } else{
             toast("${homeScore} : ${awayScore} 로 무승부 입니다.")
         }

@@ -32,6 +32,7 @@ class ScoreBoardViewModel @Inject constructor(
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
         object ClickPause : ScoreBoardEvent()
+        data class GameSet(val homeScore : Int, val awayScore : Int) : ScoreBoardEvent()
     }
 
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
@@ -82,9 +83,10 @@ class ScoreBoardViewModel @Inject constructor(
     }
 
     fun gameSet(){
+        event(ScoreBoardEvent.GameSet(_homeTeamScore.value, _awayTeamScore.value))
+        resetTimer()
         _homeTeamScore.value = 0
         _awayTeamScore.value = 0
-        resetTimer()
     }
 
     fun initTimer() {
@@ -97,7 +99,7 @@ class ScoreBoardViewModel @Inject constructor(
 
             var oldTimeMills = System.currentTimeMillis()
 
-            while (_timer.value >= 0) {
+            while (_timer.value > 0) {
                 val delayMills = System.currentTimeMillis() - oldTimeMills
 
                 if (delayMills == LONG_TO_SECOND) {
@@ -106,6 +108,10 @@ class ScoreBoardViewModel @Inject constructor(
                 }
 
                 yield()
+            }
+
+            if(_timer.value <= 0){
+                event(ScoreBoardEvent.GameSet(_homeTeamScore.value, _awayTeamScore.value))
             }
         }
         timerJob!!.start()

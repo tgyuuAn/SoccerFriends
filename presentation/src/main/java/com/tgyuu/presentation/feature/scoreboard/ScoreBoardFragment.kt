@@ -108,6 +108,7 @@ class ScoreBoardFragment :
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
+            is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(event.homeScore,event.awayScore)
         }
     }
 
@@ -131,6 +132,11 @@ class ScoreBoardFragment :
 
     private fun handleExpandableLayout() {
         if (!binding.expandableTimeBoardEL.isExpanded) {
+            if(fragmentViewModel.playTime.value == 0){
+                toast("경기 시간은 반드시 1분 이상이어야 합니다.")
+                return
+            }
+
             gameStart()
             return
         }
@@ -183,6 +189,22 @@ class ScoreBoardFragment :
     private fun setPauseButtonText() = binding.apply {
         if (fragmentViewModel.timerJob == null) pauseBTN.text = getString(R.string.restartMatch)
         else pauseBTN.text = getString(R.string.pause)
+    }
+
+    private fun calculateMatchResult(homeScore : Int, awayScore : Int){
+        if (binding.expandableTimeBoardEL.isExpanded) {
+            expandSettingCollapseTimeBoard()
+            setScoreBTNInvisible()
+            binding.scoreBoardBTN.text = getString(R.string.matchStart)
+        }
+
+        if(homeScore > awayScore){
+            toast("홈 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
+        } else if(awayScore > homeScore){
+            toast("어웨이 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
+        } else{
+            toast("${homeScore} : ${awayScore} 로 무승부 입니다.")
+        }
     }
 
     private fun showLoadingScreen() = binding.apply {

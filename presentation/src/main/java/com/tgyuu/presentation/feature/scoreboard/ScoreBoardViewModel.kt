@@ -7,6 +7,7 @@ import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.GetTeamUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
+import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.LONG_TO_SECOND
 import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MAX_VALUE
 import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MIN_VALUE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import javax.inject.Inject
 
 @HiltViewModel
@@ -82,9 +84,17 @@ class ScoreBoardViewModel @Inject constructor(
         timerJob = viewModelScope.launch(ioDispatcher, CoroutineStart.LAZY) {
             if (_timer.value == 0L) initTimer()
 
+            var oldTimeMills = System.currentTimeMillis()
+
             while (_timer.value >= 0) {
-                delay(1000L)
-                _timer.value = _timer.value - 1000L
+                val delayMills = System.currentTimeMillis() - oldTimeMills
+
+                if (delayMills == LONG_TO_SECOND) {
+                    _timer.value = _timer.value - LONG_TO_SECOND
+                    oldTimeMills = System.currentTimeMillis()
+                }
+
+                yield()
             }
         }
         timerJob!!.start()

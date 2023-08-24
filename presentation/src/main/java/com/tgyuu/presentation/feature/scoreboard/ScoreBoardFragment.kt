@@ -29,7 +29,7 @@ class ScoreBoardFragment :
     companion object {
         const val MAX_VALUE = 99
         const val MIN_VALUE = 0
-        const val LONG_TO_SECOND = 1000
+        const val LONG_TO_SECOND = 1000L
 
         /**
          * 토탈 시간을 십의자리 시간으로 바꿔줍니다.
@@ -90,18 +90,6 @@ class ScoreBoardFragment :
                 }
                 getTeam()
             }
-        }
-    }
-
-    private fun setTimerUI(timeMillis: Long) {
-        val minute = (timeMillis / (60 * LONG_TO_SECOND))
-        val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
-
-        binding.apply {
-            timerMinuteTV1.text = minute.totalToTens().toString()
-            timerMinuteTV2.text = minute.tensToDigit().toString()
-            timerSecondTV1.text = second.totalToTens().toString()
-            timerSecondTV2.text = second.tensToDigit().toString()
         }
     }
 
@@ -294,4 +282,15 @@ class ScoreBoardFragment :
         alarmPlusBTN.isEnabled = true
     }
 
+    private fun setTimerUI(timeMillis: Long) {
+        val minute = (timeMillis / (60 * LONG_TO_SECOND))
+        val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
+
+        binding.apply {
+            timerMinuteTV1.text = minute.totalToTens().toString()
+            timerMinuteTV2.text = minute.tensToDigit().toString()
+            timerSecondTV1.text = second.totalToTens().toString()
+            timerSecondTV2.text = second.tensToDigit().toString()
+        }
+    }
 }

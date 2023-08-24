@@ -159,6 +159,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="64dp"
             android:elevation="3dp"
+            android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
@@ -275,7 +276,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/rectangle_30_white_top"
-            android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV"
             app:layout_constraintVertical_bias="0.0"

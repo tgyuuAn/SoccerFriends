@@ -12,6 +12,7 @@ import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class ScoreBoardFragment :
@@ -32,7 +33,7 @@ class ScoreBoardFragment :
         const val LONG_TO_SECOND = 1000L
 
         /**
-         * 토탈 시간을 십의자리 시간으로 바꿔줍니다.
+         * 토탈 시간을 십의 자리 시간으로 바꿔줍니다.
          *
          * ex)
          *
@@ -43,7 +44,7 @@ class ScoreBoardFragment :
         fun Long.totalToTens() = (this / 10)
 
         /**
-         * 토탈 시간을 일의자리 시간으로 바꿔줍니다.
+         * 토탈 시간을 일의 자리 시간으로 바꿔줍니다.
          *
          * ex)
          *
@@ -58,6 +59,7 @@ class ScoreBoardFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
+        setDateTime()
 
         binding.apply {
             viewModel = fragmentViewModel.apply {
@@ -93,6 +95,15 @@ class ScoreBoardFragment :
         }
     }
 
+    private fun setDateTime() {
+        val currentDateTime = LocalDate.now()
+        val month = currentDateTime.month.toString().substring(0 until 3)
+        var day = currentDateTime.dayOfMonth.toString()
+        if(day.length == 1) day = "0"+day
+
+        binding.calendarTV.text = "${day} ${month}"
+    }
+
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
@@ -119,17 +130,28 @@ class ScoreBoardFragment :
     }
 
     private fun handleExpandableLayout() {
-        if (binding.expandableTimeBoardEL.isExpanded) {
-            expandSettingCollapseTimeBoard()
-            setScoreBTNInvisible()
-            fragmentViewModel.resetTimer()
-            binding.scoreBoardBTN.text = getString(R.string.matchStart)
-        } else {
-            expandTimeBoardCollapseSetting()
-            setScoreBTNVisible()
-            fragmentViewModel.startTimer()
-            binding.scoreBoardBTN.text = getString(R.string.matchSet)
+        if (!binding.expandableTimeBoardEL.isExpanded) {
+            gameStart()
+            return
         }
+
+        gameSet()
+    }
+
+    private fun gameStart() {
+        expandTimeBoardCollapseSetting()
+        setScoreBTNVisible()
+        binding.scoreBoardBTN.text = getString(R.string.matchSet)
+
+        fragmentViewModel.gameStart()
+    }
+
+    private fun gameSet() {
+        expandSettingCollapseTimeBoard()
+        setScoreBTNInvisible()
+        binding.scoreBoardBTN.text = getString(R.string.matchStart)
+
+        fragmentViewModel.gameSet()
     }
 
     private fun expandSettingCollapseTimeBoard() = binding.apply {

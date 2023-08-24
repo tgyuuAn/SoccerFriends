@@ -55,6 +55,8 @@ class ScoreBoardViewModel @Inject constructor(
     private val _awayTeamScore = MutableStateFlow<Int>(0)
     val awayTeamScore = _awayTeamScore.asStateFlow()
 
+    var timerJob: Job? = null
+
     private fun event(event: ScoreBoardEvent) {
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -75,7 +77,15 @@ class ScoreBoardViewModel @Inject constructor(
         }
     }
 
-    var timerJob: Job? = null
+    fun gameStart(){
+        startTimer()
+    }
+
+    fun gameSet(){
+        _homeTeamScore.value = 0
+        _awayTeamScore.value = 0
+        resetTimer()
+    }
 
     fun initTimer() {
         _timer.value = (_playTime.value * 60 * 1000).toLong()

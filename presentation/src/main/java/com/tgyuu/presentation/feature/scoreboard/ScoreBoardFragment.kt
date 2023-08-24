@@ -113,7 +113,7 @@ class ScoreBoardFragment :
         when (event) {
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
-            ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> {}
+            ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> navigateToGallery()
             is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(event.homeScore,event.awayScore)
         }
     }

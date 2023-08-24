@@ -64,7 +64,6 @@ class ScoreBoardFragment :
 
         setStatusBarAndIconColor(R.color.main, StatusBarIconColor.WHITE)
         setDateTime()
-        setAwayTeamUI()
 
         binding.apply {
             viewModel = fragmentViewModel.apply {
@@ -95,6 +94,15 @@ class ScoreBoardFragment :
                 repeatOnStarted {
                     timer.collect { setTimerUI(it) }
                 }
+
+                repeatOnStarted {
+                    awayTeamImage.collect { this@ScoreBoardFragment.setAwayTeamImage(it) }
+                }
+
+                repeatOnStarted {
+                    awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) }
+                }
+
                 getTeam()
             }
         }
@@ -109,23 +117,18 @@ class ScoreBoardFragment :
         binding.calendarTV.text = "${day} ${month}"
     }
 
-    private fun setAwayTeamUI(){
-        setAwayTeamName()
-        setAwayTeamImage()
+    private fun setAwayTeamName(name : String){
+        binding.awayTeamTV.text = name
     }
 
-    private fun setAwayTeamName(){
-
-    }
-
-    private fun setAwayTeamImage(){
-        if(fragmentViewModel.awayTeamImage.value.isEmpty()){
-            binding.awayTeamIV.setImageResource(R.drawable.rectangle_17_white)
+    private fun setAwayTeamImage(imageUri : String){
+        if(imageUri.isEmpty()){
+            binding.awayTeamIV.setImageResource(R.drawable.circle)
             return
         }
 
         Glide.with(requireContext())
-            .load(fragmentViewModel.awayTeamImage.value)
+            .load(imageUri)
             .circleCrop()
             .into(binding.awayTeamIV)
     }
@@ -228,9 +231,10 @@ class ScoreBoardFragment :
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
-            fragmentViewModel.setAwayTeamImage(it.data!!.data.toString())
+            val imageUri = it.data!!.data.toString()
+            fragmentViewModel.setAwayTeamImage(imageUri)
 
-            setAwayTeamImage()
+            setAwayTeamImage(imageUri)
         }
     }
 

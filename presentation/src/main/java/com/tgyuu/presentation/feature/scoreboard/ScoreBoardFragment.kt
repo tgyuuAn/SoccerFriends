@@ -1,8 +1,14 @@
 package com.tgyuu.presentation.feature.scoreboard
 
 import android.app.Activity
+import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +28,17 @@ import java.time.LocalDate
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
+
+    private val vibrator: Vibrator by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager =
+                context?.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            context?.getSystemService(VIBRATOR_SERVICE) as Vibrator
+        }
+    }
 
     enum class TimeType {
         PLAY, ALARM
@@ -67,42 +84,15 @@ class ScoreBoardFragment :
 
         binding.apply {
             viewModel = fragmentViewModel.apply {
-                repeatOnStarted {
-                    eventFlow.collect { handleEvent(it) }
-                }
-
-                repeatOnStarted {
-                    team.collect { handleTeamState(it) }
-                }
-
-                repeatOnStarted {
-                    playTime.collect { handleTimeUI(it, TimeType.PLAY) }
-                }
-
-                repeatOnStarted {
-                    alarmTime.collect { handleTimeUI(it, TimeType.ALARM) }
-                }
-
-                repeatOnStarted {
-                    homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) }
-                }
-
-                repeatOnStarted {
-                    awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) }
-                }
-
-                repeatOnStarted {
-                    timer.collect { setTimerUI(it) }
-                }
-
-                repeatOnStarted {
-                    awayTeamImage.collect { this@ScoreBoardFragment.setAwayTeamImage(it) }
-                }
-
-                repeatOnStarted {
-                    awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) }
-                }
-
+                repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+                repeatOnStarted { team.collect { handleTeamState(it) } }
+                repeatOnStarted { playTime.collect { handleTimeUI(it, TimeType.PLAY) } }
+                repeatOnStarted { alarmTime.collect { handleTimeUI(it, TimeType.ALARM) } }
+                repeatOnStarted { homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) } }
+                repeatOnStarted { awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) } }
+                repeatOnStarted { timer.collect { setTimerUI(it) } }
+                repeatOnStarted { awayTeamImage.collect { this@ScoreBoardFragment.setAwayTeamImage(it) } }
+                repeatOnStarted { awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) } }
                 getTeam()
             }
         }
@@ -112,17 +102,26 @@ class ScoreBoardFragment :
         val currentDateTime = LocalDate.now()
         val month = currentDateTime.month.toString().substring(0 until 3)
         var day = currentDateTime.dayOfMonth.toString()
-        if(day.length == 1) day = "0"+day
+        if (day.length == 1) day = "0" + day
 
         binding.calendarTV.text = "${day} ${month}"
     }
 
-    private fun setAwayTeamName(name : String){
+    private fun vibrate(time: Long) {
+        vibrator.vibrate(
+            VibrationEffect.createOneShot(
+                time,
+                VibrationEffect.DEFAULT_AMPLITUDE,
+            )
+        )
+    }
+
+    private fun setAwayTeamName(name: String) {
         binding.awayTeamTV.setText(name)
     }
 
-    private fun setAwayTeamImage(imageUri : String){
-        if(imageUri.isEmpty()){
+    private fun setAwayTeamImage(imageUri: String) {
+        if (imageUri.isEmpty()) {
             binding.awayTeamIV.setImageResource(R.drawable.circle)
             return
         }
@@ -138,7 +137,10 @@ class ScoreBoardFragment :
             ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
             ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> navigateToGallery()
-            is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(event.homeScore,event.awayScore)
+            is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(
+                event.homeScore,
+                event.awayScore
+            )
         }
     }
 
@@ -162,7 +164,7 @@ class ScoreBoardFragment :
 
     private fun handleExpandableLayout() {
         if (!binding.expandableTimeBoardEL.isExpanded) {
-            if(fragmentViewModel.playTime.value == 0){
+            if (fragmentViewModel.playTime.value == 0) {
                 toast("경기 시간은 반드시 1분 이상이어야 합니다.")
                 return
             }
@@ -183,6 +185,7 @@ class ScoreBoardFragment :
     }
 
     private fun gameSet() {
+        vibrate(1000L)
         expandSettingCollapseTimeBoard()
         setScoreBTNInvisible()
         binding.scoreBoardBTN.text = getString(R.string.matchStart)
@@ -238,18 +241,18 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun calculateMatchResult(homeScore : Int, awayScore : Int){
+    private fun calculateMatchResult(homeScore: Int, awayScore: Int) {
         if (binding.expandableTimeBoardEL.isExpanded) {
             expandSettingCollapseTimeBoard()
             setScoreBTNInvisible()
             binding.scoreBoardBTN.text = getString(R.string.matchStart)
         }
 
-        if(homeScore > awayScore){
+        if (homeScore > awayScore) {
             toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
-        } else if(awayScore > homeScore){
+        } else if (awayScore > homeScore) {
             toast("${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
-        } else{
+        } else {
             toast("${homeScore} : ${awayScore} 로 무승부 입니다.")
         }
     }
@@ -278,10 +281,12 @@ class ScoreBoardFragment :
             .into(binding.homeTeamIV)
     }
 
-    private fun handleTimeUI(score: Int, type: TimeType) {
+    private fun handleTimeUI(time: Int, type: TimeType) {
         when (type) {
-            TimeType.PLAY -> handlePlayTimeUI(score)
-            TimeType.ALARM -> handleAlarmTimeUI(score)
+            TimeType.PLAY -> handlePlayTimeUI(time)
+            TimeType.ALARM -> {
+                handleAlarmTimeUI(time)
+            }
         }
     }
 
@@ -292,20 +297,20 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun handlePlayTimeUI(score: Int) = binding.apply {
-        if (score <= MIN_VALUE) {
+    private fun handlePlayTimeUI(time: Int) = binding.apply {
+        if (time <= MIN_VALUE) {
             playTimeMinusBTN.isEnabled = false
         } else {
             playTimeMinusBTN.isEnabled = true
         }
 
-        if (score >= MAX_VALUE) {
+        if (time >= MAX_VALUE) {
             playTimePlusBTN.isEnabled = false
         } else {
             playTimePlusBTN.isEnabled = true
         }
 
-        if (score == fragmentViewModel.alarmTime.value) {
+        if (time == fragmentViewModel.alarmTime.value) {
             alarmPlusBTN.isEnabled = false
             playTimeMinusBTN.isEnabled = false
         } else {
@@ -313,7 +318,7 @@ class ScoreBoardFragment :
             playTimeMinusBTN.isEnabled = true
         }
 
-        if (score != fragmentViewModel.alarmTime.value) {
+        if (time != fragmentViewModel.alarmTime.value) {
             playTimeMinusBTN.isEnabled = true
             playTimePlusBTN.isEnabled = true
         }
@@ -376,6 +381,10 @@ class ScoreBoardFragment :
     private fun setTimerUI(timeMillis: Long) {
         val minute = (timeMillis / (60 * LONG_TO_SECOND))
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
+
+        if(timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND){
+            vibrate(LONG_TO_SECOND)
+        }
 
         binding.apply {
             timerMinuteTV1.text = minute.totalToTens().toString()

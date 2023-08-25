@@ -113,7 +113,7 @@ class ScoreBoardViewModel @Inject constructor(
             while (_timer.value > 0) {
                 val delayMills = System.currentTimeMillis() - oldTimeMills
 
-                if (delayMills == LONG_TO_SECOND) {
+                if (delayMills >= LONG_TO_SECOND) {
                     _timer.value = _timer.value - LONG_TO_SECOND
                     oldTimeMills = System.currentTimeMillis()
                 }
@@ -129,12 +129,12 @@ class ScoreBoardViewModel @Inject constructor(
     }
 
     fun pauseTimer() {
-        timerJob!!.cancel()
+        if(timerJob != null) timerJob!!.cancel()
         timerJob = null
     }
 
     fun resetTimer() {
-        timerJob!!.cancel()
+        if(timerJob != null) timerJob!!.cancel()
         timerJob = null
         _timer.value = 0
     }

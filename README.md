@@ -51,8 +51,6 @@
 - **Test** : Junit4 + Mockkito
 
 - **Firebase** : Analytics + Crashlytics + Authentication + Realtime DataBase
-
-- **Test** : Mockk + Junit4
  
 <br><br><br>
 

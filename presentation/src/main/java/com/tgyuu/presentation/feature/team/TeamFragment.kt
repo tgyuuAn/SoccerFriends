@@ -9,7 +9,10 @@ import android.os.Vibrator
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+<<<<<<< HEAD
 import androidx.core.content.ContextCompat.getSystemService
+=======
+>>>>>>> feefb37b9883ab4ee3a8024cb227e8aa40c05aa9
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController

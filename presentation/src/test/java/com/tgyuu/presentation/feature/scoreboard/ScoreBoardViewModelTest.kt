@@ -179,7 +179,10 @@ class ScoreBoardViewModelTest {
     }
 
     @Test
+<<<<<<< HEAD
     fun `경기 종료 전 알림이 플레이 타임과 같을 경우 증가되지 않는다`() {
+=======
+    fun `경기 종료 전 알림이 플레이 타임과 같을 경우 증가되지 않는다`(){
         //given
 
         //when
@@ -188,6 +191,65 @@ class ScoreBoardViewModelTest {
         //then
         val expected = 0
         val actual = scoreBoardViewModel.alarmTime.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `플레이 타임이 경기 종료 전 알림과 같을 경우 감소되지 않는다`(){
+        //given
+        scoreBoardViewModel.clickPlusPlayTime()
+        scoreBoardViewModel.clickPlusAlarmTime()
+
+        //when
+        scoreBoardViewModel.clickMinusPlayTime()
+
+        //then
+        val expected = 1
+        val actual = scoreBoardViewModel.alarmTime.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `홈 팀의 기본 점수는 0이다`(){
+>>>>>>> feefb37b9883ab4ee3a8024cb227e8aa40c05aa9
+        //given
+
+        //when
+        scoreBoardViewModel.clickPlusAlarmTime()
+
+        //then
+        val expected = 0
+        val actual = scoreBoardViewModel.homeTeamScore.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `홈 팀의 점수가 0일 때 -를 눌러도 감소하지 않는다`(){
+        //given
+
+
+        //when
+        scoreBoardViewModel.clickMinusHomeTeamScore()
+
+        //then
+        val expected = 0
+        val actual = scoreBoardViewModel.homeTeamScore.value
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `홈 팀의 점수가 99일 때 +를 눌러도 증가하지 않는다`(){
+        //given - playTime의 값을 99로 설정한다
+        repeat(99){
+            scoreBoardViewModel.clickPlusHomeTeamScore()
+        }
+
+        //when
+        scoreBoardViewModel.clickPlusHomeTeamScore()
+
+        //then
+        val expected = 99
+        val actual = scoreBoardViewModel.homeTeamScore.value
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -216,6 +278,7 @@ class ScoreBoardViewModelTest {
 
         //then
         val expected = 0
+<<<<<<< HEAD
         val actual = scoreBoardViewModel.homeTeamScore.value
         assertThat(actual).isEqualTo(expected)
     }
@@ -260,12 +323,18 @@ class ScoreBoardViewModelTest {
 
         //then
         val expected = 0
+=======
+>>>>>>> feefb37b9883ab4ee3a8024cb227e8aa40c05aa9
         val actual = scoreBoardViewModel.awayTeamScore.value
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
+<<<<<<< HEAD
     fun `어웨이 팀의 점수가 0일 때 -를 눌러도 감소하지 않는다`() {
+=======
+    fun `어웨이 팀의 점수가 0일 때 -를 눌러도 감소하지 않는다`(){
+>>>>>>> feefb37b9883ab4ee3a8024cb227e8aa40c05aa9
         //given
 
 
@@ -279,9 +348,15 @@ class ScoreBoardViewModelTest {
     }
 
     @Test
+<<<<<<< HEAD
     fun `어웨이 팀의 점수가 99일 때 +를 눌러도 증가하지 않는다`() {
         //given - playTime의 값을 99로 설정한다
         repeat(99) {
+=======
+    fun `어웨이 팀의 점수가 99일 때 +를 눌러도 증가하지 않는다`(){
+        //given - playTime의 값을 99로 설정한다
+        repeat(99){
+>>>>>>> feefb37b9883ab4ee3a8024cb227e8aa40c05aa9
             scoreBoardViewModel.clickPlusAwayTeamScore()
         }
 

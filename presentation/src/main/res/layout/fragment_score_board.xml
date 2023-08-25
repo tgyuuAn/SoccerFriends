@@ -60,7 +60,6 @@
             android:layout_height="65dp"
             android:layout_marginStart="64dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/rectangle_17_white"
             android:elevation="3dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="@id/scoreBoardIV"
@@ -75,6 +74,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
+            android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -159,21 +159,24 @@
             android:layout_height="65dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="64dp"
-            android:background="@drawable/rectangle_17_white"
             android:elevation="3dp"
+            android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
-        <TextView
+        <EditText
             android:id="@+id/awayTeamTV"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
             android:elevation="3dp"
             android:ellipsize="end"
             android:gravity="center"
+            android:inputType="text"
             android:maxLines="1"
+            android:padding="10dp"
             android:textColor="@color/white"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -245,6 +248,7 @@
             android:layout_height="1.2dp"
             android:layout_marginTop="25dp"
             android:elevation="3dp"
+            android:visibility="invisible"
             app:dividerColor="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/awayTeamScoreTV" />
 
@@ -268,7 +272,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="13 Aug"
                 android:textColor="@color/light_gray2"
                 android:textSize="@dimen/scoreBoaardCalendarTextSize" />
         </LinearLayout>
@@ -334,6 +337,7 @@
                         app:layout_constraintTop_toBottomOf="@id/expnadDivider">
 
                         <TextView
+                            android:id="@+id/timerMinuteTV1"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -344,6 +348,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/timerMinuteTV2"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_marginStart="8dp"
@@ -363,6 +368,7 @@
                             android:src="@drawable/seperate" />
 
                         <TextView
+                            android:id="@+id/timerSecondTV1"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -373,6 +379,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/timerSecondTV2"
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:layout_marginStart="8dp"
@@ -581,6 +588,23 @@
                         app:layout_constraintTop_toBottomOf="@id/divider3" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
+
+            <TextView
+                android:id="@+id/pauseBTN"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/pause_button"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.clickPuase()}"
+                android:text="@string/pause"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/scoreBoardBTN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/scoreBoardBTN"

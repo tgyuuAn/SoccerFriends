@@ -1,20 +1,25 @@
 package com.tgyuu.presentation.feature.scoreboard
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.usecase.GetTeamUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
+import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.LONG_TO_SECOND
 import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MAX_VALUE
 import com.tgyuu.presentation.feature.scoreboard.ScoreBoardFragment.Companion.MIN_VALUE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +30,9 @@ class ScoreBoardViewModel @Inject constructor(
 
     sealed class ScoreBoardEvent {
         object ClickButton : ScoreBoardEvent()
+        object ClickPause : ScoreBoardEvent()
+        object ChangeAwayTeamImage : ScoreBoardEvent()
+        data class GameSet(val homeScore : Int, val awayScore : Int) : ScoreBoardEvent()
     }
 
     private val _eventFlow = MutableSharedFlow<ScoreBoardEvent>()
@@ -39,11 +47,22 @@ class ScoreBoardViewModel @Inject constructor(
     private val _alarmTime = MutableStateFlow<Int>(0)
     val alarmTime = _alarmTime.asStateFlow()
 
+    private val _timer = MutableStateFlow<Long>(0)
+    val timer = _timer.asStateFlow()
+
     private val _homeTeamScore = MutableStateFlow<Int>(0)
     val homeTeamScore = _homeTeamScore.asStateFlow()
 
     private val _awayTeamScore = MutableStateFlow<Int>(0)
     val awayTeamScore = _awayTeamScore.asStateFlow()
+
+    private val _awayTeamName = MutableStateFlow<String>("팀 명")
+    val awayTeamName = _awayTeamName.asStateFlow()
+
+    private val _awayTeamImage = MutableStateFlow<String>("")
+    val awayTeamImage = _awayTeamImage.asStateFlow()
+
+    var timerJob: Job? = null
 
     private fun event(event: ScoreBoardEvent) {
         viewModelScope.launch {
@@ -65,7 +84,68 @@ class ScoreBoardViewModel @Inject constructor(
         }
     }
 
+    fun changeAwayTeamImage(){
+        event(ScoreBoardEvent.ChangeAwayTeamImage)
+    }
+
+    fun gameStart(){
+        startTimer()
+    }
+
+    fun gameSet(){
+        event(ScoreBoardEvent.GameSet(_homeTeamScore.value, _awayTeamScore.value))
+        resetTimer()
+        _homeTeamScore.value = 0
+        _awayTeamScore.value = 0
+    }
+
+    fun initTimer() {
+        _timer.value = (_playTime.value * 60 * 1000).toLong()
+    }
+
+    fun startTimer() {
+        timerJob = viewModelScope.launch(ioDispatcher, CoroutineStart.LAZY) {
+            if (_timer.value == 0L) initTimer()
+
+            var oldTimeMills = System.currentTimeMillis()
+
+            while (_timer.value > 0) {
+                val delayMills = System.currentTimeMillis() - oldTimeMills
+
+                if (delayMills >= LONG_TO_SECOND) {
+                    _timer.value = _timer.value - LONG_TO_SECOND
+                    oldTimeMills = System.currentTimeMillis()
+                }
+
+                yield()
+            }
+
+            if(_timer.value <= 0){
+                event(ScoreBoardEvent.GameSet(_homeTeamScore.value, _awayTeamScore.value))
+            }
+        }
+        timerJob!!.start()
+    }
+
+    fun pauseTimer() {
+        if(timerJob != null) timerJob!!.cancel()
+        timerJob = null
+    }
+
+    fun resetTimer() {
+        if(timerJob != null) timerJob!!.cancel()
+        timerJob = null
+        _timer.value = 0
+    }
+
     fun clickButton() = event(ScoreBoardEvent.ClickButton)
+
+    fun clickPuase(){
+        if(timerJob == null) startTimer()
+        else pauseTimer()
+
+        event(ScoreBoardEvent.ClickPause)
+    }
 
     fun clickPlusPlayTime() {
         if (_playTime.value + 1 <= MAX_VALUE)
@@ -113,5 +193,13 @@ class ScoreBoardViewModel @Inject constructor(
     fun clickMinusAwayTeamScore() {
         if (_awayTeamScore.value - 1 >= MIN_VALUE)
             _awayTeamScore.value = _awayTeamScore.value.minus(1)
+    }
+
+    fun setAwayTeamImage(imageUri : String){
+        _awayTeamImage.value = imageUri
+    }
+
+    fun setAwayTeamName(name : String){
+        _awayTeamName.value = name
     }
 }

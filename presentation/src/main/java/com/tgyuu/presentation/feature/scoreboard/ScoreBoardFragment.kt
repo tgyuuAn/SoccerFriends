@@ -185,7 +185,7 @@ class ScoreBoardFragment :
     }
 
     private fun gameSet() {
-        vibrate(1000L)
+        vibrate(LONG_TO_SECOND)
         expandSettingCollapseTimeBoard()
         setScoreBTNInvisible()
         binding.scoreBoardBTN.text = getString(R.string.matchStart)

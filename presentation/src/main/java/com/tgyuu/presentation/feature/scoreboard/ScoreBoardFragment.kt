@@ -2,10 +2,17 @@ package com.tgyuu.presentation.feature.scoreboard
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -155,6 +162,7 @@ class ScoreBoardFragment :
     }
 
     private fun initGameState() {
+        fragmentViewModel.resetAllValue()
         setGameNotStartedUI()
     }
 
@@ -165,7 +173,6 @@ class ScoreBoardFragment :
 
     private fun gameResult(homeScore: Int, awayScore: Int) {
         setGameResultUI(homeScore, awayScore)
-        fragmentViewModel.resetAllValue()
         alarmVibrator.vibrate(LONG_TO_SECOND)
     }
 
@@ -191,18 +198,108 @@ class ScoreBoardFragment :
         expandableSettingEL.collapse()
         expandableGameResultEL.expand()
 
-        val homeTeamName = binding.homeTeamTV.text
-        val awayTeamName = binding.awayTeamTV.text
+        val homeTeamName = binding.homeTeamTV.text.toString()
+        val awayTeamName = binding.awayTeamTV.text.toString()
 
         if (homeScore > awayScore) {
             gameResultDescriptionTV.text =
-                "${binding.homeTeamTV.text} 팀이 ${binding.awayTeamTV.text} 팀을\n${homeScore} : ${awayScore} 로 승리하였습니다!"
+                getGameResultWinSpan(homeTeamName, awayTeamName, homeScore, awayScore)
         } else if (awayScore > homeScore) {
             gameResultDescriptionTV.text =
-                "${binding.awayTeamTV.text} 팀이 ${binding.homeTeamTV.text} 팀을\n${awayScore} : ${awayScore} 로 승리하였습니다!"
+                getGameResultWinSpan(awayTeamName, homeTeamName, awayScore, homeScore)
         } else {
             gameResultDescriptionTV.text =
-                "${binding.homeTeamTV.text} 팀과 ${binding.awayTeamTV.text} 팀이\n${homeScore} : ${awayScore} 로 무승부 입니다."
+                getGameResultDrawSpan(awayTeamName, homeTeamName, awayScore, homeScore)
+        }
+    }
+
+    private fun getGameResultWinSpan(
+        winTeam: String,
+        loseTeam: String,
+        winScore: Int,
+        loseScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultWinDescription
+            ),
+            winTeam,
+            loseTeam,
+            winScore,
+            loseScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                winTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4 + loseTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length + 4 + winScore.toString().length + loseScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.dark_green)
+                ),
+                text.indexOf("승리"), // start
+                text.indexOf("승리") + 2, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+    }
+
+    private fun getGameResultDrawSpan(
+        homeTeam: String,
+        awayTeam: String,
+        homeScore: Int,
+        awayScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultDrawDescription
+            ),
+            homeTeam,
+            awayTeam,
+            homeScore,
+            awayScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                homeTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4 + awayTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length + 4 + homeScore.toString().length + awayScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                ),
+                text.indexOf("무승부"), // start
+                text.indexOf("무승부") + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
         }
     }
 

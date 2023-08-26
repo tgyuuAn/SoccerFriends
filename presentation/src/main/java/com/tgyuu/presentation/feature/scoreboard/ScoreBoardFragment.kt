@@ -86,14 +86,6 @@ class ScoreBoardFragment :
                 repeatOnStarted { homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) } }
                 repeatOnStarted { awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) } }
                 repeatOnStarted { timer.collect { setTimerUI(it) } }
-                repeatOnStarted {
-                    awayTeamImage.collect {
-                        this@ScoreBoardFragment.setAwayTeamImage(
-                            it
-                        )
-                    }
-                }
-                repeatOnStarted { awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) } }
                 getTeam()
             }
         }
@@ -106,22 +98,6 @@ class ScoreBoardFragment :
         if (day.length == 1) day = "0" + day
 
         binding.calendarTV.text = "${day} ${month}"
-    }
-
-    private fun setAwayTeamName(name: String) {
-        binding.awayTeamTV.setText(name)
-    }
-
-    private fun setAwayTeamImage(imageUri: String) {
-        if (imageUri.isEmpty()) {
-            binding.awayTeamIV.setImageResource(R.drawable.circle)
-            return
-        }
-
-        Glide.with(requireContext())
-            .load(imageUri)
-            .circleCrop()
-            .into(binding.awayTeamIV)
     }
 
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
@@ -249,7 +225,6 @@ class ScoreBoardFragment :
     ) {
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
             val imageUri = it.data!!.data.toString()
-            fragmentViewModel.setAwayTeamImage(imageUri)
 
             setAwayTeamImage(imageUri)
         }
@@ -392,6 +367,18 @@ class ScoreBoardFragment :
             timerSecondTV1.text = second.totalToTens().toString()
             timerSecondTV2.text = second.tensToDigit().toString()
         }
+    }
+
+    private fun setAwayTeamImage(imageUri: String) {
+        if (imageUri.isEmpty()) {
+            binding.awayTeamIV.setImageResource(R.drawable.circle)
+            return
+        }
+
+        Glide.with(requireContext())
+            .load(imageUri)
+            .circleCrop()
+            .into(binding.awayTeamIV)
     }
 
     private fun getGameResultWinSpan(

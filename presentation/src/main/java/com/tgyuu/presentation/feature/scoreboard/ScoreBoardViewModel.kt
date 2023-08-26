@@ -63,12 +63,6 @@ class ScoreBoardViewModel @Inject constructor(
     private val _awayTeamScore = MutableStateFlow<Int>(0)
     val awayTeamScore = _awayTeamScore.asStateFlow()
 
-    private val _awayTeamName = MutableStateFlow<String>("팀 명")
-    val awayTeamName = _awayTeamName.asStateFlow()
-
-    private val _awayTeamImage = MutableStateFlow<String>("")
-    val awayTeamImage = _awayTeamImage.asStateFlow()
-
     var timerJob: Job? = null
 
     private fun event(event: ScoreBoardEvent) {
@@ -225,13 +219,5 @@ class ScoreBoardViewModel @Inject constructor(
     fun clickMinusAwayTeamScore() {
         if (_awayTeamScore.value - 1 >= MIN_VALUE)
             _awayTeamScore.value = _awayTeamScore.value.minus(1)
-    }
-
-    fun setAwayTeamImage(imageUri: String) {
-        _awayTeamImage.value = imageUri
-    }
-
-    fun setAwayTeamName(name: String) {
-        _awayTeamName.value = name
     }
 }

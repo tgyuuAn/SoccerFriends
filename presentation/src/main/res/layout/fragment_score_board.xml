@@ -162,6 +162,7 @@
             android:elevation="3dp"
             android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             android:scaleType="centerCrop"
+            android:src="@drawable/circle"
             app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
@@ -177,6 +178,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="10dp"
+            android:text="팀 명"
             android:textColor="@color/white"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"

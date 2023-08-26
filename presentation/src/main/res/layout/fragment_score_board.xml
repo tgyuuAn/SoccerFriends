@@ -589,6 +589,65 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandableGameResultEL"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                app:el_duration="500"
+                app:el_expanded="true"
+                app:el_parallax="0.5"
+                app:layout_constraintBottom_toBottomOf="@id/scoreBoardBTN"
+                app:layout_constraintTop_toBottomOf="@id/expandableTimeBoardEL">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/gameResultTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/matchResult"
+                        android:textSize="@dimen/scoreBoardHeaderSize"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider6"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/gameResultTV" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/gameResultLTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="divider6"
+                        android:layout_marginTop="40dp"
+                        app:lottie_rawRes="@raw/match_result"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+
+                    <TextView
+                        android:id="@+id/gameResultDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/gameResultLTV"
+                        android:layout_marginTop="15dp"
+                        android:textSize="24sp"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
             <TextView
                 android:id="@+id/pauseBTN"
                 android:layout_width="280dp"

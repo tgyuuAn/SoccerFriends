@@ -72,6 +72,7 @@ class ScoreBoardFragment :
         binding.apply {
             viewModel = fragmentViewModel.apply {
                 repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+                repeatOnStarted { gameState.collect { changeGameState(it) } }
                 repeatOnStarted { team.collect { handleTeamState(it) } }
                 repeatOnStarted { playTime.collect { handleTimeUI(it, TimeType.PLAY) } }
                 repeatOnStarted { alarmTime.collect { handleTimeUI(it, TimeType.ALARM) } }
@@ -118,13 +119,9 @@ class ScoreBoardFragment :
 
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
-            is ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> changeGameState(event.isPlaying)
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
             ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> navigateToGallery()
-            is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(
-                event.homeScore,
-                event.awayScore
-            )
+            is ScoreBoardViewModel.ScoreBoardEvent.Error -> toast(event.message)
         }
     }
 
@@ -146,60 +143,57 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun changeGameState(isPlaying: Boolean) {
-        if (isPlaying) {
-            if (fragmentViewModel.playTime.value == 0) {
-                toast("경기 시간은 반드시 1분 이상이어야 합니다.")
-                return
-            }
-
-            gameStart()
-        } else {
-            gameSet()
+    private fun changeGameState(gameState: ScoreBoardViewModel.GameState) {
+        when (gameState) {
+            ScoreBoardViewModel.GameState.GameNotStarted -> initGameState()
+            ScoreBoardViewModel.GameState.GameInProgress -> gameStart()
+            is ScoreBoardViewModel.GameState.GameResult -> gameResult(
+                gameState.score.first,
+                gameState.score.second
+            )
         }
     }
 
+    private fun initGameState() {
+        setGameNotStartedUI()
+    }
+
     private fun gameStart() {
-        expandTimeBoardCollapseSetting()
-        setScoreBTNVisible()
-        binding.scoreBoardBTN.text = getString(R.string.matchSet)
-
-        fragmentViewModel.gameStart()
+        setGameInProgressUI()
+        fragmentViewModel.startTimer()
     }
 
-    private fun gameSet() {
+    private fun gameResult(homeScore: Int, awayScore: Int) {
+        setGameResultUI()
+        fragmentViewModel.resetAllValue()
         alarmVibrator.vibrate(LONG_TO_SECOND)
-        expandSettingCollapseTimeBoard()
-        setScoreBTNInvisible()
-        binding.scoreBoardBTN.text = getString(R.string.matchStart)
-
-        fragmentViewModel.gameSet()
     }
 
-    private fun expandSettingCollapseTimeBoard() = binding.apply {
+    private fun setGameNotStartedUI() = binding.apply {
+        handleScoreBTNVisible(View.GONE)
         expandableTimeBoardEL.collapse()
         expandableSettingEL.expand()
     }
 
-    private fun expandTimeBoardCollapseSetting() = binding.apply {
+    private fun setGameInProgressUI() = binding.apply {
+        handleScoreBTNVisible(View.VISIBLE)
+        binding.scoreBoardBTN.text = getString(R.string.matchSet)
         expandableTimeBoardEL.expand()
         expandableSettingEL.collapse()
     }
 
-    private fun setScoreBTNInvisible() = binding.apply {
-        awayTeamScorePlusBTN.visibility = View.GONE
-        homeTeamScorePlusBTN.visibility = View.GONE
-        awayTeamScoreMinusBTN.visibility = View.GONE
-        homeTeamScoreMinusBTN.visibility = View.GONE
-        pauseBTN.visibility = View.GONE
+    private fun setGameResultUI() = binding.apply {
+        handleScoreBTNVisible(View.VISIBLE)
+        expandableTimeBoardEL.expand()
+        expandableSettingEL.collapse()
     }
 
-    private fun setScoreBTNVisible() = binding.apply {
-        awayTeamScorePlusBTN.visibility = View.VISIBLE
-        homeTeamScorePlusBTN.visibility = View.VISIBLE
-        awayTeamScoreMinusBTN.visibility = View.VISIBLE
-        homeTeamScoreMinusBTN.visibility = View.VISIBLE
-        pauseBTN.visibility = View.VISIBLE
+    private fun handleScoreBTNVisible(visibility: Int) = binding.apply {
+        awayTeamScorePlusBTN.visibility = visibility
+        homeTeamScorePlusBTN.visibility = visibility
+        awayTeamScoreMinusBTN.visibility = visibility
+        homeTeamScoreMinusBTN.visibility = visibility
+        pauseBTN.visibility = visibility
     }
 
     private fun setPauseButtonText() = binding.apply {
@@ -226,8 +220,7 @@ class ScoreBoardFragment :
 
     private fun calculateMatchResult(homeScore: Int, awayScore: Int) {
         if (binding.expandableTimeBoardEL.isExpanded) {
-            expandSettingCollapseTimeBoard()
-            setScoreBTNInvisible()
+            setGameNotStartedUI()
             binding.scoreBoardBTN.text = getString(R.string.matchStart)
         }
 
@@ -367,7 +360,9 @@ class ScoreBoardFragment :
         val minute = (timeMillis / (60 * LONG_TO_SECOND))
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
 
-        if (fragmentViewModel.isPlaying.value && timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND) {
+        if (fragmentViewModel.gameState.value == ScoreBoardViewModel.GameState.GameInProgress
+            && timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND
+        ) {
             alarmVibrator.vibrate(LONG_TO_SECOND)
         }
 

@@ -23,6 +23,7 @@ class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: Lo
     }
 
     override suspend fun getTeam(): Flow<Team> = flow {
+        Log.d("tgyuu","getTeam() 호출")
         localTeamDataSource.getTeam().collect {
             if (it == null) {
                 localTeamDataSource.createNewTeam()

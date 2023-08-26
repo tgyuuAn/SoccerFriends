@@ -199,15 +199,14 @@ class TeamFragment :
             when (requestCode!!) {
                 RequestCode.TeamImage -> {
                     fragmentViewModel.updateTeamImage(imageUri)
-                    requestCode = null
                 }
 
                 RequestCode.MemberImage -> {
                     adapterViewModel.updateMemberImage(imageUri)
-                    requestCode = null
                 }
             }
         }
+        requestCode = null
     }
 
     private fun handleMemberListState(uiState: UiState<List<Member>>) {

@@ -164,7 +164,7 @@ class ScoreBoardFragment :
     }
 
     private fun gameResult(homeScore: Int, awayScore: Int) {
-        setGameResultUI()
+        setGameResultUI(homeScore, awayScore)
         fragmentViewModel.resetAllValue()
         alarmVibrator.vibrate(LONG_TO_SECOND)
     }
@@ -172,6 +172,7 @@ class ScoreBoardFragment :
     private fun setGameNotStartedUI() = binding.apply {
         handleScoreBTNVisible(View.GONE)
         expandableTimeBoardEL.collapse()
+        expandableGameResultEL.collapse()
         expandableSettingEL.expand()
     }
 
@@ -180,12 +181,23 @@ class ScoreBoardFragment :
         binding.scoreBoardBTN.text = getString(R.string.matchSet)
         expandableTimeBoardEL.expand()
         expandableSettingEL.collapse()
+        expandableGameResultEL.collapse()
     }
 
-    private fun setGameResultUI() = binding.apply {
-        handleScoreBTNVisible(View.VISIBLE)
-        expandableTimeBoardEL.expand()
+    private fun setGameResultUI(homeScore: Int, awayScore: Int) = binding.apply {
+        handleScoreBTNVisible(View.GONE)
+        binding.scoreBoardBTN.text = getString(R.string.end)
+        expandableTimeBoardEL.collapse()
         expandableSettingEL.collapse()
+        expandableGameResultEL.expand()
+
+        if (homeScore > awayScore) {
+            gameResultDescriptionTV.text="${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!"
+        } else if (awayScore > homeScore) {
+            gameResultDescriptionTV.text="${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!"
+        } else {
+            gameResultDescriptionTV.text="${homeScore} : ${awayScore} 로 무승부 입니다."
+        }
     }
 
     private fun handleScoreBTNVisible(visibility: Int) = binding.apply {
@@ -215,23 +227,6 @@ class ScoreBoardFragment :
             fragmentViewModel.setAwayTeamImage(imageUri)
 
             setAwayTeamImage(imageUri)
-        }
-    }
-
-    private fun calculateMatchResult(homeScore: Int, awayScore: Int) {
-        if (binding.expandableTimeBoardEL.isExpanded) {
-            setGameNotStartedUI()
-            binding.scoreBoardBTN.text = getString(R.string.matchStart)
-        }
-
-        alarmVibrator.vibrate(LONG_TO_SECOND)
-
-        if (homeScore > awayScore) {
-            toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
-        } else if (awayScore > homeScore) {
-            toast("${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
-        } else {
-            toast("${homeScore} : ${awayScore} 로 무승부 입니다.")
         }
     }
 

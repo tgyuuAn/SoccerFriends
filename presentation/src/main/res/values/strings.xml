@@ -14,6 +14,7 @@
     <string name="matchSet">경기 종료</string>
     <string name="restartMatch">경기 재개</string>
     <string name="matchResult">경기 결과</string>
+    <string name="end">종료</string>
 
     <string name="teamLogo">팀 로고</string>
     <string name="teamName">팀 명</string>

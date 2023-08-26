@@ -1,14 +1,8 @@
 package com.tgyuu.presentation.feature.scoreboard
 
 import android.app.Activity
-import android.content.Context
-import android.content.Context.VIBRATOR_SERVICE
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,22 +17,15 @@ import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
 
-    private val vibrator: Vibrator by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context?.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            context?.getSystemService(VIBRATOR_SERVICE) as Vibrator
-        }
-    }
+    @Inject
+    lateinit var matchTimer: MatchTimer
 
     enum class TimeType {
         PLAY, ALARM
@@ -105,15 +92,6 @@ class ScoreBoardFragment :
         if (day.length == 1) day = "0" + day
 
         binding.calendarTV.text = "${day} ${month}"
-    }
-
-    private fun vibrate(time: Long) {
-        vibrator.vibrate(
-            VibrationEffect.createOneShot(
-                time,
-                VibrationEffect.DEFAULT_AMPLITUDE,
-            )
-        )
     }
 
     private fun setAwayTeamName(name: String) {
@@ -185,7 +163,7 @@ class ScoreBoardFragment :
     }
 
     private fun gameSet() {
-        vibrate(LONG_TO_SECOND)
+        matchTimer.vibrate(LONG_TO_SECOND)
         expandSettingCollapseTimeBoard()
         setScoreBTNInvisible()
         binding.scoreBoardBTN.text = getString(R.string.matchStart)
@@ -247,6 +225,8 @@ class ScoreBoardFragment :
             setScoreBTNInvisible()
             binding.scoreBoardBTN.text = getString(R.string.matchStart)
         }
+
+        matchTimer.vibrate(LONG_TO_SECOND)
 
         if (homeScore > awayScore) {
             toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
@@ -383,7 +363,7 @@ class ScoreBoardFragment :
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
 
         if(timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND){
-            vibrate(LONG_TO_SECOND)
+            matchTimer.vibrate(LONG_TO_SECOND)
         }
 
         binding.apply {

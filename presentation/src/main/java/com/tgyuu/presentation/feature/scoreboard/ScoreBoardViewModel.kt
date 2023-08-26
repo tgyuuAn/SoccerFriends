@@ -1,6 +1,5 @@
 package com.tgyuu.presentation.feature.scoreboard
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tgyuu.domain.entity.Team

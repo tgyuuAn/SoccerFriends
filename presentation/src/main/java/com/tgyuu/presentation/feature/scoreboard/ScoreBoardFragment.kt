@@ -1,17 +1,18 @@
 package com.tgyuu.presentation.feature.scoreboard
 
 import android.app.Activity
-import android.content.Context
-import android.content.Context.VIBRATOR_SERVICE
 import android.content.Intent
-import android.os.Build
+import android.graphics.Color
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -23,22 +24,15 @@ import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
 
-    private val vibrator: Vibrator by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context?.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            context?.getSystemService(VIBRATOR_SERVICE) as Vibrator
-        }
-    }
+    @Inject
+    lateinit var alarmVibrator: AlarmVibrator
 
     enum class TimeType {
         PLAY, ALARM
@@ -85,14 +79,13 @@ class ScoreBoardFragment :
         binding.apply {
             viewModel = fragmentViewModel.apply {
                 repeatOnStarted { eventFlow.collect { handleEvent(it) } }
+                repeatOnStarted { gameState.collect { changeGameState(it) } }
                 repeatOnStarted { team.collect { handleTeamState(it) } }
                 repeatOnStarted { playTime.collect { handleTimeUI(it, TimeType.PLAY) } }
                 repeatOnStarted { alarmTime.collect { handleTimeUI(it, TimeType.ALARM) } }
                 repeatOnStarted { homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) } }
                 repeatOnStarted { awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) } }
                 repeatOnStarted { timer.collect { setTimerUI(it) } }
-                repeatOnStarted { awayTeamImage.collect { this@ScoreBoardFragment.setAwayTeamImage(it) } }
-                repeatOnStarted { awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) } }
                 getTeam()
             }
         }
@@ -107,40 +100,11 @@ class ScoreBoardFragment :
         binding.calendarTV.text = "${day} ${month}"
     }
 
-    private fun vibrate(time: Long) {
-        vibrator.vibrate(
-            VibrationEffect.createOneShot(
-                time,
-                VibrationEffect.DEFAULT_AMPLITUDE,
-            )
-        )
-    }
-
-    private fun setAwayTeamName(name: String) {
-        binding.awayTeamTV.setText(name)
-    }
-
-    private fun setAwayTeamImage(imageUri: String) {
-        if (imageUri.isEmpty()) {
-            binding.awayTeamIV.setImageResource(R.drawable.circle)
-            return
-        }
-
-        Glide.with(requireContext())
-            .load(imageUri)
-            .circleCrop()
-            .into(binding.awayTeamIV)
-    }
-
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
-            ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
             ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> navigateToGallery()
-            is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(
-                event.homeScore,
-                event.awayScore
-            )
+            is ScoreBoardViewModel.ScoreBoardEvent.Error -> toast(event.message)
         }
     }
 
@@ -162,61 +126,87 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun handleExpandableLayout() {
-        if (!binding.expandableTimeBoardEL.isExpanded) {
-            if (fragmentViewModel.playTime.value == 0) {
-                toast("경기 시간은 반드시 1분 이상이어야 합니다.")
-                return
-            }
-
-            gameStart()
-            return
+    private fun changeGameState(gameState: ScoreBoardViewModel.GameState) {
+        when (gameState) {
+            ScoreBoardViewModel.GameState.GameNotStarted -> initGameState()
+            ScoreBoardViewModel.GameState.GameInProgress -> gameStart()
+            is ScoreBoardViewModel.GameState.GameResult -> gameResult(
+                gameState.score.first,
+                gameState.score.second
+            )
         }
+    }
 
-        gameSet()
+    private fun initGameState() {
+        fragmentViewModel.resetAllValue()
+        setGameNotStartedUI()
     }
 
     private fun gameStart() {
-        expandTimeBoardCollapseSetting()
-        setScoreBTNVisible()
-        binding.scoreBoardBTN.text = getString(R.string.matchSet)
-
-        fragmentViewModel.gameStart()
+        setGameInProgressUI()
+        fragmentViewModel.startTimer()
     }
 
-    private fun gameSet() {
-        vibrate(LONG_TO_SECOND)
-        expandSettingCollapseTimeBoard()
-        setScoreBTNInvisible()
-        binding.scoreBoardBTN.text = getString(R.string.matchStart)
-
-        fragmentViewModel.gameSet()
+    private fun gameResult(homeScore: Int, awayScore: Int) {
+        setGameResultUI(homeScore, awayScore)
+        alarmVibrator.vibrate(LONG_TO_SECOND)
     }
 
-    private fun expandSettingCollapseTimeBoard() = binding.apply {
+    private fun setGameNotStartedUI() = binding.apply {
+        handleScoreBTNVisible(View.GONE)
+        handleGameResultVisible(View.GONE)
+        gameResultLTV.visibility = View.INVISIBLE
+        gameResultDescriptionTV.visibility = View.INVISIBLE
         expandableTimeBoardEL.collapse()
+        expandableGameResultEL.collapse()
         expandableSettingEL.expand()
     }
 
-    private fun expandTimeBoardCollapseSetting() = binding.apply {
+    private fun setGameInProgressUI() = binding.apply {
+        handleScoreBTNVisible(View.VISIBLE)
+        handleGameResultVisible(View.GONE)
+        scoreBoardBTN.text = getString(R.string.matchSet)
         expandableTimeBoardEL.expand()
         expandableSettingEL.collapse()
+        expandableGameResultEL.collapse()
     }
 
-    private fun setScoreBTNInvisible() = binding.apply {
-        awayTeamScorePlusBTN.visibility = View.GONE
-        homeTeamScorePlusBTN.visibility = View.GONE
-        awayTeamScoreMinusBTN.visibility = View.GONE
-        homeTeamScoreMinusBTN.visibility = View.GONE
-        pauseBTN.visibility = View.GONE
+    private fun setGameResultUI(homeScore: Int, awayScore: Int) = binding.apply {
+        handleScoreBTNVisible(View.GONE)
+        handleGameResultVisible(View.VISIBLE)
+        scoreBoardBTN.text = getString(R.string.end)
+        expandableTimeBoardEL.collapse()
+        expandableSettingEL.collapse()
+        expandableGameResultEL.expand()
+
+        val homeTeamName = binding.homeTeamTV.text.toString()
+        val awayTeamName = binding.awayTeamTV.text.toString()
+
+        if (homeScore > awayScore) {
+            gameResultDescriptionTV.text =
+                getGameResultWinSpan(homeTeamName, awayTeamName, homeScore, awayScore)
+        } else if (awayScore > homeScore) {
+            gameResultDescriptionTV.text =
+                getGameResultWinSpan(awayTeamName, homeTeamName, awayScore, homeScore)
+        } else {
+            gameResultDescriptionTV.text =
+                getGameResultDrawSpan(awayTeamName, homeTeamName, awayScore, homeScore)
+        }
     }
 
-    private fun setScoreBTNVisible() = binding.apply {
-        awayTeamScorePlusBTN.visibility = View.VISIBLE
-        homeTeamScorePlusBTN.visibility = View.VISIBLE
-        awayTeamScoreMinusBTN.visibility = View.VISIBLE
-        homeTeamScoreMinusBTN.visibility = View.VISIBLE
-        pauseBTN.visibility = View.VISIBLE
+    private fun handleScoreBTNVisible(visibility: Int) = binding.apply {
+        awayTeamScorePlusBTN.visibility = visibility
+        homeTeamScorePlusBTN.visibility = visibility
+        awayTeamScoreMinusBTN.visibility = visibility
+        homeTeamScoreMinusBTN.visibility = visibility
+        pauseBTN.visibility = visibility
+    }
+
+    private fun handleGameResultVisible(visibility: Int) = binding.apply {
+        gameResultLTV.visibility = visibility
+        gameResultDescriptionTV.visibility = visibility
+        gameResultTV.visibility = visibility
+        divider6.visibility = visibility
     }
 
     private fun setPauseButtonText() = binding.apply {
@@ -235,25 +225,8 @@ class ScoreBoardFragment :
     ) {
         if (it.resultCode == Activity.RESULT_OK && it.data != null) {
             val imageUri = it.data!!.data.toString()
-            fragmentViewModel.setAwayTeamImage(imageUri)
 
             setAwayTeamImage(imageUri)
-        }
-    }
-
-    private fun calculateMatchResult(homeScore: Int, awayScore: Int) {
-        if (binding.expandableTimeBoardEL.isExpanded) {
-            expandSettingCollapseTimeBoard()
-            setScoreBTNInvisible()
-            binding.scoreBoardBTN.text = getString(R.string.matchStart)
-        }
-
-        if (homeScore > awayScore) {
-            toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
-        } else if (awayScore > homeScore) {
-            toast("${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!")
-        } else {
-            toast("${homeScore} : ${awayScore} 로 무승부 입니다.")
         }
     }
 
@@ -382,8 +355,10 @@ class ScoreBoardFragment :
         val minute = (timeMillis / (60 * LONG_TO_SECOND))
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
 
-        if(timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND){
-            vibrate(LONG_TO_SECOND)
+        if (fragmentViewModel.gameState.value == ScoreBoardViewModel.GameState.GameInProgress
+            && timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND
+        ) {
+            alarmVibrator.vibrate(LONG_TO_SECOND)
         }
 
         binding.apply {
@@ -391,6 +366,108 @@ class ScoreBoardFragment :
             timerMinuteTV2.text = minute.tensToDigit().toString()
             timerSecondTV1.text = second.totalToTens().toString()
             timerSecondTV2.text = second.tensToDigit().toString()
+        }
+    }
+
+    private fun setAwayTeamImage(imageUri: String) {
+        if (imageUri.isEmpty()) {
+            binding.awayTeamIV.setImageResource(R.drawable.circle)
+            return
+        }
+
+        Glide.with(requireContext())
+            .load(imageUri)
+            .circleCrop()
+            .into(binding.awayTeamIV)
+    }
+
+    private fun getGameResultWinSpan(
+        winTeam: String,
+        loseTeam: String,
+        winScore: Int,
+        loseScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultWinDescription
+            ),
+            winTeam,
+            loseTeam,
+            winScore,
+            loseScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                winTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4 + loseTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length + 4 + winScore.toString().length + loseScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.dark_green)
+                ),
+                text.indexOf("승리"), // start
+                text.indexOf("승리") + 2, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+    }
+
+    private fun getGameResultDrawSpan(
+        homeTeam: String,
+        awayTeam: String,
+        homeScore: Int,
+        awayScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultDrawDescription
+            ),
+            homeTeam,
+            awayTeam,
+            homeScore,
+            awayScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                homeTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4 + awayTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length + 4 + homeScore.toString().length + awayScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.blue)
+                ),
+                text.indexOf("무승부"), // start
+                text.indexOf("무승부") + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
         }
     }
 }

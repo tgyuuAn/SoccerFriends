@@ -162,6 +162,7 @@
             android:elevation="3dp"
             android:onClick="@{()->viewModel.changeAwayTeamImage()}"
             android:scaleType="centerCrop"
+            android:src="@drawable/circle"
             app:layout_constraintEnd_toEndOf="@id/scoreBoardIV"
             app:layout_constraintTop_toTopOf="@id/scoreBoardIV" />
 
@@ -177,6 +178,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="10dp"
+            android:text="팀 명"
             android:textColor="@color/white"
             android:textSize="@dimen/scoreBoardTextSize"
             android:textStyle="bold"
@@ -589,6 +591,69 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
 
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandableGameResultEL"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                app:el_duration="500"
+                app:el_expanded="false"
+                app:el_parallax="0.5"
+                app:layout_constraintBottom_toBottomOf="@id/scoreBoardBTN"
+                app:layout_constraintTop_toBottomOf="@id/expandableTimeBoardEL">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/gameResultTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/matchResult"
+                        android:textSize="@dimen/scoreBoardHeaderSize"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider6"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        app:dividerColor="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/gameResultTV" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/gameResultLTV"
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="40dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider6"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/match_result" />
+
+                    <TextView
+                        android:id="@+id/gameResultDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/light_gray4"
+                        android:textSize="24sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/gameResultLTV" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
             <TextView
                 android:id="@+id/pauseBTN"
                 android:layout_width="280dp"
@@ -646,6 +711,5 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -20,5 +20,6 @@
     <deepLink app:uri="soccerfriends://team_nav" />
     <action
         android:id="@+id/action_global_addMemberFragment"
+        app:popUpTo="@id/teamFragment"
         app:destination="@id/addMemberFragment" />
 </navigation>

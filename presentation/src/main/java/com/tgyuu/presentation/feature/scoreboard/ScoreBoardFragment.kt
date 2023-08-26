@@ -192,11 +192,14 @@ class ScoreBoardFragment :
         expandableGameResultEL.expand()
 
         if (homeScore > awayScore) {
-            gameResultDescriptionTV.text="${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!"
+            gameResultDescriptionTV.text =
+                "${binding.homeTeamTV.text} 팀이 ${binding.awayTeamTV.text} 팀을\n${homeScore} : ${awayScore} 로 승리하였습니다!"
         } else if (awayScore > homeScore) {
-            gameResultDescriptionTV.text="${binding.awayTeamTV.text} 팀이 ${awayScore} : ${awayScore} 로 승리하였습니다!"
+            gameResultDescriptionTV.text =
+                "${binding.awayTeamTV.text} 팀이 ${binding.homeTeamTV.text} 팀을\n${awayScore} : ${awayScore} 로 승리하였습니다!"
         } else {
-            gameResultDescriptionTV.text="${homeScore} : ${awayScore} 로 무승부 입니다."
+            gameResultDescriptionTV.text =
+                "${binding.homeTeamTV.text} 팀과 ${binding.awayTeamTV.text} 팀이\n${homeScore} : ${awayScore} 로 무승부 입니다."
         }
     }
 

@@ -21,7 +21,7 @@
 <br><br><br>
 ## UI/UX
 
-<img src="https://github.com/tgyuuAn/SoccerFriends/assets/116813010/eb501bf0-ac98-4842-af65-eee09e1994c3" width="600" height="750"/>
+<img src="https://github.com/tgyuuAn/SoccerFriends/assets/116813010/56102c46-30e3-4e94-a9e5-5e52bd30d1dc" width="700" height="750"/>
 
 <a href="https://www.figma.com/file/sKZiEIi7zHhAbN3o7U8tQZ/SoccerFriends?type=design&node-id=0%3A1&mode=design&t=GrJgoYCewaWrAu09-1">Figma Link</a>
 <br><br><br>

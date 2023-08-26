@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MatchTimer @Inject constructor(@ApplicationContext context: Context) {
+class AlarmVibrator @Inject constructor(@ApplicationContext context: Context) {
 
     private val vibrator: Vibrator by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

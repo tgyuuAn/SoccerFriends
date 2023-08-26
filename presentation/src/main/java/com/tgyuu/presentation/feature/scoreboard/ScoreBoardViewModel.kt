@@ -28,7 +28,7 @@ class ScoreBoardViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed class ScoreBoardEvent {
-        object ClickButton : ScoreBoardEvent()
+        data class ClickButton(val isPlaying : Boolean) : ScoreBoardEvent()
         object ClickPause : ScoreBoardEvent()
         object ChangeAwayTeamImage : ScoreBoardEvent()
         data class GameSet(val homeScore : Int, val awayScore : Int) : ScoreBoardEvent()
@@ -39,6 +39,9 @@ class ScoreBoardViewModel @Inject constructor(
 
     private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
     val team = _team.asStateFlow()
+
+    private val _isPlaying = MutableStateFlow<Boolean>(false)
+    private val isPlaying = _isPlaying.asStateFlow()
 
     private val _playTime = MutableStateFlow<Int>(0)
     val playTime = _playTime.asStateFlow()
@@ -137,7 +140,11 @@ class ScoreBoardViewModel @Inject constructor(
         _timer.value = 0
     }
 
-    fun clickButton() = event(ScoreBoardEvent.ClickButton)
+    fun clickButton(){
+        if(_isPlaying.value == true) _isPlaying.value = false
+        else _isPlaying.value = true
+        event(ScoreBoardEvent.ClickButton(_isPlaying.value))
+    }
 
     fun clickPuase(){
         if(timerJob == null) startTimer()

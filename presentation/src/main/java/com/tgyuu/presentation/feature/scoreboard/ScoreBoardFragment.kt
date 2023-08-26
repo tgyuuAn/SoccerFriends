@@ -25,7 +25,7 @@ class ScoreBoardFragment :
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
 
     @Inject
-    lateinit var matchTimer: MatchTimer
+    lateinit var alarmVibrator: AlarmVibrator
 
     enum class TimeType {
         PLAY, ALARM
@@ -112,7 +112,7 @@ class ScoreBoardFragment :
 
     private fun handleEvent(event: ScoreBoardViewModel.ScoreBoardEvent) {
         when (event) {
-            ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> handleExpandableLayout()
+            is ScoreBoardViewModel.ScoreBoardEvent.ClickButton -> changeGameState(event.isPlaying)
             ScoreBoardViewModel.ScoreBoardEvent.ClickPause -> setPauseButtonText()
             ScoreBoardViewModel.ScoreBoardEvent.ChangeAwayTeamImage -> navigateToGallery()
             is ScoreBoardViewModel.ScoreBoardEvent.GameSet -> calculateMatchResult(
@@ -140,8 +140,8 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun handleExpandableLayout() {
-        if (!binding.expandableTimeBoardEL.isExpanded) {
+    private fun changeGameState(isPlaying : Boolean) {
+        if (isPlaying) {
             if (fragmentViewModel.playTime.value == 0) {
                 toast("경기 시간은 반드시 1분 이상이어야 합니다.")
                 return
@@ -163,7 +163,7 @@ class ScoreBoardFragment :
     }
 
     private fun gameSet() {
-        matchTimer.vibrate(LONG_TO_SECOND)
+        alarmVibrator.vibrate(LONG_TO_SECOND)
         expandSettingCollapseTimeBoard()
         setScoreBTNInvisible()
         binding.scoreBoardBTN.text = getString(R.string.matchStart)
@@ -226,7 +226,7 @@ class ScoreBoardFragment :
             binding.scoreBoardBTN.text = getString(R.string.matchStart)
         }
 
-        matchTimer.vibrate(LONG_TO_SECOND)
+        alarmVibrator.vibrate(LONG_TO_SECOND)
 
         if (homeScore > awayScore) {
             toast("${binding.homeTeamTV.text} 팀이 ${homeScore} : ${awayScore} 로 승리하였습니다!")
@@ -363,7 +363,7 @@ class ScoreBoardFragment :
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
 
         if(timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND){
-            matchTimer.vibrate(LONG_TO_SECOND)
+            alarmVibrator.vibrate(LONG_TO_SECOND)
         }
 
         binding.apply {

@@ -16,7 +16,7 @@
     <string name="matchResult">경기 결과</string>
     <string name="end">종료</string>
     <string name="gameResultWinDescription">%s 팀이 %s 팀을\n%d : %d 으로 승리하였습니다!</string>
-    <string name="gameResultDrawDescription">%s 팀과 %s 팀가\n%d : %d 으로 무승부입니다!</string>
+    <string name="gameResultDrawDescription">%s 팀과 %s 팀이\n%d : %d 으로 무승부입니다!</string>
 
     <string name="teamLogo">팀 로고</string>
     <string name="teamName">팀 명</string>

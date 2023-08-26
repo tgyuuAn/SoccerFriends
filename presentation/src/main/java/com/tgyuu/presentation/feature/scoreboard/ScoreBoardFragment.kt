@@ -178,6 +178,9 @@ class ScoreBoardFragment :
 
     private fun setGameNotStartedUI() = binding.apply {
         handleScoreBTNVisible(View.GONE)
+        handleGameResultVisible(View.GONE)
+        gameResultLTV.visibility = View.INVISIBLE
+        gameResultDescriptionTV.visibility = View.INVISIBLE
         expandableTimeBoardEL.collapse()
         expandableGameResultEL.collapse()
         expandableSettingEL.expand()
@@ -185,7 +188,8 @@ class ScoreBoardFragment :
 
     private fun setGameInProgressUI() = binding.apply {
         handleScoreBTNVisible(View.VISIBLE)
-        binding.scoreBoardBTN.text = getString(R.string.matchSet)
+        handleGameResultVisible(View.GONE)
+        scoreBoardBTN.text = getString(R.string.matchSet)
         expandableTimeBoardEL.expand()
         expandableSettingEL.collapse()
         expandableGameResultEL.collapse()
@@ -193,7 +197,8 @@ class ScoreBoardFragment :
 
     private fun setGameResultUI(homeScore: Int, awayScore: Int) = binding.apply {
         handleScoreBTNVisible(View.GONE)
-        binding.scoreBoardBTN.text = getString(R.string.end)
+        handleGameResultVisible(View.VISIBLE)
+        scoreBoardBTN.text = getString(R.string.end)
         expandableTimeBoardEL.collapse()
         expandableSettingEL.collapse()
         expandableGameResultEL.expand()
@@ -213,102 +218,19 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun getGameResultWinSpan(
-        winTeam: String,
-        loseTeam: String,
-        winScore: Int,
-        loseScore: Int
-    ): SpannableStringBuilder {
-        val text = String.format(
-            getString(
-                R.string.gameResultWinDescription
-            ),
-            winTeam,
-            loseTeam,
-            winScore,
-            loseScore
-        )
-        return SpannableStringBuilder(text).apply {
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                0, // start
-                winTeam.length, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                winTeam.length + 4, // start
-                winTeam.length + 4 + loseTeam.length, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                winTeam.length + 4 + loseTeam.length + 4, // start
-                winTeam.length + 4 + loseTeam.length + 4 + winScore.toString().length + loseScore.toString().length + 3, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(requireContext(), R.color.dark_green)
-                ),
-                text.indexOf("승리"), // start
-                text.indexOf("승리") + 2, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-        }
-    }
-
-    private fun getGameResultDrawSpan(
-        homeTeam: String,
-        awayTeam: String,
-        homeScore: Int,
-        awayScore: Int
-    ): SpannableStringBuilder {
-        val text = String.format(
-            getString(
-                R.string.gameResultDrawDescription
-            ),
-            homeTeam,
-            awayTeam,
-            homeScore,
-            awayScore
-        )
-        return SpannableStringBuilder(text).apply {
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                0, // start
-                homeTeam.length, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                homeTeam.length + 4, // start
-                homeTeam.length + 4 + awayTeam.length, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(Color.BLACK),
-                homeTeam.length + 4 + awayTeam.length + 4, // start
-                homeTeam.length + 4 + awayTeam.length + 4 + homeScore.toString().length + awayScore.toString().length + 3, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-            setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                ),
-                text.indexOf("무승부"), // start
-                text.indexOf("무승부") + 3, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-            )
-        }
-    }
-
     private fun handleScoreBTNVisible(visibility: Int) = binding.apply {
         awayTeamScorePlusBTN.visibility = visibility
         homeTeamScorePlusBTN.visibility = visibility
         awayTeamScoreMinusBTN.visibility = visibility
         homeTeamScoreMinusBTN.visibility = visibility
         pauseBTN.visibility = visibility
+    }
+
+    private fun handleGameResultVisible(visibility: Int) = binding.apply {
+        gameResultLTV.visibility = visibility
+        gameResultDescriptionTV.visibility = visibility
+        gameResultTV.visibility = visibility
+        divider6.visibility = visibility
     }
 
     private fun setPauseButtonText() = binding.apply {
@@ -469,6 +391,96 @@ class ScoreBoardFragment :
             timerMinuteTV2.text = minute.tensToDigit().toString()
             timerSecondTV1.text = second.totalToTens().toString()
             timerSecondTV2.text = second.tensToDigit().toString()
+        }
+    }
+
+    private fun getGameResultWinSpan(
+        winTeam: String,
+        loseTeam: String,
+        winScore: Int,
+        loseScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultWinDescription
+            ),
+            winTeam,
+            loseTeam,
+            winScore,
+            loseScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                winTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                winTeam.length + 4 + loseTeam.length + 4, // start
+                winTeam.length + 4 + loseTeam.length + 4 + winScore.toString().length + loseScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.dark_green)
+                ),
+                text.indexOf("승리"), // start
+                text.indexOf("승리") + 2, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+    }
+
+    private fun getGameResultDrawSpan(
+        homeTeam: String,
+        awayTeam: String,
+        homeScore: Int,
+        awayScore: Int
+    ): SpannableStringBuilder {
+        val text = String.format(
+            getString(
+                R.string.gameResultDrawDescription
+            ),
+            homeTeam,
+            awayTeam,
+            homeScore,
+            awayScore
+        )
+        return SpannableStringBuilder(text).apply {
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                0, // start
+                homeTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(Color.BLACK),
+                homeTeam.length + 4 + awayTeam.length + 4, // start
+                homeTeam.length + 4 + awayTeam.length + 4 + homeScore.toString().length + awayScore.toString().length + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                ),
+                text.indexOf("무승부"), // start
+                text.indexOf("무승부") + 3, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
         }
     }
 }

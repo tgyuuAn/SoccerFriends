@@ -41,7 +41,7 @@ class ScoreBoardViewModel @Inject constructor(
     val team = _team.asStateFlow()
 
     private val _isPlaying = MutableStateFlow<Boolean>(false)
-    private val isPlaying = _isPlaying.asStateFlow()
+    val isPlaying = _isPlaying.asStateFlow()
 
     private val _playTime = MutableStateFlow<Int>(0)
     val playTime = _playTime.asStateFlow()

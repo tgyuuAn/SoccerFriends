@@ -78,7 +78,13 @@ class ScoreBoardFragment :
                 repeatOnStarted { homeTeamScore.collect { handleScoreUI(it, ScoreType.HOME) } }
                 repeatOnStarted { awayTeamScore.collect { handleScoreUI(it, ScoreType.AWAY) } }
                 repeatOnStarted { timer.collect { setTimerUI(it) } }
-                repeatOnStarted { awayTeamImage.collect { this@ScoreBoardFragment.setAwayTeamImage(it) } }
+                repeatOnStarted {
+                    awayTeamImage.collect {
+                        this@ScoreBoardFragment.setAwayTeamImage(
+                            it
+                        )
+                    }
+                }
                 repeatOnStarted { awayTeamName.collect { this@ScoreBoardFragment.setAwayTeamName(it) } }
                 getTeam()
             }
@@ -140,7 +146,7 @@ class ScoreBoardFragment :
         }
     }
 
-    private fun changeGameState(isPlaying : Boolean) {
+    private fun changeGameState(isPlaying: Boolean) {
         if (isPlaying) {
             if (fragmentViewModel.playTime.value == 0) {
                 toast("경기 시간은 반드시 1분 이상이어야 합니다.")
@@ -148,10 +154,9 @@ class ScoreBoardFragment :
             }
 
             gameStart()
-            return
+        } else {
+            gameSet()
         }
-
-        gameSet()
     }
 
     private fun gameStart() {
@@ -362,7 +367,7 @@ class ScoreBoardFragment :
         val minute = (timeMillis / (60 * LONG_TO_SECOND))
         val second = (timeMillis % (60 * LONG_TO_SECOND)) / LONG_TO_SECOND
 
-        if(timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND){
+        if (fragmentViewModel.isPlaying.value && timeMillis == fragmentViewModel.alarmTime.value * 60 * LONG_TO_SECOND) {
             alarmVibrator.vibrate(LONG_TO_SECOND)
         }
 

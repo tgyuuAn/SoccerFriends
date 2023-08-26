@@ -475,7 +475,7 @@ class ScoreBoardFragment :
             )
             setSpan(
                 ForegroundColorSpan(
-                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                    ContextCompat.getColor(requireContext(), R.color.blue)
                 ),
                 text.indexOf("무승부"), // start
                 text.indexOf("무승부") + 3, // end

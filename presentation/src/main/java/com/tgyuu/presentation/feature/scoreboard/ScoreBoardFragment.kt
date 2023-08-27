@@ -5,9 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.SpannedString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -23,6 +21,7 @@ import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentScoreBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import net.cachapa.expandablelayout.ExpandableLayout
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -154,30 +153,19 @@ class ScoreBoardFragment :
 
     private fun setGameNotStartedUI() = binding.apply {
         handleScoreBTNVisible(View.GONE)
-        handleGameResultVisible(View.GONE)
-        gameResultLTV.visibility = View.INVISIBLE
-        gameResultDescriptionTV.visibility = View.INVISIBLE
-        expandableTimeBoardEL.collapse()
-        expandableGameResultEL.collapse()
-        expandableSettingEL.expand()
+        expand(expandableSettingEL)
     }
 
     private fun setGameInProgressUI() = binding.apply {
         handleScoreBTNVisible(View.VISIBLE)
-        handleGameResultVisible(View.GONE)
         scoreBoardBTN.text = getString(R.string.matchSet)
-        expandableTimeBoardEL.expand()
-        expandableSettingEL.collapse()
-        expandableGameResultEL.collapse()
+        expand(expandableTimeBoardEL)
     }
 
     private fun setGameResultUI(homeScore: Int, awayScore: Int) = binding.apply {
         handleScoreBTNVisible(View.GONE)
-        handleGameResultVisible(View.VISIBLE)
         scoreBoardBTN.text = getString(R.string.end)
-        expandableTimeBoardEL.collapse()
-        expandableSettingEL.collapse()
-        expandableGameResultEL.expand()
+        expand(expandableGameResultEL)
 
         val homeTeamName = binding.homeTeamTV.text.toString()
         val awayTeamName = binding.awayTeamTV.text.toString()
@@ -202,16 +190,24 @@ class ScoreBoardFragment :
         pauseBTN.visibility = visibility
     }
 
-    private fun handleGameResultVisible(visibility: Int) = binding.apply {
-        gameResultLTV.visibility = visibility
-        gameResultDescriptionTV.visibility = visibility
-        gameResultTV.visibility = visibility
-        divider6.visibility = visibility
-    }
-
     private fun setPauseButtonText() = binding.apply {
         if (fragmentViewModel.timerJob == null) pauseBTN.text = getString(R.string.restartMatch)
         else pauseBTN.text = getString(R.string.pause)
+    }
+
+    private fun expand(expandableLayout: ExpandableLayout){
+        val expandableList = listOf(binding.expandableSettingEL,binding.expandableGameResultEL,binding.expandableTimeBoardEL)
+
+        expandableList.forEach{
+            if(it == expandableLayout) {
+                it.expand()
+                it.visibility = View.VISIBLE
+            }
+            else{
+                it.collapse()
+                it.visibility = View.GONE
+            }
+        }
     }
 
     private fun navigateToGallery() {

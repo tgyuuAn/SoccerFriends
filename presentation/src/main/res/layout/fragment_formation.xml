@@ -39,7 +39,7 @@
             android:layout_marginBottom="15dp"
             android:contentDescription="@string/boardDescription"
             android:scaleType="fitXY"
-            android:src="@drawable/board"
+            android:src="@drawable/soccer_field"
             app:layout_constraintBottom_toTopOf="@id/memberTL"
             app:layout_constraintTop_toBottomOf="@id/formationBar" />
 

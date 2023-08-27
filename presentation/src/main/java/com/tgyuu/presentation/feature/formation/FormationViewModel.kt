@@ -34,9 +34,25 @@ class FormationViewModel @Inject constructor(
     private val _reserveMemberList = MutableStateFlow<UiState<List<Member>>>(UiState.Init)
     val reserveMemberList = _reserveMemberList.asStateFlow()
 
-    fun getSelectionMemberList() = viewModelScope.launch(ioDispatcher){
-        getMemberUseCase.getAllSelectionMembers().collect{
+    fun setSelectionMemberListState(uiState: UiState<List<Member>>){
+        _selectionMemberList.value = uiState
+    }
 
+    fun setReserveMemberListState(uiState: UiState<List<Member>>){
+        _reserveMemberList.value = uiState
+    }
+
+    fun getSelectionMemberList() = viewModelScope.launch(ioDispatcher){
+        setSelectionMemberListState(UiState.Loading)
+        getMemberUseCase.getAllSelectionMembers().collect{
+            setSelectionMemberListState(UiState.Success(it))
+        }
+    }
+
+    fun getReserveMemberList() = viewModelScope.launch(ioDispatcher){
+        setReserveMemberListState(UiState.Loading)
+        getMemberUseCase.getAllReserveMembers().collect{
+            setReserveMemberListState(UiState.Success(it))
         }
     }
 }

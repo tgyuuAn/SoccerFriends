@@ -16,4 +16,24 @@ class GetMemberUseCase @Inject constructor(private val memberReposiory: MemberRe
             emit(it)
         }
     }
+
+    suspend fun getAllSelectionMembers() = flow {
+        memberReposiory.getAllMembers().collect {
+            it.filter { member ->
+                member.isBenchWarmer == false
+            }.also{
+                emit(it)
+            }
+        }
+    }
+
+    suspend fun getAllReserveMembers() = flow {
+        memberReposiory.getAllMembers().collect {
+            it.filter { member ->
+                member.isBenchWarmer == true
+            }.also{
+                emit(it)
+            }
+        }
+    }
 }

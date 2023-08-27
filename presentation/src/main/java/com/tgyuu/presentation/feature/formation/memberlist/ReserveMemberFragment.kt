@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tgyuu.domain.entity.Member
 import com.tgyuu.presentation.common.base.BaseFragment
+import com.tgyuu.presentation.common.base.UiState
+import com.tgyuu.presentation.common.base.repeatOnStarted
 import com.tgyuu.presentation.databinding.FragmentReserveMemberBinding
 import com.tgyuu.presentation.feature.formation.FormationViewModel
 import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
@@ -20,14 +23,28 @@ class ReserveMemberFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel=fragmentViewModel.apply{
-
+        binding.viewModel = fragmentViewModel.apply {
+            repeatOnStarted { reserveMemberList.collect { handleReserveMemberListState(it) } }
         }
         setRecyclerView()
     }
 
-    private fun setRecyclerView() = binding.apply{
-        reserveMemberListRV.apply{
+    private fun handleReserveMemberListState(uiState: UiState<List<Member>>) {
+        when (uiState) {
+            UiState.Init -> {}
+            UiState.Loading -> {}
+            is UiState.Success -> {
+                formationTeamListAdapter.submitList(uiState.data)
+            }
+
+            is UiState.Error -> {
+                toast(uiState.message)
+            }
+        }
+    }
+
+    private fun setRecyclerView() = binding.apply {
+        reserveMemberListRV.apply {
             adapter = formationTeamListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             addItemDecoration(FormationTeamListDecoration(requireContext()))

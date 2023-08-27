@@ -594,13 +594,11 @@
             <net.cachapa.expandablelayout.ExpandableLayout
                 android:id="@+id/expandableGameResultEL"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal"
                 app:el_duration="500"
                 app:el_expanded="false"
                 app:el_parallax="0.5"
-                app:layout_constraintBottom_toBottomOf="@id/scoreBoardBTN"
                 app:layout_constraintTop_toBottomOf="@id/expandableTimeBoardEL">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -632,7 +630,6 @@
                         android:layout_width="200dp"
                         android:layout_height="150dp"
                         android:layout_marginTop="40dp"
-                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider6"
@@ -647,7 +644,6 @@
                         android:layout_marginTop="15dp"
                         android:textColor="@color/light_gray4"
                         android:textSize="24sp"
-                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/gameResultLTV" />

@@ -10,7 +10,7 @@ interface MemberRepository {
 
     suspend fun updateMember(member : Member)
 
-    fun getAllMembers(): Flow<List<Member>>
+    fun getAllMembers() : Flow<List<Member>>
 
     fun getMemberById(id : Int) : Flow<Member>
 }

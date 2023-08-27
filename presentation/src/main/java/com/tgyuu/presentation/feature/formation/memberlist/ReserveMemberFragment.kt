@@ -25,6 +25,7 @@ class ReserveMemberFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = fragmentViewModel.apply {
             repeatOnStarted { reserveMemberList.collect { handleReserveMemberListState(it) } }
+            getReserveMemberList()
         }
         setRecyclerView()
     }

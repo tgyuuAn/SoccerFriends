@@ -27,16 +27,22 @@ class SelectionMemberFragment :
             repeatOnStarted {
                 selectionMemberList.collect { handleSelectionMemberListState(it) }
             }
-            setRecyclerView()
+            getSelectionMemberList()
         }
+        setRecyclerView()
     }
 
-    private fun handleSelectionMemberListState(uiState: UiState<List<Member>>){
-        when(uiState){
+    private fun handleSelectionMemberListState(uiState: UiState<List<Member>>) {
+        when (uiState) {
             UiState.Init -> {}
             UiState.Loading -> {}
-            is UiState.Success -> { formationTeamListAdapter.submitList(uiState.data) }
-            is UiState.Error -> { toast(uiState.message) }
+            is UiState.Success -> {
+                formationTeamListAdapter.submitList(uiState.data)
+            }
+
+            is UiState.Error -> {
+                toast(uiState.message)
+            }
         }
     }
 

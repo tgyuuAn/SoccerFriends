@@ -254,6 +254,7 @@ class TeamFragment :
 
             is UiState.Success -> {
                 hideLoadingScreen()
+                toast("정보 갱신에 성공하였습니다.")
                 updateTeam(teamState.data)
             }
 

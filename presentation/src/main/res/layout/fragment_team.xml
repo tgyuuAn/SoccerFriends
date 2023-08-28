@@ -74,7 +74,6 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="15dp"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

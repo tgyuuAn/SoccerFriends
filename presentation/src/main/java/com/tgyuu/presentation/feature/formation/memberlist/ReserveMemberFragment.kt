@@ -2,6 +2,7 @@ package com.tgyuu.presentation.feature.formation.memberlist
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tgyuu.domain.entity.Member
@@ -47,7 +48,6 @@ class ReserveMemberFragment :
     private fun setRecyclerView() = binding.apply {
         reserveMemberListRV.apply {
             adapter = formationTeamListAdapter
-            layoutManager = LinearLayoutManager(requireActivity())
             addItemDecoration(FormationTeamListDecoration(requireContext()))
         }
     }

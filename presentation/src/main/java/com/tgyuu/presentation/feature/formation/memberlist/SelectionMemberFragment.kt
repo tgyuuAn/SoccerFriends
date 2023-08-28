@@ -49,7 +49,6 @@ class SelectionMemberFragment :
     private fun setRecyclerView() = binding.apply {
         selectionMemberListRV.apply {
             adapter = formationTeamListAdapter
-            layoutManager = LinearLayoutManager(requireActivity())
             addItemDecoration(FormationTeamListDecoration(requireContext()))
         }
     }

@@ -9,7 +9,9 @@ import javax.inject.Inject
 
 class GetMemberUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
     fun getAllMembers(): Flow<List<Member>> {
-        return memberReposiory.getAllMembers()
+        return memberReposiory.getAllMembers().map{
+            it.sortedWith(compareBy({it.isBenchWarmer==false},{it.number}))
+        }
     }
 
     fun getMemberById(id: Int): Flow<Member> {
@@ -28,7 +30,7 @@ class GetMemberUseCase @Inject constructor(private val memberReposiory: MemberRe
         return memberReposiory.getAllMembers().map {
             it.filter { member ->
                 member.isBenchWarmer == true
-            }
+            }.sortedWith(compareBy({it.isBenchWarmer==false},{it.number}))
         }
     }
 }

@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="member"
             type="com.tgyuu.domain.entity.Member" />
+
         <variable
             name="viewModel"
             type="com.tgyuu.presentation.feature.team.recyclerview.AdapterViewModel" />
@@ -17,14 +19,28 @@
 
         <ImageView
             android:id="@+id/playerImageIV"
+            glide="@{member.image}"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:contentDescription="@{@string/memberDescription(member.name)}"
             android:scaleType="centerCrop"
-            glide="@{member.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/backNumberTV"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/circle"
+            android:elevation="1dp"
+            android:text="@{String.valueOf(member.number)}"
+            android:textSize="11sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/playerImageIV"
+            app:layout_constraintStart_toStartOf="@id/playerImageIV" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -50,15 +66,6 @@
                 android:text="@{member.position}"
                 android:textColor="@color/light_gray4"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/backNumberTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@{@string/MemberBackNumberFormat(member.number)}"
-                android:textColor="@color/blue"
-                android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
@@ -67,10 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:contentDescription="@string/moreDescription"
+            android:onClick="@{()->viewModel.clickMore(member)}"
             android:src="@drawable/more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{()->viewModel.clickMore(member)}"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

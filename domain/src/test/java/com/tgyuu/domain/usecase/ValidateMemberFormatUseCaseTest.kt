@@ -17,6 +17,18 @@ class ValidateMemberFormatUseCaseTest {
 
 
         //then
-        assertThat(validateMemberFormatUseCase.isNumeric(wrongBackNumber)).isFalse()
+        assertThat(validateMemberFormatUseCase.validateMemberNumber(wrongBackNumber)).isFalse()
+    }
+
+    @Test
+    fun `등 번호는 100이상을 넘어갈 수 없다`() {
+        //given
+        val wrongBackNumber = "100"
+
+        //when
+
+
+        //then
+        assertThat(validateMemberFormatUseCase.validateMemberNumber(wrongBackNumber)).isFalse()
     }
 }

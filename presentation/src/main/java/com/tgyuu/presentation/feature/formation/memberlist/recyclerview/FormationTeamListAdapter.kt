@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tgyuu.domain.entity.Member
-import com.tgyuu.presentation.databinding.ItemTeamMemberBinding
+import com.tgyuu.presentation.databinding.ItemFormationTeamMemberBinding
 
-class TeamViewHolder(val binding: ItemTeamMemberBinding) : RecyclerView.ViewHolder(binding.root) {
+class TeamViewHolder(val binding: ItemFormationTeamMemberBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(member: Member) {
         binding.member = member
     }
@@ -26,7 +26,7 @@ class FormationTeamListAdapter :
     }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         val binding =
-            ItemTeamMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemFormationTeamMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TeamViewHolder(binding)
     }
 

@@ -1,13 +1,12 @@
 package com.tgyuu.data.repositoryimpl
 
-import android.util.Log
 import com.tgyuu.data.database.team.TeamEntity
 import com.tgyuu.data.database.team.toTeam
 import com.tgyuu.data.datasource.LocalTeamDataSource
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.repository.TeamRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: LocalTeamDataSource) :
@@ -22,15 +21,17 @@ class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: Lo
         localTeamDataSource.updateTeam(newTeamEntity)
     }
 
-    override suspend fun getTeam(): Flow<Team> = flow {
-        Log.d("tgyuu","getTeam() 호출")
-        localTeamDataSource.getTeam().collect {
+    override suspend fun getTeam() : Flow<Team> {
+        localTeamDataSource.getTeam().map{
             if (it == null) {
                 localTeamDataSource.createNewTeam()
                 getTeam()
-                return@collect
+                return@map
             }
-            emit(it.toTeam())
+        }
+
+        return localTeamDataSource.getTeam().map{
+            it.toTeam()
         }
     }
 }

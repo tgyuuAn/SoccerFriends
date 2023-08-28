@@ -71,7 +71,10 @@ class AddMemberFragment :
                 findNavController().popBackStack()
             }
 
-            is UiState.Error -> hideLoadingScreen()
+            is UiState.Error -> {
+                toast(addMemberState.message)
+                hideLoadingScreen()
+            }
         }
     }
 

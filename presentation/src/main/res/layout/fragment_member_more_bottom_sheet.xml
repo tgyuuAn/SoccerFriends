@@ -79,12 +79,24 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/changeIsBenchWarmerTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.changeIsBenchWarmer()}"
+            android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/changeIsBenchWarmer"
+            android:textColor="@color/gray3"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/removeMemberTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.removeMember()}"
             android:layout_marginTop="@dimen/bottomSheetMarginTopSize"
             android:gravity="center"
+            android:onClick="@{()->viewModel.removeMember()}"
             android:padding="10dp"
             android:text="@string/removeMember"
             android:textColor="@color/gray3"

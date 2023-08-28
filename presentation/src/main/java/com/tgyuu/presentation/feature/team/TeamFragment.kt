@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.R
+import com.tgyuu.presentation.common.GlideApp
 import com.tgyuu.presentation.common.base.BaseFragment
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
@@ -110,7 +111,7 @@ class TeamFragment :
             MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_POSITION.value -> changePosition()
             MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_BACKNUMBER.value -> changeBackNumber()
             MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_MEMBER.value -> removeMember()
-            else -> Unit
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_ISBENCHWARMER.value -> changeIsBenchWarmer()
         }
     }
 
@@ -146,6 +147,10 @@ class TeamFragment :
 
     private fun removeMember() {
         adapterViewModel.removeMember()
+    }
+
+    private fun changeIsBenchWarmer() {
+        adapterViewModel.changeIsBenchWarmer()
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {
@@ -268,7 +273,7 @@ class TeamFragment :
             return
         }
 
-        Glide.with(requireContext())
+        GlideApp.with(requireContext())
             .load(team.image.toUri())
             .circleCrop()
             .into(binding.teamLogoIV)

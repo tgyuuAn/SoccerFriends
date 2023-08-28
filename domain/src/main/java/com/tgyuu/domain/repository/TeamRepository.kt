@@ -8,5 +8,5 @@ interface TeamRepository {
 
     suspend fun changeTeamImage(team : Team, imageUri : String)
 
-    suspend fun getTeam(): Flow<Team>
+    suspend fun getTeam() : Flow<Team>
 }

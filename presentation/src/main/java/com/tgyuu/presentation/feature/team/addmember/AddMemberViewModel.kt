@@ -60,7 +60,7 @@ class AddMemberViewModel @Inject constructor(
         setAddMemberState(UiState.Loading)
 
         if (!validateMemberFormatUseCase(newMemberName, newMemberBackNumber, newMemberPosition)) {
-            setAddMemberState(UiState.Error("이름은 최소 한 글자, 등 번호는 숫자, 포지션은 공백일 수 없습니다."))
+            setAddMemberState(UiState.Error("이름은 최소 한 글자, 등 번호는 99 이하의 숫자, 포지션은 공백일 수 없습니다."))
             return
         }
 

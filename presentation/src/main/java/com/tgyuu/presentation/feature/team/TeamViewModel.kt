@@ -1,15 +1,10 @@
 package com.tgyuu.presentation.feature.team
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.entity.Team
-import com.tgyuu.domain.usecase.DeleteMemberUseCase
 import com.tgyuu.domain.usecase.UpdateTeamInformationUseCase
-import com.tgyuu.domain.usecase.GetMemberUseCase
 import com.tgyuu.domain.usecase.GetTeamUseCase
-import com.tgyuu.domain.usecase.UpdateMemberInformationUseCase
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.di.IO
 import dagger.hilt.android.lifecycle.HiltViewModel

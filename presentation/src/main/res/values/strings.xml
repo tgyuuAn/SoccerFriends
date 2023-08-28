@@ -54,6 +54,7 @@
     <string name="changePosition">포지션 변경</string>
     <string name="changeImage">이미지 변경</string>
     <string name="removeImage">이미지 제거</string>
+    <string name="changeIsBenchWarmer">선발 / 후보 변경</string>
     <string name="removeMember">선수 방출</string>
     <string name="confirm">확인</string>
 

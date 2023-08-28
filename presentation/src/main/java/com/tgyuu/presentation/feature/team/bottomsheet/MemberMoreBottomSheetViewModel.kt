@@ -50,4 +50,8 @@ class MemberMoreBottomSheetViewModel @Inject constructor(): ViewModel() {
     fun removeImage() {
         _bottomsheetFlag.value = MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_IMAGE
     }
+
+    fun changeIsBenchWarmer() {
+        _bottomsheetFlag.value = MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_ISBENCHWARMER
+    }
 }

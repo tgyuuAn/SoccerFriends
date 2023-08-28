@@ -6,7 +6,7 @@ import com.tgyuu.data.datasource.LocalMemberDataSource
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.repository.MemberRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(private val memberDataSource: LocalMemberDataSource) :
@@ -46,16 +46,15 @@ class MemberRepositoryImpl @Inject constructor(private val memberDataSource: Loc
         memberDataSource.updateMember(memberEntity)
     }
 
-    override fun getAllMembers() = flow {
-        memberDataSource.getAllMembers().collect { memberEntityList ->
-            val MemberList = memberEntityList.map { it.toMember() }
-            emit(MemberList)
+    override fun getAllMembers() : Flow<List<Member>> {
+        return memberDataSource.getAllMembers().map { memberEntityList ->
+            memberEntityList.map { it.toMember() }
         }
     }
 
-    override fun getMemberById(id: Int): Flow<Member> = flow {
-        memberDataSource.getMemberById(id).collect { memberEntity ->
-            emit(memberEntity.toMember())
+    override fun getMemberById(id: Int) : Flow<Member> {
+        return memberDataSource.getMemberById(id).map {
+            it.toMember()
         }
     }
 }

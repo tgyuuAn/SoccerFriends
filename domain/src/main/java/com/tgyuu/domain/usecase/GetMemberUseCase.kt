@@ -8,23 +8,23 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetMemberUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
-    suspend fun getAllMembers(): Flow<List<Member>> {
+    fun getAllMembers(): Flow<List<Member>> {
         return memberReposiory.getAllMembers()
     }
 
-    suspend fun getMemberById(id: Int): Flow<Member> {
+    fun getMemberById(id: Int): Flow<Member> {
         return memberReposiory.getMemberById(id)
     }
 
-    suspend fun getAllSelectionMembers(): Flow<List<Member>> {
+    fun getAllSelectionMembers(): Flow<List<Member>> {
         return memberReposiory.getAllMembers().map {
             it.filter { member ->
                 member.isBenchWarmer == false
-            }
+            }.sortedWith(compareBy({it.isBenchWarmer==false},{it.number}))
         }
     }
 
-    suspend fun getAllReserveMembers(): Flow<List<Member>> {
+    fun getAllReserveMembers(): Flow<List<Member>> {
         return memberReposiory.getAllMembers().map {
             it.filter { member ->
                 member.isBenchWarmer == true

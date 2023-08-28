@@ -10,9 +10,9 @@ class ValidateMemberFormatUseCase @Inject constructor() {
         newMemberBackNumber: String,
         newMemberPosition: String
     ): Boolean {
-        if (newMemberName.isEmpty()) return false
-        if (validateMemberNumber(newMemberBackNumber)) return false
-        if (newMemberPosition.isEmpty()) return false
+        if (!validateMemberName(newMemberName)) return false
+        if (!validateMemberNumber(newMemberBackNumber)) return false
+        if (!validateMemberPosition(newMemberPosition)) return false
         return true
     }
 

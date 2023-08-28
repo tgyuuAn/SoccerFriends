@@ -34,7 +34,8 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
         CHANGE_POSITION(303),
         CHANGE_IMAGE(304),
         REMOVE_IMAGE(305),
-        REMOVE_MEMBER(306),
+        CHANGE_ISBENCHWARMER(306),
+        REMOVE_MEMBER(307)
     }
 
     private var _binding: FragmentMemberMoreBottomSheetBinding? = null
@@ -91,6 +92,7 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
             MemberMoreBottomSheetViewModel.MemberMoreEvent.Complete -> completeBottomSheet()
         }
     }
+
     private fun completeBottomSheet() {
         setFragmentResult(TAG, bundleOf(TAG to fragmentViewModel.bottomsheetFlag.value.value))
         dismiss()
@@ -104,6 +106,7 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
             BottomSheetFlag.CHANGE_POSITION -> highlight(binding.changePositionTV)
             BottomSheetFlag.CHANGE_BACKNUMBER -> highlight(binding.changeBackNumberTV)
             BottomSheetFlag.REMOVE_MEMBER -> highlight(binding.removeMemberTV)
+            BottomSheetFlag.CHANGE_ISBENCHWARMER -> highlight(binding.changeIsBenchWarmerTV)
         }
     }
 
@@ -114,7 +117,8 @@ class MemberMoreBottomSheetFragment(private val callBack: () -> Unit) :
             binding.removeMemberTV,
             binding.changeImageTV,
             binding.changeBackNumberTV,
-            binding.changePositionTV
+            binding.changePositionTV,
+            binding.changeIsBenchWarmerTV
         )
 
         flagTextViewList.forEach { flagTextView ->

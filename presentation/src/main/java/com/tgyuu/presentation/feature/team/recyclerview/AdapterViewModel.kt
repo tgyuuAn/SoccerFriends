@@ -87,4 +87,22 @@ class AdapterViewModel @Inject constructor(
 
         getMemberList()
     }
+
+    fun changeIsBenchWarmer() {
+        if (updateMember == null) {
+            return
+        }
+
+        val newIsBenchWarmer = if (updateMember!!.isBenchWarmer == true) false
+        else true
+
+        viewModelScope.launch(ioDispatcher) {
+            updateMemberInformationUseCase.updateMemberIsBenchWarmer(
+                updateMember!!,
+                newIsBenchWarmer
+            )
+        }
+
+        getMemberList()
+    }
 }

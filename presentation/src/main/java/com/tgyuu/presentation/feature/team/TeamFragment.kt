@@ -110,7 +110,7 @@ class TeamFragment :
             MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_POSITION.value -> changePosition()
             MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_BACKNUMBER.value -> changeBackNumber()
             MemberMoreBottomSheetFragment.BottomSheetFlag.REMOVE_MEMBER.value -> removeMember()
-            else -> Unit
+            MemberMoreBottomSheetFragment.BottomSheetFlag.CHANGE_ISBENCHWARMER.value -> changeIsBenchWarmer()
         }
     }
 
@@ -146,6 +146,10 @@ class TeamFragment :
 
     private fun removeMember() {
         adapterViewModel.removeMember()
+    }
+
+    private fun changeIsBenchWarmer() {
+        adapterViewModel.changeIsBenchWarmer()
     }
 
     private fun handleEvent(event: TeamViewModel.TeamEvent) {

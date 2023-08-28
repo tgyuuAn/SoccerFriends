@@ -25,6 +25,7 @@ class HomeFragment :
                 }
             }
         }
+        
     }
 
     private fun handleEvent(event: HomeViewModel.HomeEvent) {

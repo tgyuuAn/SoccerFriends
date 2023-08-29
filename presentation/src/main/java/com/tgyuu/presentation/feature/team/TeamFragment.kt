@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.tgyuu.domain.entity.Member
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.presentation.R
-import com.tgyuu.presentation.common.GlideApp
 import com.tgyuu.presentation.common.base.BaseFragment
 import com.tgyuu.presentation.common.base.UiState
 import com.tgyuu.presentation.common.base.repeatOnStarted
@@ -273,7 +272,7 @@ class TeamFragment :
             return
         }
 
-        GlideApp.with(requireContext())
+        Glide.with(requireContext())
             .load(team.image.toUri())
             .circleCrop()
             .into(binding.teamLogoIV)

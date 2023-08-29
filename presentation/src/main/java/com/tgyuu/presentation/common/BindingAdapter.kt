@@ -9,7 +9,6 @@ object BindingAdapter {
     @BindingAdapter("glide")
     @JvmStatic
     fun setGlide(imageView: ImageView, uri: String) {
-        GlideApp.with(imageView.context).load(uri.toUri()).circleCrop().into(imageView)
+        Glide.with(imageView.context).load(uri.toUri()).circleCrop().into(imageView)
     }
-
 }

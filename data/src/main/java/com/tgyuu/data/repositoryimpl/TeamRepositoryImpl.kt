@@ -1,6 +1,5 @@
 package com.tgyuu.data.repositoryimpl
 
-import android.util.Log
 import com.tgyuu.data.database.team.TeamEntity
 import com.tgyuu.data.database.team.toTeam
 import com.tgyuu.data.datasource.LocalTeamDataSource

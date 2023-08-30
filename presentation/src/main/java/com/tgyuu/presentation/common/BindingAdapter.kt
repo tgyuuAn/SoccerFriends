@@ -12,7 +12,6 @@ object BindingAdapter {
     fun setGlide(imageView: ImageView, uri: String) {
         Glide.with(imageView.context)
             .load(uri.toUri())
-            .placeholder(R.drawable.circle)
             .circleCrop()
             .into(imageView)
     }

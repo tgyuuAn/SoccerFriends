@@ -259,7 +259,7 @@ class TeamFragment :
 
             is UiState.Error -> {
                 hideLoadingScreen()
-                toast("팀 정보 갱신에 실패하였습니다.")
+                toast(teamState.message)
             }
         }
     }

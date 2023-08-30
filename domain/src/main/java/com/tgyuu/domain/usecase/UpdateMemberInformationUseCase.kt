@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class UpdateMemberInformationUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
     suspend fun updateMemberName(member: Member, name: String) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = name,
@@ -19,7 +19,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     }
 
     suspend fun updateMemberImage(member: Member, image: String) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = member.name,
@@ -32,7 +32,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     }
 
     suspend fun removeMemberImage(member: Member) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = member.name,
@@ -45,7 +45,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     }
 
     suspend fun updateMemberPosition(member: Member, position: String) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = member.name,
@@ -58,7 +58,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     }
 
     suspend fun updateMemberNumber(member: Member, number : Int) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = member.name,
@@ -71,7 +71,7 @@ class UpdateMemberInformationUseCase @Inject constructor(private val memberRepos
     }
 
     suspend fun updateMemberIsBenchWarmer(member: Member, isBenchWarmer : Boolean) {
-        memberReposiory.updateMember(
+        return memberReposiory.updateMember(
             Member(
                 id = member.id,
                 name = member.name,

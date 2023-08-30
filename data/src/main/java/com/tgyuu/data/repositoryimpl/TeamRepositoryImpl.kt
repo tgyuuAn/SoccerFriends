@@ -22,11 +22,11 @@ class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: Lo
     }
 
     override suspend fun getTeam() : Flow<Team> {
-        localTeamDataSource.getTeam().map{
+        localTeamDataSource.getTeam().collect{
             if (it == null) {
                 localTeamDataSource.createNewTeam()
                 getTeam()
-                return@map
+                return@collect
             }
         }
 

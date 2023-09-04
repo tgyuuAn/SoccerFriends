@@ -34,7 +34,6 @@ class HomeFragment :
     }
 
     fun getReadMediaPermission(){
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             checkPermission(Manifest.permission.READ_MEDIA_IMAGES)
         } else {

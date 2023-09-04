@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlinx-serialization")
 }
@@ -40,7 +40,7 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.44")
     implementation("androidx.test:core-ktx:1.5.0")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    ksp("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -52,7 +52,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.2")
     annotationProcessor("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
 
     implementation("androidx.core:core-ktx:1.8.0")
 
@@ -69,7 +69,4 @@ dependencies {
     androidTestImplementation("org.hamcrest:hamcrest-library:1.3")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestUtil("androidx.test:orchestrator:1.4.2")
-}
-kapt {
-    correctErrorTypes = true
 }

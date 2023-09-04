@@ -14,6 +14,7 @@ object BindingAdapter {
             .load(uri.toUri())
             .placeholder(R.drawable.circle)
             .error(R.drawable.circle)
+            .fitCenter()
             .circleCrop()
             .into(imageView)
     }

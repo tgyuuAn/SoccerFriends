@@ -1,5 +1,7 @@
 package com.tgyuu.presentation.feature.formation.memberlist
 
+import android.content.ClipData
+import android.content.ClipDescription
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -12,6 +14,7 @@ import com.tgyuu.presentation.databinding.FragmentSelectionMemberBinding
 import com.tgyuu.presentation.feature.formation.FormationViewModel
 import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
 import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListDecoration
+import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +22,7 @@ class SelectionMemberFragment :
     BaseFragment<FragmentSelectionMemberBinding, FormationViewModel>(FragmentSelectionMemberBinding::inflate) {
 
     override val fragmentViewModel: FormationViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val adapterViewModel: FormationTeamListViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val formationTeamListAdapter: FormationTeamListAdapter by lazy { FormationTeamListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +33,26 @@ class SelectionMemberFragment :
             }
             getSelectionMemberList()
         }
+        adapterViewModel.apply {
+            repeatOnStarted {
+                eventFlow.collect { handleAdapterEvent(it) }
+            }
+        }
         setRecyclerView()
+    }
+
+    private fun handleAdapterEvent(event: FormationTeamListViewModel.FormationTeamListEvent) {
+        when (event) {
+            is FormationTeamListViewModel.FormationTeamListEvent.DragStart -> {
+                val item = ClipData.Item(event.id.toString() as CharSequence)
+
+                val dragData = ClipData(
+                    event.id.toString() as CharSequence,
+                    arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN),
+                    item
+                )
+            }
+        }
     }
 
     private fun handleSelectionMemberListState(uiState: UiState<List<Member>>) {

@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("kotlinx-serialization")
 }
@@ -38,9 +39,9 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.test:core-ktx:1.5.0")
-    ksp("com.google.dagger:hilt-android-compiler:2.44")
+    ksp("com.google.dagger:hilt-android-compiler:2.48")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 

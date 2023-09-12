@@ -48,7 +48,7 @@
   
 - **Remote** : Retrofit2 + OkHttp3 + Kotlinx Serialization
 
-- **Test** : Junit4 + Mockkito
+- **Test** : Junit4 + mockk
 
 - **Firebase** : Analytics + Crashlytics + Authentication + Realtime DataBase
  

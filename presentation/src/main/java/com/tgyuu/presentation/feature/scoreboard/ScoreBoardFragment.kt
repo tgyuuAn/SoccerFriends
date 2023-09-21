@@ -29,9 +29,7 @@ import javax.inject.Inject
 class ScoreBoardFragment :
     BaseFragment<FragmentScoreBoardBinding, ScoreBoardViewModel>(FragmentScoreBoardBinding::inflate) {
     override val fragmentViewModel: ScoreBoardViewModel by viewModels()
-
-    @Inject
-    lateinit var alarmVibrator: AlarmVibrator
+    private val alarmVibrator: AlarmVibrator by lazy { AlarmVibrator(requireContext()) }
 
     enum class TimeType {
         PLAY, ALARM
@@ -195,15 +193,18 @@ class ScoreBoardFragment :
         else pauseBTN.text = getString(R.string.pause)
     }
 
-    private fun expand(expandableLayout: ExpandableLayout){
-        val expandableList = listOf(binding.expandableSettingEL,binding.expandableGameResultEL,binding.expandableTimeBoardEL)
+    private fun expand(expandableLayout: ExpandableLayout) {
+        val expandableList = listOf(
+            binding.expandableSettingEL,
+            binding.expandableGameResultEL,
+            binding.expandableTimeBoardEL
+        )
 
-        expandableList.forEach{
-            if(it == expandableLayout) {
+        expandableList.forEach {
+            if (it == expandableLayout) {
                 it.expand()
                 it.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 it.collapse()
                 it.visibility = View.GONE
             }

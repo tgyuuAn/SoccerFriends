@@ -19,6 +19,6 @@ class AddMemberUseCase @Inject constructor(private val memberReposiory: MemberRe
             isBenchWarmer = isBenchWarmer,
             image = newMemberImage
         )
-        memberReposiory.addNewMember(newMember)
+        return memberReposiory.addNewMember(newMember)
     }
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("kotlinx-serialization")
@@ -37,8 +38,8 @@ android {
 
 dependencies {
 
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
+    ksp("com.google.dagger:hilt-android-compiler:2.48")
 
     implementation("androidx.core:core-ktx:1.8.0")
 
@@ -48,7 +49,4 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.22.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("io.mockk:mockk:1.13.5")
-}
-kapt {
-    correctErrorTypes = true
 }

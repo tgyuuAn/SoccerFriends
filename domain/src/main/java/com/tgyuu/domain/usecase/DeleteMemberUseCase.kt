@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class DeleteMemberUseCase @Inject constructor(private val memberReposiory: MemberRepository) {
     operator suspend fun invoke(member: Member) {
-        memberReposiory.deleteMember(member)
+        return memberReposiory.deleteMember(member)
     }
 }

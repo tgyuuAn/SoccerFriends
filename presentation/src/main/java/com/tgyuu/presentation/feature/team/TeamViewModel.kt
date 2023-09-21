@@ -35,6 +35,8 @@ class TeamViewModel @Inject constructor(
     private val _team = MutableStateFlow<UiState<Team>>(UiState.Init)
     val team = _team.asStateFlow()
 
+    var updateTeam : Team? = null
+
     private fun event(event: TeamEvent) = viewModelScope.launch { _eventFlow.emit(event) }
 
     fun addMember() = event(TeamEvent.AddMember)
@@ -57,8 +59,6 @@ class TeamViewModel @Inject constructor(
             }
         }
     }
-
-    var updateTeam : Team? = null
 
     fun updateTeamImage(teamImage: String) {
         setTeamState(UiState.Loading)

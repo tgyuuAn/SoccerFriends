@@ -6,32 +6,29 @@ import com.tgyuu.data.datasource.LocalTeamDataSource
 import com.tgyuu.domain.entity.Team
 import com.tgyuu.domain.repository.TeamRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class TeamRepositoryImpl @Inject constructor(private val localTeamDataSource: LocalTeamDataSource) :
     TeamRepository {
     override suspend fun changeTeamName(team: Team, teamName: String) {
         val newTeamEntity = TeamEntity(name = teamName, image = team.image, id = team.id)
-        localTeamDataSource.updateTeam(newTeamEntity)
+        return localTeamDataSource.updateTeam(newTeamEntity)
     }
 
     override suspend fun changeTeamImage(team: Team, imageUri: String) {
         val newTeamEntity = TeamEntity(name = team.name, image = imageUri, id = team.id)
-        localTeamDataSource.updateTeam(newTeamEntity)
+        return localTeamDataSource.updateTeam(newTeamEntity)
     }
 
-    override suspend fun getTeam() : Flow<Team> {
-        localTeamDataSource.getTeam().map{
+    override suspend fun getTeam(): Flow<Team> = flow {
+        localTeamDataSource.getTeam().collect {
             if (it == null) {
                 localTeamDataSource.createNewTeam()
                 getTeam()
-                return@map
+                return@collect
             }
-        }
-
-        return localTeamDataSource.getTeam().map{
-            it.toTeam()
+            emit(it.toTeam())
         }
     }
 }

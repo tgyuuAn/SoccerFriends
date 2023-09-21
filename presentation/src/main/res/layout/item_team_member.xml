@@ -25,6 +25,7 @@
             android:layout_height="52dp"
             android:contentDescription="@{@string/memberDescription(member.name)}"
             android:scaleType="centerCrop"
+            android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

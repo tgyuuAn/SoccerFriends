@@ -13,6 +13,7 @@ import com.tgyuu.presentation.databinding.FragmentReserveMemberBinding
 import com.tgyuu.presentation.feature.formation.FormationViewModel
 import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListAdapter
 import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListDecoration
+import com.tgyuu.presentation.feature.formation.memberlist.recyclerview.FormationTeamListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,7 @@ class ReserveMemberFragment :
     BaseFragment<FragmentReserveMemberBinding, FormationViewModel>(FragmentReserveMemberBinding::inflate) {
 
     override val fragmentViewModel: FormationViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val adapterViewModel: FormationTeamListViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val formationTeamListAdapter: FormationTeamListAdapter by lazy { FormationTeamListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

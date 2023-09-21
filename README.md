@@ -96,3 +96,4 @@
 4. merge된 작업이 있을 경우, 다른 브랜치에서 작업을 진행 중이던 개발자는 본인의 브랜치로 merge된 작업을 Pull 받아온다.
 5. 종료된 Issue와 Pull Request의 Label과 Project를 관리한다.
 ```
+

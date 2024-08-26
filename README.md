@@ -26,20 +26,10 @@
 <a href="https://www.figma.com/file/sKZiEIi7zHhAbN3o7U8tQZ/SoccerFriends?type=design&node-id=0%3A1&mode=design&t=GrJgoYCewaWrAu09-1">Figma Link</a>
 <br><br><br>
 
-## Android 앱 아키텍처
-
-- **MVVM**
-- **Clean Archietcture**
-- **App + Presentation + domain + data 모듈화**
-<br><br><br>
-
-## 모듈 의존성 그래프
-
-![image](https://github.com/tgyuuAn/SoccerFriends/assets/116813010/ad0e5b7b-d7fb-4a20-995c-d1de59fce6d1)
-<br><br><br>
-
 ## Android 사용할 기술
 
+- **MVVM**
+- 
 - **UI** : XML + databinding + navigation + ViewModel + Glide + Lottie + Material
 
 - **DI** : hilt
@@ -83,17 +73,3 @@
 - [chore] : gradle 세팅, 위의 것 이외에 거의 모든 것
 ```
 `ex) feature/#issue-user-api`
-
-<br>
-
-## Git Flow
-
-기본적으로 Git Flow 전략을 이용한다. 작업 시작 시 선행되어야 할 작업은 다음과 같다.
-``` kotlin
-1. Issue를 생성한다.
-2. feature Branch를 생성한다.
-3. Add - Commit - Push - Pull Request 의 과정을 거친다.
-4. merge된 작업이 있을 경우, 다른 브랜치에서 작업을 진행 중이던 개발자는 본인의 브랜치로 merge된 작업을 Pull 받아온다.
-5. 종료된 Issue와 Pull Request의 Label과 Project를 관리한다.
-```
-

@@ -26,10 +26,17 @@
 <a href="https://www.figma.com/file/sKZiEIi7zHhAbN3o7U8tQZ/SoccerFriends?type=design&node-id=0%3A1&mode=design&t=GrJgoYCewaWrAu09-1">Figma Link</a>
 <br><br><br>
 
-## Android 사용할 기술
+## Android 앱 아키텍처
 
 - **MVVM**
-- 
+- **Clean Archietcture**
+- **Multi-Module**
+
+![image](https://github.com/tgyuuAn/SoccerFriends/assets/116813010/ad0e5b7b-d7fb-4a20-995c-d1de59fce6d1)
+<br><br><br>
+
+## Android 사용기술
+ 
 - **UI** : XML + databinding + navigation + ViewModel + Glide + Lottie + Material
 
 - **DI** : hilt
